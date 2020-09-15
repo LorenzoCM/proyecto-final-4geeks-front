@@ -5,6 +5,13 @@ body {
 
 html {
   font-size: 1rem;
+  font-size: 0.7rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 1rem;
+  }
 }
 
 .fa-mug-hot {
@@ -32,3 +39,7 @@ html {
 .suscribe {
   width: 400px;
 }
+.custom-select {
+  width: 5%;
+}
+
