@@ -4,6 +4,7 @@ import Navbar from './components/navbar.js';
 import MainPage from './views/mainPage.js';
 import Footer from './components/footer.js';
 import ProductsGroup from './views/productsGroup.js';
+import ProductDetails from './views/productDetails';
 import injectContext from './store/appContext';
 
 function App() {
@@ -13,8 +14,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/products" component={ProductsGroup} />
-        {/* Aquí va la sección de Iñaki                      */}
-        {/* Iñaki2 */}
+        {/* This is supposed to receive a product id from database <:id> vvv */}
+        <Route exact path="/products/id" component={ProductDetails} />
         {/* Aqui va la sección de Ceci */}
         {/* Aqui va la sección de Lorenzo */}
       </Switch>
