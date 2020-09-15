@@ -4,6 +4,7 @@ import Navbar from './components/navbar.js';
 import MainPage from './views/mainPage.js';
 import Footer from './components/footer.js';
 import ProductsGroup from './views/productsGroup.js';
+import Contact from './views/contact.js';
 import injectContext from './store/appContext';
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
         {/* Aquí va la sección de Iñaki                      */}
         {/* Iñaki2 */}
         {/* Aqui va la sección de Ceci */}
-        {/* Aqui va la sección de Lorenzo */}
+        <Route exact path="/contact" component={Contact} />
       </Switch>
       <Footer />
     </BrowserRouter>

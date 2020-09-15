@@ -1,3 +1,34 @@
+body {
+  width: 100vw;
+  height: 100%;
+}
+
+html {
+  font-size: 1rem;
+}
+
 .fa-mug-hot {
   font-size: 30px;
 } 
+
+.upper-text {
+  margin-top: 50px;
+  border: 1px solid black;
+}
+
+.contact-form {
+  margin-top: 50px;
+  border: 1px solid black;
+}
+
+.contact-text {
+  margin-top: 65px;
+}
+
+.suscribe-box {
+  border: 1px solid black;
+}
+
+.suscribe {
+  width: 400px;
+}
