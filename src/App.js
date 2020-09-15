@@ -12,7 +12,11 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/products" component={ProductsGroup} />             
+        <Route exact path="/products" component={ProductsGroup} />
+        {/* Aquí va la sección de Iñaki                      */}
+        {/* Iñaki2 */}
+        {/* Aqui va la sección de Ceci */}
+        {/* Aqui va la sección de Lorenzo */}
       </Switch>
       <Footer />
     </BrowserRouter>
