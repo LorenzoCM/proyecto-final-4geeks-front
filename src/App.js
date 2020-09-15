@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
 import Navbar from './components/navbar.js';
-import MainPage from './components/mainPage.js';
+import MainPage from './views/mainPage.js';
 import Footer from './components/footer.js';
-import ProductsGroup from './components2/productsGroup.js';
+import ProductsGroup from './views/productsGroup.js';
 import injectContext from './store/appContext';
 
 function App() {
