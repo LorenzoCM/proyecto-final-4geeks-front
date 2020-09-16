@@ -69,7 +69,7 @@ const ProductDetails = props => {
                 <section className="my-5">
                     <div className="d-flex justify-content-between align-items-center">
                         <h3 className="mt-5 mb-2">Tal vez te podría interesar:</h3>
-                        <h3 className="mt-5 mb-2"><i class="fas fa-angle-double-right"></i></h3>
+                        <h3 className="mt-5 mb-2"><i className="fas fa-angle-double-right"></i></h3>
                     </div>
                     {/* this card is just a placeholder, a mapping function is needed here */}
                     <div className="card-deck mt-5 w-100 d-flex flex-row flex-nowrap overflow-auto">
@@ -135,8 +135,107 @@ const ProductDetails = props => {
                         </div>
                     </div>
                 </section>
-                <section>
-
+                <section className="my-5">
+                    <div className="d-flex flex-column flex-md-row justify-content-between align-items-baseline">
+                        <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                            <h3>Calificacions y Comentarios</h3>
+                            <span className="align-items-start ml-md-2">
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div className="form-group mt-4 mt-md-0">
+                            <select className="form-control border border-dark" id="exampleFormControlSelect1">
+                                <option>Filtrar por</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>                        
+                    </div>
+                    <hr />
+                    {/* do not move the hr above, somehow it doesn't work inside the previous div, not even with margin = 0... */}
+                    {/* again, this comments are just placeholders, another mapping function is needed below :) */}
+                    <div className="my-3">
+                        <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
+                            <h4>Ceciclia Bobadilla</h4>
+                            <span className="align-items-start ml-md-2">
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                        </div>
+                        <div className="d-flex justify-content-end text-muted mt-2 pb-2">
+                            <h6>30/02/1970</h6>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div className="my-3">
+                        <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
+                            <h4>Ceciclia Bobadilla</h4>
+                            <span className="align-items-start ml-md-2">
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                        </div>
+                        <div className="d-flex justify-content-end text-muted mt-2 pb-2">
+                            <h6>30/02/1970</h6>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div className="my-3">
+                        <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
+                            <h4>Ceciclia Bobadilla</h4>
+                            <span className="align-items-start ml-md-2">
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                        </div>
+                        <div className="d-flex justify-content-end text-muted mt-2 pb-2">
+                            <h6>30/02/1970</h6>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div className="my-3">
+                        <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
+                            <h4>Ceciclia Bobadilla</h4>
+                            <span className="align-items-start ml-md-2">
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                                <i className="fas fa-star"></i>
+                            </span>
+                        </div>
+                        <div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                        </div>
+                        <div className="d-flex justify-content-end text-muted mt-2 pb-2">
+                            <h6>30/02/1970</h6>
+                        </div>
+                        <hr/>
+                    </div>
                 </section>
             </div>
         </>
