@@ -19,7 +19,7 @@ function App() {
         {/* This is supposed to receive a product id from database <:id> vvv */}
         <Route exact path="/products/id" component={ProductDetails} />
         {/* Aqui va la sección de Ceci */}
-        {/* Test */}
+        {/* test */}
         <Route exact path="/contact" component={Contact} />
       </Switch>
       <Newsletter />
