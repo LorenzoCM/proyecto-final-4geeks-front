@@ -3,7 +3,7 @@ import React from 'react';
 const Newsletter = props => {
     return (
         <div className="container">
-            <div className="container mt-5 py-4">
+            <div className="container mt-5 py-4 text-center">
                 <div className="row">
                     <div className="col-md-12 col-sm-10 col-10 mx-auto suscribe-box">
                         <h4><b>SUSCRIBETE A NUESTRO NEWSLETTER</b></h4>
