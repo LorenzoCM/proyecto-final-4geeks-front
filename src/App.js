@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navbar from './components/navbar.js';
 import MainPage from './views/mainPage.js';
+import Newsletter from './components/newsletter.js';
 import Footer from './components/footer.js';
 import ProductsGroup from './views/productsGroup.js';
 import Contact from './views/contact.js';
@@ -19,6 +20,7 @@ function App() {
         {/* Aqui va la sección de Ceci */}
         <Route exact path="/contact" component={Contact} />
       </Switch>
+      <Newsletter />
       <Footer />
     </BrowserRouter>
   );
