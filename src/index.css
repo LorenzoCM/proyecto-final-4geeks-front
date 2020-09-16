@@ -7,11 +7,31 @@ html {
   font-size: 0.7rem;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 767px) {
+  .card-thumbnail {
+    min-width: 50%;
+    max-width: 50%;
+    margin-right: 3%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
   html {
     font-size: 1rem;
   }
+  .card-thumbnail {
+    min-width: 33%;
+    max-width: 33%;
+  }
 }
+@media screen and (min-width: 992px) {  
+  .card-thumbnail {
+    min-width: 25%;
+    max-width: 25%;
+  }
+}
+
+/* apparently we'll do have to use some media queries to resolve responsivity issues... */
 
 .fa-mug-hot {
   font-size: 30px;
@@ -42,4 +62,3 @@ html {
 .custom-select {
   width: 5%;
 }
-
