@@ -8,6 +8,8 @@ import ProductsGroup from './views/productsGroup.js';
 import Contact from './views/contact.js';
 import ProductDetails from './views/productDetails';
 import injectContext from './store/appContext';
+import Blog from './views/blog.js';
+import MyAccount from './views/myAccount.js';
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
         <Route exact path="/products" component={ProductsGroup} />
         {/* This is supposed to receive a product id from database <:id> vvv */}
         <Route exact path="/products/id" component={ProductDetails} />
+        <Route exact path="/blog" component={Blog} />
+        {/* This is supposed to receive a username from database <:username> vvv */}
+        <Route exact path="/username" component={MyAccount} />
         {/* Aqui va la sección de Ceci */}
         {/* test */}
         <Route exact path="/contact" component={Contact} />
