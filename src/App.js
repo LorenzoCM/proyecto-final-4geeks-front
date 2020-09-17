@@ -7,6 +7,9 @@ import Footer from './components/footer.js';
 import ProductsGroup from './views/productsGroup.js';
 import Contact from './views/contact.js';
 import ProductDetails from './views/productDetails';
+import Cart from './views/cart';
+import Login from './views/login';
+import Register from './views/register';
 import injectContext from './store/appContext';
 
 function App() {
@@ -18,10 +21,12 @@ function App() {
         <Route exact path="/products" component={ProductsGroup} />
         {/* This is supposed to receive a product id from database <:id> vvv */}
         <Route exact path="/products/id" component={ProductDetails} />
-        {/* Aqui va la sección de Ceci */}
-        {/* test */}
+        {/* Aqui va la sección de Ceci */}        
         <Route exact path="/contact" component={Contact} />
-      </Switch>
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+      </Switch> 
       <Newsletter />
       <Footer />
     </BrowserRouter>
