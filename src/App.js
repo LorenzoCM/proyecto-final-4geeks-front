@@ -7,6 +7,9 @@ import Footer from './components/footer.js';
 import ProductsGroup from './views/productsGroup.js';
 import Contact from './views/contact.js';
 import ProductDetails from './views/productDetails';
+import Cart from './views/cart';
+import Login from './views/login';
+import Register from './views/register';
 import injectContext from './store/appContext';
 import Blog from './views/blog.js';
 import MyAccount from './views/myAccount.js';
@@ -22,11 +25,12 @@ function App() {
         <Route exact path="/products/id" component={ProductDetails} />
         <Route exact path="/blog" component={Blog} />
         {/* This is supposed to receive a username from database <:username> vvv */}
-        <Route exact path="/username" component={MyAccount} />
-        {/* Aqui va la sección de Ceci */}
-        {/* test */}
+        <Route exact path="/username" component={MyAccount} />               
         <Route exact path="/contact" component={Contact} />
-      </Switch>
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+      </Switch> 
       <Newsletter />
       <Footer />
     </BrowserRouter>

@@ -17,30 +17,31 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto mr-auto">
                     <li className="nav-item active ml-4">
-                        <a className="nav-link text-white" href="#">Home <span className="sr-only">(current)</span></a>
+                        <Link to="/" className="nav-link text-white" href="#">Home <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item mx-3">
-                        <a className="nav-link text-white" href="#">Tienda</a>
+                        <Link to="/products" className="nav-link text-white" href="#">Tienda</Link>
                     </li>
                     <li className="nav-item mx-3">
-                        <a className="nav-link text-white" href="#">Blog</a>
+                        <Link to="/blog" className="nav-link text-white" href="#">Blog</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link text-white" href="#">Contacto</a>
+                        <Link to="/contact" className="nav-link text-white" href="#">Contacto</Link>
                     </li>
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success my-2 my-sm-0 mr-3 ml-2" type="submit">Search</button>
+                    <Link to="/cart" className="btn btn-outline-primary my-2 my-sm-0 mr-3 ml-2" type="submit"><i class="fas fa-shopping-cart"></i></Link>
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
                         </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
+                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <Link to="/login" className="dropdown-item" href="#">Login</Link>
+                            <a className="dropdown-item" href="#">Logout</a>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">Something else here</a>
+                            <Link to="/register" className="dropdown-item" href="#">Register</Link>
                         </div>
                     </div>
                 </form>

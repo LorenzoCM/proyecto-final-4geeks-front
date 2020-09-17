@@ -27,7 +27,7 @@ const Contact = props => {
                             </div>
                         </div>
                         <div className="form-row">
-                            <div class="form-group col-md-12">
+                            <div className="form-group col-md-12 mx-auto">
                                 <label for="exampleFormControlTextarea1">Tu mensaje aquí</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
