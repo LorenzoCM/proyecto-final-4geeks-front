@@ -32,7 +32,7 @@ const Navbar = () => {
                 <form className="form-inline my-2 my-lg-0">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success my-2 my-sm-0 mr-3 ml-2" type="submit">Search</button>
-                    <Link to="/cart" className="btn btn-outline-primary my-2 my-sm-0 mr-3 ml-2" type="submit"><i class="fas fa-shopping-cart"></i></Link>
+                    <Link to="/cart" className="btn btn-outline-primary my-2 my-sm-0 mr-3 ml-2" type="submit"><i className="fas fa-shopping-cart"></i></Link>
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login

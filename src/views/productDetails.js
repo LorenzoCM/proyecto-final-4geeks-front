@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Context } from '../store/appContext';
 
-const ProductDetails = props => {
+const ProductDetails = ({ history, match: { params: { index } } }, ...props) => {
+    const { store: { products }} = useContext(Context);
+    const [ product, setProduct ] = useState(null);
+    useEffect(() => {
+        const productData = !!products ? products.filter((product, i) => i == index) : null;
+        if (productData !== null) {
+            setProduct(...productData);
+        }
+    });
     return (
         <>
             <div className="container-fluid">
@@ -9,7 +18,7 @@ const ProductDetails = props => {
                         <div className="col-12 col-lg-7 order-2 order-lg-1 px-lg-5 d-flex flex-column justify-content-around">
                             <div className="d-flex justify-content-between mt-3 mb-2 mb-md-0">
                                 <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                                    <h1 className="order-1">Café Lorenzo</h1>
+                                    <h1 className="order-1">{!!product && product.name}</h1>
                                     <span className="align-items-start ml-md-2 order-3 order-md-2">
                                         {/* for average of ratings stars renders: filled for given, outlined for not reached */}
                                         <i className="fas fa-star"></i>
@@ -20,33 +29,33 @@ const ProductDetails = props => {
                                     </span>
                                 </div>
                                 <div>
-                                    <h1 className="order-2 order-lg-3">$12.000</h1>
+                                    <h1 className="order-2 order-lg-3">${!!product && product.price}</h1>
                                 </div>
                             </div>
                             {/* for hr's to show in flex column apply margin = 0 */}
                             <hr className="m-0" />
                             <div>
                                 {/* Not just these but all values should be replaced with respective match in database :) */}
-                                <h4 className="my-4">Tipo:</h4>
-                                <h4 className="my-4">Origen:</h4>
-                                <h4 className="my-4">Especie:</h4>
-                                <h4 className="my-4">Acidez:</h4>
-                                <h4 className="my-4">Tostado:</h4>
-                                <h4 className="my-4">Terroir:</h4>
+                                <h4 className="my-4">Tipo: {!!product && product.attributes.type}</h4>
+                                <h4 className="my-4">Origen: {!!product && product.attributes.origin}</h4> 
+                                <h4 className="my-4">Especie: {!!product && product.attributes.species}</h4>
+                                <h4 className="my-4">Acidez: {!!product && product.attributes.acidity}</h4>
+                                <h4 className="my-4">Tostado: {!!product && product.attributes.roasting}</h4> 
+                                <h4 className="my-4">{!!product && product.description}</h4>
                             </div>
                             <hr className="m-0" />
                             <div className="d-flex justify-content-center justify-content-md-start mt-3 mt-md-2">
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                    <label className="form-check-label" for="inlineRadio1">100gr</label>
+                                    <label className="form-check-label" for="inlineRadio1">{!!product && product.presentation.format1}</label>
                                 </div>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                    <label className="form-check-label" for="inlineRadio2">250gr</label>
+                                    <label className="form-check-label" for="inlineRadio2">{!!product && product.presentation.format2}</label>
                                 </div>
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                                    <label className="form-check-label" for="inlineRadio3">500gr</label>
+                                    <label className="form-check-label" for="inlineRadio3">{!!product && product.presentation.format3}</label>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
@@ -62,7 +71,7 @@ const ProductDetails = props => {
                             </div>
                         </div>
                         <div className="col-12 col-lg-5 order-1 order-lg-2">
-                            <img src="https://place-hold.it/768x768" className="img-fluid w-100" />
+                            <img src={process.env.REACT_APP_URL_API + "products/coffee/" + (!!product && product.image)} className="img-fluid w-100" />
                         </div>
                     </div>
                 </section>

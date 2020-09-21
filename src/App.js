@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/" component={MainPage} />
         <Route exact path="/products" component={ProductsGroup} />
         {/* This is supposed to receive a product id from database <:id> vvv */}
-        <Route exact path="/products/id" component={ProductDetails} />
+        <Route exact path="/products/:index" component={ProductDetails} />
         <Route exact path="/blog" component={Blog} />
         {/* This is supposed to receive a username from database <:username> vvv */}
         <Route exact path="/username" component={MyAccount} />               
