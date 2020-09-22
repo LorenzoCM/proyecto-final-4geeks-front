@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../store/appContext';
 
 const ProductDetails = ({ history, match: { params: { index } } }, ...props) => {
-    const { store: { products }} = useContext(Context);
-    const [ product, setProduct ] = useState(null);
+    const { store: { products } } = useContext(Context);
+    const [product, setProduct] = useState(null);
     useEffect(() => {
         const productData = !!products ? products.filter((product, i) => i == index) : null;
         if (productData !== null) {
@@ -18,7 +18,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                         <div className="col-12 col-lg-7 order-2 order-lg-1 px-lg-5 d-flex flex-column justify-content-around">
                             <div className="d-flex justify-content-between mt-3 mb-2 mb-md-0">
                                 <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                                    <h1 className="order-1">{!!product && product.name}</h1>
+                                    <h3 className="order-1">{!!product && product.name}</h3>
                                     <span className="align-items-start ml-md-2 order-3 order-md-2">
                                         {/* for average of ratings stars renders: filled for given, outlined for not reached */}
                                         <i className="fas fa-star"></i>
@@ -29,34 +29,33 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                     </span>
                                 </div>
                                 <div>
-                                    <h1 className="order-2 order-lg-3">${!!product && product.price}</h1>
+                                    <h3 className="order-2 order-lg-3">${!!product && product.price}</h3>
                                 </div>
                             </div>
                             {/* for hr's to show in flex column apply margin = 0 */}
                             <hr className="m-0" />
                             <div>
                                 {/* Not just these but all values should be replaced with respective match in database :) */}
-                                <h4 className="my-4">Tipo: {!!product && product.attributes.type}</h4>
-                                <h4 className="my-4">Origen: {!!product && product.attributes.origin}</h4> 
-                                <h4 className="my-4">Especie: {!!product && product.attributes.species}</h4>
-                                <h4 className="my-4">Acidez: {!!product && product.attributes.acidity}</h4>
-                                <h4 className="my-4">Tostado: {!!product && product.attributes.roasting}</h4> 
-                                <h4 className="my-4">{!!product && product.description}</h4>
+                                <h6 className="my-4">Tipo: {!!product && product.attributes.type}</h6>
+                                <h6 className="my-4">Origen: {!!product && product.attributes.origin}</h6>
+                                <h6 className="my-4">Especie: {!!product && product.attributes.species}</h6>
+                                <h6 className="my-4">Acidez: {!!product && product.attributes.acidity}</h6>
+                                <h6 className="my-4">Tostado: {!!product && product.attributes.roasting}</h6>
+                                <h6 className="my-4">{!!product && product.description}</h6>
                             </div>
                             <hr className="m-0" />
                             <div className="d-flex justify-content-center justify-content-md-start mt-3 mt-md-2">
-                                <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                    <label className="form-check-label" for="inlineRadio1">{!!product && product.presentation.format1}</label>
-                                </div>
-                                <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                                    <label className="form-check-label" for="inlineRadio2">{!!product && product.presentation.format2}</label>
-                                </div>
-                                <div className="form-check form-check-inline">
-                                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                                    <label className="form-check-label" for="inlineRadio3">{!!product && product.presentation.format3}</label>
-                                </div>
+                                {
+                                    !!product &&
+                                    product.presentation.map((format, index) => {
+                                        return (
+                                            <div className="form-check form-check-inline" key={index}>
+                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
+                                                <label className="form-check-label" for="inlineRadio1">{format.format}</label>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
                                 <button type="button" className="btn btn-outline-dark">Agregar al carrito</button>
@@ -164,7 +163,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                 <option>4</option>
                                 <option>5</option>
                             </select>
-                        </div>                        
+                        </div>
                     </div>
                     <hr />
                     {/* do not move the hr above, somehow it doesn't work inside the previous div, not even with margin = 0... */}
@@ -181,12 +180,12 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             </span>
                         </div>
                         <div>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
                         </div>
                         <div className="d-flex justify-content-end text-muted mt-2 pb-2">
                             <h6>30/02/1970</h6>
                         </div>
-                        <hr/>
+                        <hr />
                     </div>
                     <div className="my-3">
                         <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
@@ -200,12 +199,12 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             </span>
                         </div>
                         <div>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
                         </div>
                         <div className="d-flex justify-content-end text-muted mt-2 pb-2">
                             <h6>30/02/1970</h6>
                         </div>
-                        <hr/>
+                        <hr />
                     </div>
                     <div className="my-3">
                         <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
@@ -219,12 +218,12 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             </span>
                         </div>
                         <div>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
                         </div>
                         <div className="d-flex justify-content-end text-muted mt-2 pb-2">
                             <h6>30/02/1970</h6>
                         </div>
-                        <hr/>
+                        <hr />
                     </div>
                     <div className="my-3">
                         <div className="d-flex flex-row justify-content-between align-items-center bg-light pt-4">
@@ -238,12 +237,12 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             </span>
                         </div>
                         <div>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas vero distinctio repellat culpa tempora animi quasi, repudiandae neque deserunt quibusdam eius eaque non nihil provident autem! Repellat repudiandae tempore illum?</p>
                         </div>
                         <div className="d-flex justify-content-end text-muted mt-2 pb-2">
                             <h6>30/02/1970</h6>
                         </div>
-                        <hr/>
+                        <hr />
                     </div>
                 </section>
             </div>
