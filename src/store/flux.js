@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             products: null,
+            categories: null,
             apiURL: 'http://localhost:5000',
             name: '',
             last_name: '',
@@ -14,8 +15,25 @@ const getState = ({ getStore, getActions, setStore }) => {
             success: null
         },
         actions: {
+            // please use this fetch only on local states...
             getProductsRaw: () => {
-                fetch(`http://127.0.0.1:5000/api/products/`, {
+                let store = getStore()
+                fetch("http://127.0.0.1:5000/api/products/", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        setStore({...store,
+                            products: data
+                        })
+                    });
+            },
+            getCategories: () => {
+                let store = getStore()
+                fetch("http://127.0.0.1:5000/api/categories/", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -23,12 +41,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(resp => resp.json())
                     .then(data => {
-                        setStore({
-                            products: data
+                        setStore({...store,
+                            categories: data
                         })
                     });
             },
             getProductsFiltered: (brewing) => {
+                let store = getStore()
                 fetch("http://127.0.0.1:5000/api/products/brewing", {
                     method: 'POST',
                     headers: {
@@ -38,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        setStore({
+                        setStore({...store,
                             products: data
                         })
                     })

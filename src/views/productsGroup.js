@@ -9,7 +9,10 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         sorting: 'priceup',
         groundFilter: [],
         originFilter: [],
+        pricefilterMin: 0,
+        pricefilterMax: 99999,
     });
+    console.log(brewing)
 
     useEffect(() => {
         // fetchs products based on sorting order        
@@ -80,7 +83,6 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
             }
         }
     }
-
 
     return (
         <>
@@ -217,26 +219,24 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                             <section className="mb-4">
 
                                 <h6 className="font-weight-bold mb-3">Price</h6>
-
+                                {/* this slider is to be implemented in the future
                                 <div className="slider-price d-flex align-items-center my-4">
                                     <span className="font-weight-normal small text-muted mr-2">$0</span>
                                     <form className="multi-range-field w-100 mb-1">
                                         <input id="multi" className="multi-range" type="range" />
                                     </form>
                                     <span className="font-weight-normal small text-muted ml-2">$100</span>
-                                </div>
+                                </div> */}
 
                                 <form>
-                                    <div className="d-flex align-items-center mt-4 pb-1">
+                                    <div className="mt-4 pb-1">
                                         <div className="md-form md-outline my-0">
-                                            <input id="from" type="text" className="form-control mb-0" />
-                                            <label htmlFor="form">$ Min</label>
+                                            <label htmlFor="priceMin" className="mb-0">$ Min</label>
+                                            <input id="priceMin" type="number" className="form-control mb-2" onChange={e => { setBrewing({ ...brewing, pricefilterMin: e.target.value }) }} />
+                                            <label htmlFor="priceMax" className="mt-2 mb-0">$ Max</label>
+                                            <input id="priceMax" type="number" className="form-control" onChange={e => { setBrewing({ ...brewing, pricefilterMax: e.target.value }) }} />
                                         </div>
-                                        <p className="px-2 mb-0 text-muted"> - </p>
-                                        <div className="md-form md-outline my-0">
-                                            <input id="to" type="text" className="form-control mb-0" />
-                                            <label htmlFor="to">$ Max</label>
-                                        </div>
+                                        <span className="text-sm text-muted mt-2" onClick={() => { setBrewing({ ...brewing, pricefilterMin: 0, pricefilterMax: 99999 }) }}>reset</span>
                                     </div>
                                 </form>
 
@@ -296,11 +296,14 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                 <h6 className="font-weight-bold mb-3">Categorías</h6>
 
                                 <div>
-                                    <span className="badge badge-info">Orgánico</span>
-                                    <span className="badge badge-info">Single Origin</span>
-                                    <span className="badge badge-info">Multi Origin</span>
-                                    <span className="badge badge-info">Café de Finca</span>
-                                    <span className="badge badge-info">Premiados</span>
+                                    {
+                                        !!store.categories &&
+                                        store.categories.map((category, index) => {
+                                            return (
+                                                <span className="badge badge-info" key={index}>{category.name}</span>
+                                            )
+                                        })
+                                    }
                                 </div>
 
                             </section>
