@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../store/appContext';
 
 const ProductDetails = ({ history, match: { params: { index } } }, ...props) => {
-    const { store: { products } } = useContext(Context);
+    const { store: { products }, actions } = useContext(Context);
     const [product, setProduct] = useState(null);
     useEffect(() => {
+        window.scrollTo(0, 0); // iniciar la pagina desde arriba
         const productData = !!products ? products.filter((product, i) => i == index) : null;
         if (productData !== null) {
             setProduct(...productData);
@@ -36,7 +37,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             <hr className="m-0" />
                             <div>
                                 {/* Not just these but all values should be replaced with respective match in database :) */}
-                                <h6 className="my-4">Tipo: {!!product && product.presentation}</h6>
+                                <h6 className="my-4">Tipo: {!!product && product.ground}</h6>
                                 <h6 className="my-4">Origen: {!!product && product.origin}</h6>
                                 <h6 className="my-4">Especie: {!!product && product.species}</h6>
                                 <h6 className="my-4">Acidez: {!!product && product.acidity}</h6>
@@ -59,14 +60,25 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             </div>
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
                                 <button type="button" className="btn btn-outline-dark">Agregar al carrito</button>
-                                <select className="custom-select border border-dark mx-2">
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                                <button type="button" className="btn btn-outline-dark"><i className="far fa-heart"></i></button>
+                                <div className="">
+                                    <label className="form-check-label" for="inlineRadio1">Cantidad</label>
+                                    <select className="custom-select border border-dark mx-2">
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="2">6</option>
+                                        <option value="3">7</option>
+                                        <option value="4">8</option>
+                                        <option value="5">9</option>
+                                        <option value="5">9</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-center justify-content-md-start mt-3">
+                                <button type="submit" className="btn btn-outline-dark" onClick={() => actions.cartProducts(product)}>Agregar al carrito</button>
+                                <button type="button" className="btn btn-outline-dark ml-3"><i className="far fa-heart"></i></button>
                             </div>
                         </div>
                         <div className="col-12 col-lg-5 order-1 order-lg-2">

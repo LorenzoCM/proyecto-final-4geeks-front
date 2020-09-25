@@ -14,8 +14,8 @@ const injectContext = PassedComponent => {
         })
     }));
 
-    useEffect(() => {
-      
+    useEffect(() => {                    
+      state.actions.updateCart();               
     },[]);
 
     return (
