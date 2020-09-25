@@ -11,22 +11,39 @@ const getState = ({ getStore, getActions, setStore }) => {
             address: '',
             currentUser: null,
             error: null,
-            success: null            
+            success: null
         },
         actions: {
-            getProducts: () => {
-                fetch("http://127.0.0.1:5000/api/products/", {
+            getProductsRaw: () => {
+                fetch(`http://127.0.0.1:5000/api/products/`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
                 })
                     .then(resp => resp.json())
                     .then(data => {
-                        console.log(data)
                         setStore({
                             products: data
                         })
+                    });
+            },
+            getProductsFiltered: (brewing) => {
+                fetch("http://127.0.0.1:5000/api/products/brewing", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(brewing)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            products: data
+                        })
+                    })
+                    .catch((error) => {
+                        console.log(error)
                     });
             },
             handleChangeLogin: e => {
@@ -43,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         name: store.name,
                         last_name: store.last_name,
                         password: store.password,
-                        email: store.email,                        
+                        email: store.email,
                         phone: store.phone,
                         address: store.address
                     }),
@@ -54,7 +71,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const data = await resp.json();
 
-                const {msg} = data;
+                const { msg } = data;
 
                 if (msg !== undefined) {
                     setStore({
@@ -69,8 +86,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                         phone: '',
                         address: '',
                         currentUser: data,
-                        error: null                        
-                    })                   
+                        error: null
+                    })
                     sessionStorage.setItem('currentUser', JSON.stringify(data))
                 }
 
@@ -82,8 +99,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const resp = await fetch(`${store.apiURL}/api/login`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        email: store.email,                        
-                        password: store.password                                    
+                        email: store.email,
+                        password: store.password
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -92,7 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 const data = await resp.json();
 
-                const {msg} = data;
+                const { msg } = data;
 
                 if (msg !== undefined) {
                     setStore({
@@ -107,8 +124,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                         phone: '',
                         address: '',
                         currentUser: data,
-                        error: null                        
-                    })                    
+                        error: null
+                    })
                     sessionStorage.setItem('currentUser', JSON.stringify(data))
                 }
 

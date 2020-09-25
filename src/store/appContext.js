@@ -15,8 +15,7 @@ const injectContext = PassedComponent => {
     }));
 
     useEffect(() => {
-      state.actions.getProducts();           
-        
+      
     },[]);
 
     return (

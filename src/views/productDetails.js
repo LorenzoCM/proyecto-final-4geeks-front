@@ -36,18 +36,18 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             <hr className="m-0" />
                             <div>
                                 {/* Not just these but all values should be replaced with respective match in database :) */}
-                                <h6 className="my-4">Tipo: {!!product && product.attributes.type}</h6>
-                                <h6 className="my-4">Origen: {!!product && product.attributes.origin}</h6>
-                                <h6 className="my-4">Especie: {!!product && product.attributes.species}</h6>
-                                <h6 className="my-4">Acidez: {!!product && product.attributes.acidity}</h6>
-                                <h6 className="my-4">Tostado: {!!product && product.attributes.roasting}</h6>
+                                <h6 className="my-4">Tipo: {!!product && product.presentation}</h6>
+                                <h6 className="my-4">Origen: {!!product && product.origin}</h6>
+                                <h6 className="my-4">Especie: {!!product && product.species}</h6>
+                                <h6 className="my-4">Acidez: {!!product && product.acidity}</h6>
+                                <h6 className="my-4">Tostado: {!!product && product.roasting}</h6>
                                 <h6 className="my-4">{!!product && product.description}</h6>
                             </div>
                             <hr className="m-0" />
                             <div className="d-flex justify-content-center justify-content-md-start mt-3 mt-md-2">
-                                {
+                                {/* {
                                     !!product &&
-                                    product.presentation.map((format, index) => {
+                                    product.map((format, index) => {
                                         return (
                                             <div className="form-check form-check-inline" key={index}>
                                                 <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
@@ -55,7 +55,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                             </div>
                                         )
                                     })
-                                }
+                                } */}
                             </div>
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
                                 <button type="button" className="btn btn-outline-dark">Agregar al carrito</button>

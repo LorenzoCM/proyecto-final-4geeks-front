@@ -1,20 +1,17 @@
 body {
   width: 100vw;
-  height: 100%;  
+  height: 100%;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */  
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
 html {  
-  font-size: 0.7rem;
+  font-size: 0.6rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -27,7 +24,7 @@ html {
 
 @media screen and (min-width: 768px) {
   html {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   .card-thumbnail {
     min-width: 33%;
