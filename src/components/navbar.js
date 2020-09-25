@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { useEffect } from "react";
 
 const Navbar = () => {
     const { store, actions } = useContext(Context);
-
+    const [totalCart, setTotalCart] = useState(0); 
+    // useEffect(() => {
+    //     setTotalCart(store.cart.reduce((total, a) => { return total + a.quantity }, 0))
+    //     console.log(totalCart)
+    // }, [store.cart, totalCart]);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-dark navbar-collapse">
@@ -31,8 +34,8 @@ const Navbar = () => {
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button className="btn btn-outline-success my-2 my-sm-0 mr-3 ml-2" type="submit">Search</button>
-                    <Link to="/cart" className="btn btn-outline-primary my-2 my-sm-0 mr-3 ml-2" type="submit"><i className="fas fa-shopping-cart"></i></Link>
+                    <button className="btn btn-outline-success my-2 my-sm-0 mr-3 ml-2" type="button">Search</button>
+                    <Link to="/cart" className="btn btn-outline-primary my-2 my-sm-0 mr-3 ml-2" type="submit"><i className="fas fa-shopping-cart"> {store.quantity}</i></Link>
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login

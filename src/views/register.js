@@ -9,6 +9,23 @@ const Register = props => {
             <div className="row">
                 <form className="mx-auto mt-5" onSubmit={actions.register}>
                     <h2 className="text-center mb-5">Crea tu cuenta</h2>
+                    {
+                        store.error !== null && (
+                            <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Holy guacamole! </strong> 
+                                {!!store.error.name && store.error.name}
+                                {!!store.error.last_name && store.error.last_name}
+                                {!!store.error.reg_password && store.error.reg_password}
+                                {!!store.error.reg_email && store.error.reg_email}
+                                {!!store.error.address && store.error.address}
+                                {!!store.error.phone && store.error.phone} 
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        )
+
+                    }
                     <div className="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Nombre</label>

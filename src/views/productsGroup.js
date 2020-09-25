@@ -362,4 +362,5 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
     )
 }
 
+
 export default ProductsGroup;

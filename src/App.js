@@ -10,9 +10,10 @@ import ProductDetails from './views/productDetails';
 import Cart from './views/cart';
 import Login from './views/login';
 import Register from './views/register';
-import injectContext from './store/appContext';
 import Blog from './views/blog.js';
 import MyAccount from './views/myAccount.js';
+import AdminLogin from './views/adminLogin.js';
+import injectContext from './store/appContext';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/admin4geeks" component={AdminLogin} />
       </Switch> 
       <Newsletter />
       <Footer />
