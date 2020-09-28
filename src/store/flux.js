@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             products: null,
+            productDetails: null,
             categories: null,
             apiURL: 'http://localhost:5000',
             name: '',
@@ -17,19 +18,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             cart: []
         },
         actions: {
-            // please use this fetch only on local states...
-            getProductsRaw: () => {
+            getProductDetails: id => {
                 let store = getStore()
-                fetch("http://127.0.0.1:5000/api/products/", {
-                    method: 'POST',
+                fetch(`http://127.0.0.1:5000/api/products/${id}`, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 })
                     .then(resp => resp.json())
                     .then(data => {
-                        setStore({...store,
-                            products: data
+                        console.log(data)
+                        setStore({
+                            productDetails: data
                         })
                     });
             },
@@ -48,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         })
                     });
             },
-            getProductsFiltered: (brewing) => {
+            getProductsFiltered: brewing => {
                 let store = getStore()
                 fetch("http://127.0.0.1:5000/api/products/brewing", {
                     method: 'POST',

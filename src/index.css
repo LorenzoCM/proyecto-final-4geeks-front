@@ -40,6 +40,22 @@ html {
 
 /* apparently we'll do have to use some media queries to resolve responsivity issues... */
 
+/* colors */
+
+.c-black {
+  background-color: #000000;
+}
+.c-coffee {
+  background-color: #372100;
+}
+.c-accent {
+  background-color: #FCA311;
+}
+.c-silver {
+  background-color: #E5E5E5;
+}
+/* colors */
+
 .fa-mug-hot {
   font-size: 30px;
 } 

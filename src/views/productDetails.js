@@ -1,16 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const ProductDetails = ({ history, match: { params: { index } } }, ...props) => {
-    const { store: { products }, actions } = useContext(Context);
-    const [product, setProduct] = useState(null);
+    const { store, actions } = useContext(Context);
+
+    // const { index } = useParams();
+    // const getProductDataFromURL = () => {
+    //     let url = location.pathname;
+    //     let aux = url.split("/");
+    //     let id = aux[aux.length - 1];
+    //     let productInfo = store.ProductsGlobal[id];
+    //     setProductData(productInfo);
+    // }
+
     useEffect(() => {
         window.scrollTo(0, 0); // iniciar la pagina desde arriba
-        const productData = !!products ? products.filter((product, i) => i == index) : null;
-        if (productData !== null) {
-            setProduct(...productData);
-        }
-    });
+        actions.getProductDetails(index)
+    }, []);
+
+
     return (
         <>
             <div className="container-fluid">
@@ -19,7 +28,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                         <div className="col-12 col-lg-7 order-2 order-lg-1 px-lg-5 d-flex flex-column justify-content-around">
                             <div className="d-flex justify-content-between mt-3 mb-2 mb-md-0">
                                 <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                                    <h3 className="order-1">{!!product && product.name}</h3>
+                                    <h3 className="order-1">{!!store.productDetails && store.productDetails.name}</h3>
                                     <span className="align-items-start ml-md-2 order-3 order-md-2">
                                         {/* for average of ratings stars renders: filled for given, outlined for not reached */}
                                         <i className="fas fa-star"></i>
@@ -30,19 +39,19 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                     </span>
                                 </div>
                                 <div>
-                                    <h3 className="order-2 order-lg-3">${!!product && product.price}</h3>
+                                    <h3 className="order-2 order-lg-3">${!!store.productDetails && store.productDetails.price}</h3>
                                 </div>
                             </div>
                             {/* for hr's to show in flex column apply margin = 0 */}
                             <hr className="m-0" />
                             <div>
                                 {/* Not just these but all values should be replaced with respective match in database :) */}
-                                <h6 className="my-4">Tipo: {!!product && product.ground}</h6>
-                                <h6 className="my-4">Origen: {!!product && product.origin}</h6>
-                                <h6 className="my-4">Especie: {!!product && product.species}</h6>
-                                <h6 className="my-4">Acidez: {!!product && product.acidity}</h6>
-                                <h6 className="my-4">Tostado: {!!product && product.roasting}</h6>
-                                <h6 className="my-4">{!!product && product.description}</h6>
+                                <h6 className="my-4">Tipo: {!!store.productDetails && store.productDetails.ground}</h6>
+                                <h6 className="my-4">Origen: {!!store.productDetails && store.productDetails.origin}</h6>
+                                <h6 className="my-4">Especie: {!!store.productDetails && store.productDetails.species}</h6>
+                                <h6 className="my-4">Acidez: {!!store.productDetails && store.productDetails.acidity}</h6>
+                                <h6 className="my-4">Tostado: {!!store.productDetails && store.productDetails.roasting}</h6>
+                                <h6 className="my-4">{!!store.productDetails && store.productDetails.description}</h6>
                             </div>
                             <hr className="m-0" />
                             <div className="d-flex justify-content-center justify-content-md-start mt-3 mt-md-2">
@@ -52,7 +61,7 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                         return (
                                             <div className="form-check form-check-inline" key={index}>
                                                 <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                                <label className="form-check-label" for="inlineRadio1">{format.format}</label>
+                                                <label className="form-check-label" htmlFor="inlineRadio1">{format.format}</label>
                                             </div>
                                         )
                                     })
@@ -61,9 +70,9 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
                                 <button type="button" className="btn btn-outline-dark">Agregar al carrito</button>
                                 <div className="">
-                                    <label className="form-check-label" for="inlineRadio1">Cantidad</label>
-                                    <select className="custom-select border border-dark mx-2">
-                                        <option value="1" selected>1</option>
+                                    <label className="form-check-label" htmlFor="inlineRadio1">Cantidad</label>
+                                    <select className="custom-select border border-dark mx-2" defaultValue="1">
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -77,12 +86,12 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                 </div>
                             </div>
                             <div className="d-flex justify-content-center justify-content-md-start mt-3">
-                                <button type="submit" className="btn btn-outline-dark" onClick={() => actions.cartProducts(product)}>Agregar al carrito</button>
+                                <button type="submit" className="btn btn-outline-dark" onClick={() => actions.cartProducts(store.productDetails)}>Agregar al carrito</button>
                                 <button type="button" className="btn btn-outline-dark ml-3"><i className="far fa-heart"></i></button>
                             </div>
                         </div>
                         <div className="col-12 col-lg-5 order-1 order-lg-2">
-                            <img src={process.env.REACT_APP_URL_API + "products/coffee/" + (!!product && product.image)} className="img-fluid w-100" />
+                            <img src={process.env.REACT_APP_URL_API + "products/coffee/" + (!!store.productDetails && store.productDetails.image)} className="img-fluid w-100" />
                         </div>
                     </div>
                 </section>

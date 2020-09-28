@@ -6,17 +6,17 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
     const { store, actions } = useContext(Context);
 
     const [brewing, setBrewing] = useState({
-        sorting: 'priceup',
+        sorting: "priceup",
         groundFilter: [],
         originFilter: [],
         pricefilterMin: 0,
-        pricefilterMax: 99999,
+        pricefilterMax: 99999
     });
-    console.log(brewing)
 
     useEffect(() => {
         // fetchs products based on sorting order        
         actions.getProductsFiltered(brewing)
+        console.log(brewing)
     }, [brewing]);
 
     console.log(store.products)
@@ -32,14 +32,14 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         else if (e.target.value == 4) {
             setBrewing({ ...brewing, sorting: "branddown" })
         }
-        else if (e.target.value == 1) {
+        else {
             setBrewing({ ...brewing, sorting: "priceup" })
         }
     };
 
     // adds or deletes ground type filters
     const handleGroundFilters = e => {
-        if (brewing.groundFilter.length == 0) {
+        if (brewing.groundFilter.length === 0) {
             setBrewing({ ...brewing, groundFilter: [e.target.value] })
         } else if (brewing.groundFilter.length > 0) {
             let aux = brewing.groundFilter
@@ -62,7 +62,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
 
     // adds or deletes origin type filters
     const handleOriginFilters = e => {
-        if (brewing.originFilter.length == 0) {
+        if (brewing.originFilter.length === 0) {
             setBrewing({ ...brewing, originFilter: [e.target.value] })
             console.log(brewing.originFilter)
         } else if (brewing.originFilter.length > 0) {
@@ -336,16 +336,16 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                     store.products.map((product, index) => {
                                         return (
                                             <div className="card-thumbnail mt-2" key={index}>
-                                                <div className="card">
+                                                <div className="card border border-dark rounded-0">
                                                     <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" alt="..." />
-                                                    <div className="card-body">
-                                                        <h6 className="card-title my-0">{product.name}</h6>
+                                                    <div className="card-body border-top py-2 px-3" >
+                                                        <h6 className="card-title">{product.name}</h6>
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
-                                                        <p className="card-text my-0">{product.price}</p>
-                                                        <div className="d-flex align-items-baseline">
-                                                            <Link to={`/products/${index}`} className="btn btn-primary btn-sm mt-1">Ver más</Link>
-                                                            <button className="btn btn-sm btn-warning ml-2"><i class="fas fa-cart-plus"></i></button>
+                                                        <p className="card-text my-0">${product.price}</p>
+                                                        <div className="d-flex align-items-baseline mt-2">
+                                                            <Link to={`/products/${index}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
+                                                            <button className="btn btn-sm c-accent ml-1"><i className="fas fa-cart-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
