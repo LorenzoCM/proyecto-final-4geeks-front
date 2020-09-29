@@ -1,6 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
+            users: null,
+            userDetails: null,
             products: null,
             productDetails: null,
             categories: null,
@@ -19,6 +21,41 @@ const getState = ({ getStore, getActions, setStore }) => {
             total: 0
         },
         actions: {
+            getUsers: filters => {
+                let store = getStore()
+                fetch("http://127.0.0.1:5000/api/admincoffee/users", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(filters)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({...store,
+                            users: data
+                        })
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
+            getUserDetails: id => {
+                let store = getStore()
+                fetch(`http://127.0.0.1:5000/api/admincoffee/users/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data)
+                        setStore({
+                            userDetails: data
+                        })                       
+                    });
+            },
             getProductDetails: id => {
                 let store = getStore()
                 fetch(`http://127.0.0.1:5000/api/products/${id}`, {

@@ -12,9 +12,10 @@ import Login from './views/login';
 import Register from './views/register';
 import Blog from './views/blog.js';
 import MyAccount from './views/myAccount.js';
-import AdminLogin from './views/adminLogin.js';
+import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
+import AdminUsersList from './views/adminUsersList';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/admin4geeks" component={AdminLogin} />
+        <Route exact path="/admin4geeks" component={AdminProductsList} />
+        <Route exact path="/admincoffee/users" component={AdminUsersList} />
       </Switch> 
       <Newsletter />
       <Footer />
