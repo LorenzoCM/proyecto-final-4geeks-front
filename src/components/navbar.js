@@ -23,16 +23,16 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto mr-auto">
                             <li className="nav-item active ml-4">
-                                <Link to="/" className="nav-link text-white" href="#">Home <span className="sr-only">(current)</span></Link>
+                                <Link to="/" className="nav-link text-white">Home <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item mx-3">
-                                <Link to="/products" className="nav-link text-white" href="#">Tienda</Link>
+                                <Link to="/products" className="nav-link text-white">Tienda</Link>
                             </li>
                             <li className="nav-item mx-3">
-                                <Link to="/blog" className="nav-link text-white" href="#">Blog</Link>
+                                <Link to="/blog" className="nav-link text-white">Blog</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/contact" className="nav-link text-white" href="#">Contacto</Link>
+                                <Link to="/contact" className="nav-link text-white">Contacto</Link>
                             </li>
                         </ul>
                     </div>

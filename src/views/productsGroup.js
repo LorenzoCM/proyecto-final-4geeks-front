@@ -87,20 +87,20 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
     return (
         <>
             {/* <!-- Section: Sidebar --> */}
-            <div className="cantainer-fluid">
+            <div className="container-fluid">
                 <div className="row">
-                    <section className="col-2 border">
+                    <section className="col-2 border-right border-bottom border-dark c-silver">
 
                         {/* <!-- Section: Filters --> */}
-                        <section className="d-flex flex-column ml-2">
+                        <section className="d-flex flex-column align-items-start ml-2">
 
-                            <h5>Filters</h5>
+                            <h5 className="mt-3">Filters</h5>
 
                             {/* <!-- Section: Type --> */}
-                            <section className=" d-flex flex-column mb-4">
+                            <section className="d-flex flex-column my-4">
 
                                 <h6 className="font-weight-bold">Tipo</h6>
-                                <div className="pl-3">
+                                <div className="pl-4">
                                     <div className="form-check pl-0 mb-3">
                                         <input type="checkbox" className="form-check-input filled-in" id="grano" value="Grano" onClick={e => handleGroundFilters(e)} />
                                         <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="grano">Grano Entero</label>
