@@ -343,7 +343,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                                         <p className="card-text my-0">{product.origin}</p>
                                                         <p className="card-text my-0">{product.price}</p>
                                                         <div className="d-flex align-items-baseline justify-content-between">
-                                                            <Link to={`/products/${index}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
+                                                            <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
                                                             <button className="btn btn-sm c-accent ml-1" onClick={()=> actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
                                                         </div>
                                                     </div>

@@ -2,21 +2,21 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
-const ProductDetails = ({ history, match: { params: { index } } }, ...props) => {
+const ProductDetails = ({ history, match: { params: { id } } }, ...props) => {
     const { store, actions } = useContext(Context);
 
-    // const { index } = useParams();
-    // const getProductDataFromURL = () => {
-    //     let url = location.pathname;
-    //     let aux = url.split("/");
-    //     let id = aux[aux.length - 1];
-    //     let productInfo = store.ProductsGlobal[id];
-    //     setProductData(productInfo);
-    // }
+    
+    const location = useLocation();
+    const getProductDataFromURL = () => {
+        let url = location.pathname;
+        let aux = url.split("/");
+        let id = aux[aux.length - 1];
+        return id;
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0); // iniciar la pagina desde arriba
-        actions.getProductDetails(index)
+        actions.getProductDetails(getProductDataFromURL())
     }, []);
 
 
