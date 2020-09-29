@@ -29,7 +29,7 @@ const Navbar = () => {
                             <li className="nav-item dropdown mx-3">
                                 <Link to="/blog" className="nav-link dropdown-toggle text-white"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Blog
-                        </Link>
+                                </Link>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <Link className="dropdown-item" to="/blog#sobrecafe">Sobre el café</Link>
                                     <Link className="dropdown-item" to="/blog#coffeebrewing">Coffee Brewing Guides</Link>
