@@ -22,8 +22,15 @@ const Navbar = () => {
                     <li className="nav-item mx-3">
                         <Link to="/products" className="nav-link text-white" href="#">Tienda</Link>
                     </li>
-                    <li className="nav-item mx-3">
-                        <Link to="/blog" className="nav-link text-white" href="#">Blog</Link>
+                    <li className="nav-item dropdown mx-3">
+                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Blog
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a className="dropdown-item" href="#sobrecafe">Sobre el café</a>
+                            <a className="dropdown-item" href="#coffeebrewing">Coffee Brewing Guides</a>
+                            <a className="dropdown-item" href="#maquinas">Acerca de las máquinas de café</a>
+                        </div>
                     </li>
                     <li className="nav-item">
                         <Link to="/contact" className="nav-link text-white" href="#">Contacto</Link>
