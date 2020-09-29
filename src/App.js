@@ -13,6 +13,7 @@ import Register from './views/register';
 import Blog from './views/blog.js';
 import MyAccount from './views/myAccount.js';
 import AdminLogin from './views/adminLogin.js';
+import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admin4geeks" component={AdminLogin} />
       </Switch> 
       <Newsletter />

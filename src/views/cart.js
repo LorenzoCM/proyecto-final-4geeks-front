@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from "react-router-dom";
 import { Context } from '../store/appContext';
 
 const Cart = props => {
@@ -26,7 +27,7 @@ const Cart = props => {
                             <tbody>
                                 {!!store.cart &&
                                     store.cart.map((product, index) => { 
-                                        total += product.product.price * product.quantity;                                       
+                                        total += product.product.price * product.quantity;                                                                               
                                         return (
                                             <tr>
                                                 <th scope="row">{index + 1}</th>
@@ -34,7 +35,7 @@ const Cart = props => {
                                                 <td>{product.product.price}</td>
                                                 <td>{product.quantity}</td>
                                                 <td>{(product.product.price * product.quantity).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
-                                                <td><i className="fas fa-trash" onClick={()=> actions.deleteProduct(index)}></i></td>
+                                                <td><i className="fas fa-trash" onClick={()=> actions.deleteProduct(index, product.quantity)}></i></td>
                                             </tr>
                                         )
                                     })}
@@ -70,7 +71,7 @@ const Cart = props => {
                         </div>
                         <div className="ml-2">
                             <button className="btn btn-dark mr-5">Update Cart</button>
-                            <button className="btn btn-dark ml-5">Check Out</button>
+                            <Link to='/checkout'><button className="btn btn-dark ml-5">Check Out</button></Link>
                         </div>
                     </div>
                 </div>

@@ -11,15 +11,13 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         originFilter: [],
         pricefilterMin: 0,
         pricefilterMax: 99999,
-    });
-    console.log(brewing)
+    });    
 
     useEffect(() => {
         // fetchs products based on sorting order        
         actions.getProductsFiltered(brewing)
     }, [brewing]);
-
-    console.log(store.products)
+   
 
     // sets apiURL from onChange in <select id="sortCombo"> 
     const handleSort = (e) => {
@@ -343,9 +341,9 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
                                                         <p className="card-text my-0">{product.price}</p>
-                                                        <div className="d-flex align-items-baseline">
+                                                        <div className="d-flex align-items-baseline justify-content-between">
                                                             <Link to={`/products/${index}`} className="btn btn-primary btn-sm mt-1">Ver más</Link>
-                                                            <button className="btn btn-sm btn-warning ml-2"><i class="fas fa-cart-plus"></i></button>
+                                                            <button className="btn btn-sm btn-warning ml-5" onClick={()=> actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>

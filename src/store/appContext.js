@@ -16,7 +16,8 @@ const injectContext = PassedComponent => {
 
     useEffect(() => {
       state.actions.getCategories();                   
-      state.actions.updateCart();               
+      state.actions.updateCart();
+      state.actions.cartNumActualize();               
     },[]);
 
     return (

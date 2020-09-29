@@ -44,22 +44,8 @@ const ProductDetails = ({ history, match: { params: { index } } }, ...props) => 
                                 <h6 className="my-4">Tostado: {!!product && product.roasting}</h6>
                                 <h6 className="my-4">{!!product && product.description}</h6>
                             </div>
-                            <hr className="m-0" />
-                            <div className="d-flex justify-content-center justify-content-md-start mt-3 mt-md-2">
-                                {/* {
-                                    !!product &&
-                                    product.map((format, index) => {
-                                        return (
-                                            <div className="form-check form-check-inline" key={index}>
-                                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                                                <label className="form-check-label" for="inlineRadio1">{format.format}</label>
-                                            </div>
-                                        )
-                                    })
-                                } */}
-                            </div>
-                            <div className="d-flex justify-content-center justify-content-md-start mt-3">
-                                <button type="button" className="btn btn-outline-dark">Agregar al carrito</button>
+                            <hr className="m-0" />                            
+                            <div className="d-flex justify-content-center justify-content-md-start mt-3">                                                                
                                 <div className="">
                                     <label className="form-check-label" for="inlineRadio1">Cantidad</label>
                                     <select className="custom-select border border-dark mx-2">
