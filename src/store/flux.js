@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             error: null,
             success: null,
             quantity: 0,
-            cart: []
+            cart: [],
+            total: 0
         },
         actions: {
             getProductDetails: id => {
@@ -73,7 +74,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                     [e.target.name]: e.target.value
                 })
             },
-            register: async e => {
+            setTotal: (total) => {
+                setStore({
+                    total: total
+                })
+            },
+            register: async (e, history) => {
                 e.preventDefault();
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/register`, {
@@ -100,6 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         error: msg
                     })
                 } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(data))
                     setStore({
                         name: '',
                         last_name: '',
@@ -109,12 +116,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         address: '',
                         currentUser: data,
                         error: null
-                    })
-                    sessionStorage.setItem('currentUser', JSON.stringify(data))
-                }
-                console.log(data);
+                    })                    
+                    history.push('/')
+                }                
             },
-            login: async e => {
+            login: async (e, history) => {
                 e.preventDefault();
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/login`, {
@@ -137,6 +143,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         error: msg
                     })
                 } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(data));
                     setStore({
                         name: '',
                         last_name: '',
@@ -145,9 +152,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         phone: '',
                         address: '',
                         currentUser: data,
-                        error: null
-                    })
-                    sessionStorage.setItem('currentUser', JSON.stringify(data))
+                        error: null,
+                        cart: [],
+                        quantity: 0
+                    });                    
+                    history.push('/')
                 }
 
                 console.log(data);
@@ -156,36 +165,49 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 let found = false;
                 let user = JSON.parse(sessionStorage.getItem("currentUser"));
-                // if (store.cart.length === 0) {
-                //     store.cart.map(function (product, index) {
-                //         console.log(product)
-                //     })
-                // }              
-                if (store.cart.length == 0) {
-                    console.log("hola");
+                if (!!user) {                             
+                if (store.cart.length == 0) {                    
                     setStore({
                         cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
                     })
                 } else {
                     for (let i = 0; i < store.cart.length; i++) {
-                        if (item.sku === store.cart[i].product.sku) {
-                            console.log("hola")
+                        if (item.sku === store.cart[i].product.sku) {                            
                             store.cart[i].quantity++;
                             found = true;
                             break;
                         }
                     }
-                    if (!found) {
-                        console.log("chao")
+                    if (!found) {                        
                         setStore({
                             cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
                         })
+                    }
+                }} else {
+                    if (store.cart.length == 0) {                    
+                        setStore({
+                            cart: store.cart.concat({ product: item, quantity: 1})
+                        })
+                    } else {
+                        for (let i = 0; i < store.cart.length; i++) {
+                            if (item.sku === store.cart[i].product.sku) {                            
+                                store.cart[i].quantity++;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {                        
+                            setStore({
+                                cart: store.cart.concat({ product: item, quantity: 1})
+                            })
+                        }
                     }
                 }
                 setStore({
                     quantity: store.cart.reduce((total, a) => { return total + a.quantity }, 0)
                 })
                 localStorage.setItem('currentCart', JSON.stringify(store.cart))
+                localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
             },
             updateCart: () => {
                 const store = getStore();
@@ -193,15 +215,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                     cart: JSON.parse(localStorage.getItem("currentCart"))
                 })
             },
-            deleteProduct: (i) => {
+            deleteProduct: (i, productQuantity) => {
                 const store = getStore();
-                let { cart } = store;
+                let { cart, quantity } = store;
                 cart.splice(i, 1)
+                quantity = quantity - productQuantity;                
                 setStore({
                     cart: cart,                
-                    quantity: store.cart.reduce((total, a) => { return total - a.quantity }, 0)
+                    quantity: quantity
                 })
                 localStorage.setItem('currentCart', JSON.stringify(cart))
+                localStorage.setItem('quantityCart', JSON.stringify(store.quantity)) 
             },
             getTotalCart: () => {
                 const store = getStore();
@@ -212,6 +236,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
 
                 console.log(total);
+            },
+            logout: () => {
+                const store = getStore();                
+                setStore({
+                    quantity: 0,
+                    cart: [],
+                    currentUser: null
+                });
+                sessionStorage.removeItem('currentUser');
+                localStorage.setItem('quantityCart', JSON.stringify(store.quantity))                    
+            },
+            cartNumActualize: () => {
+                setStore({
+                    quantity: JSON.parse(localStorage.getItem("quantityCart")),                    
+                });   
             }
         }
     }

@@ -18,8 +18,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         actions.getProductsFiltered(brewing)
         console.log(brewing)
     }, [brewing]);
-
-    console.log(store.products)
+   
 
     // sets apiURL from onChange in <select id="sortCombo"> 
     const handleSort = (e) => {
@@ -342,10 +341,10 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                                         <h6 className="card-title">{product.name}</h6>
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
-                                                        <p className="card-text my-0">${product.price}</p>
-                                                        <div className="d-flex align-items-baseline mt-2">
+                                                        <p className="card-text my-0">{product.price}</p>
+                                                        <div className="d-flex align-items-baseline justify-content-between">
                                                             <Link to={`/products/${index}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                            <button className="btn btn-sm c-accent ml-1"><i className="fas fa-cart-plus"></i></button>
+                                                            <button className="btn btn-sm c-accent ml-1" onClick={()=> actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>

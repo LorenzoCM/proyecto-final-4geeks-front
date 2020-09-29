@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const Register = props => {
     const { store, actions } = useContext(Context);
+    const history = useHistory();
 
     return (
         <div className="container">
             <div className="row">
-                <form className="mx-auto mt-5" onSubmit={actions.register}>
+                <form className="mx-auto mt-5" onSubmit={(e) => actions.register(e, history)}>
                     <h2 className="text-center mb-5">Crea tu cuenta</h2>
                     {
                         store.error !== null && (

@@ -4,11 +4,9 @@ import { Context } from "../store/appContext";
 
 const Navbar = () => {
     const { store, actions } = useContext(Context);
-    const [totalCart, setTotalCart] = useState(0);
-    // useEffect(() => {
-    //     setTotalCart(store.cart.reduce((total, a) => { return total + a.quantity }, 0))
-    //     console.log(totalCart)
-    // }, [store.cart, totalCart]);
+    const [totalCart, setTotalCart] = useState(0); 
+    let user = JSON.parse(sessionStorage.getItem("currentUser"));
+    let cartNumItems = JSON.parse(localStorage.getItem("quantityCart"));
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark c-black navbar-collapse py-5 d-flex flex-column">
@@ -40,17 +38,18 @@ const Navbar = () => {
                 <div className="d-flex flex-column align-items-end">
                     <div>
                         <button className="btn border-0 text-white" type="button"><i className="fas fa-search"></i></button>
-                        <Link to="/cart" className="btn border-0 text-white" type="submit"><i className="fas fa-shopping-cart"> {store.quantity}</i></Link>
+                        <Link to="/cart" className="btn border-0 text-white" type="submit"><i className="fas fa-shopping-cart"> {cartNumItems}</i></Link>
                     </div>
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Login
+                        {!!user ? user.user.name : "Login"}
                                 </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <Link to="/login" className="dropdown-item" href="#">Login</Link>
-                            <a className="dropdown-item" href="#">Logout</a>
+                            <a className="dropdown-item" href="#" onClick={actions.logout}>Logout</a>
                             <div className="dropdown-divider"></div>
                             <Link to="/register" className="dropdown-item" href="#">Register</Link>
+                            
                         </div>
                     </div>
                 </div>
