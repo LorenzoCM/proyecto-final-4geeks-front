@@ -16,6 +16,7 @@ import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 import AdminUsersList from './views/adminUsersList';
+import AddProduct from './views/productInputAdmin.js';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Route exact path="/products/:index" component={ProductDetails} />
         <Route exact path="/blog" component={Blog} />
         {/* This is supposed to receive a username from database <:username> vvv */}
-        <Route exact path="/username" component={MyAccount} />               
+        <Route exact path="/micuenta" component={MyAccount} />               
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admin4geeks" component={AdminProductsList} />
         <Route exact path="/admincoffee/users" component={AdminUsersList} />
+        <Route exact path="/admincoffee/formproduct" component={AddProduct} />
       </Switch> 
       <Newsletter />
       <Footer />

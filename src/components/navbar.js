@@ -27,7 +27,7 @@ const Navbar = () => {
                                 <Link to="/products" className="nav-link text-white">Tienda</Link>
                             </li>
                             <li className="nav-item dropdown mx-3">
-                                <Link to="/blog" className="nav-link dropdown-toggle text-white"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <Link to="/blog" className="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Blog
                                 </Link>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -47,21 +47,21 @@ const Navbar = () => {
                         <button className="btn border-0 text-white" type="button"><i className="fas fa-search"></i></button>
                         <Link to="/cart" className="btn border-0 text-white" type="submit"><i className="fas fa-shopping-cart"> {cartNumItems}</i></Link>
                     </div>
-                                <div className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {!!user ? user.user.name : "Login"}
-                                    </a>
-                                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <Link to="/login" className="dropdown-item" href="#">Login</Link>
-                                        <a className="dropdown-item" href="#" onClick={actions.logout}>Logout</a>
-                                        <div className="dropdown-divider"></div>
-                                        <Link to="/register" className="dropdown-item" href="#">Register</Link>
+                    <div className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {!!user ? user.user.name : "Login"}
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <Link to={!!user ? "/micuenta" : "/login"} className="dropdown-item">{!!user ? "Mi Cuenta" : "Login"}</Link>
+                            <a className="dropdown-item" href="#" onClick={actions.logout}>Logout</a>
+                            <div className={!!user ? "d-none" : "dropdown-divider"}></div>
+                            <Link to="/register" className={!!user ? "d-none" : "dropdown-item"} href="#">Register</Link>
 
-                                    </div>
-                                </div>
-                </div>
                         </div>
-                    </nav>
+                    </div>
+                </div>
+            </div>
+        </nav>
     );
 };
 
