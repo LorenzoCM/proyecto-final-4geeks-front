@@ -20,7 +20,20 @@ const getState = ({ getStore, getActions, setStore }) => {
             success: null,
             quantity: 0,
             cart: [],
-            total: 0
+            total: 0,
+            productSku: '',
+            productBrand: '',
+            productName: '',
+            productPresentation: '',
+            productPrice: '',
+            stock: '',
+            origin: '',
+            species: '',
+            ground: '',
+            acidity: '', 
+            roasting: '',
+            productDescription: '',
+            productImage: ''
         },
         actions: {
             getUsers: filters => {
