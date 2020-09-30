@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 const Navbar = () => {
     const { store, actions } = useContext(Context);
-    const [totalCart, setTotalCart] = useState(0); 
+    const [totalCart, setTotalCart] = useState(0);
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
     let cartNumItems = JSON.parse(localStorage.getItem("quantityCart"));
 
@@ -26,8 +26,15 @@ const Navbar = () => {
                             <li className="nav-item mx-3">
                                 <Link to="/products" className="nav-link text-white">Tienda</Link>
                             </li>
-                            <li className="nav-item mx-3">
-                                <Link to="/blog" className="nav-link text-white">Blog</Link>
+                            <li className="nav-item dropdown mx-3">
+                                <Link to="/blog" className="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Blog
+                                </Link>
+                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <Link className="dropdown-item" to="/blog#sobrecafe">Sobre el café</Link>
+                                    <Link className="dropdown-item" to="/blog#coffeebrewing">Coffee Brewing Guides</Link>
+                                    <Link className="dropdown-item" to="/blog#maquinas">Acerca de las máquinas de café</Link>
+                                </div>
                             </li>
                             <li className="nav-item">
                                 <Link to="/contact" className="nav-link text-white">Contacto</Link>
@@ -42,14 +49,14 @@ const Navbar = () => {
                     </div>
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {!!user ? user.user.name : "Login"}
-                                </a>
+                            {!!user ? user.user.name : "Login"}
+                        </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <Link to="/login" className="dropdown-item" href="#">Login</Link>
+                            <Link to={!!user ? "/micuenta" : "/login"} className="dropdown-item">{!!user ? "Mi Cuenta" : "Login"}</Link>
                             <a className="dropdown-item" href="#" onClick={actions.logout}>Logout</a>
-                            <div className="dropdown-divider"></div>
-                            <Link to="/register" className="dropdown-item" href="#">Register</Link>
-                            
+                            <div className={!!user ? "d-none" : "dropdown-divider"}></div>
+                            <Link to="/register" className={!!user ? "d-none" : "dropdown-item"} href="#">Register</Link>
+
                         </div>
                     </div>
                 </div>

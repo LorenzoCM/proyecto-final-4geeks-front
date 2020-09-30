@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/products/:index" component={ProductDetails} />
         <Route exact path="/blog" component={Blog} />
         {/* This is supposed to receive a username from database <:username> vvv */}
-        <Route exact path="/username" component={MyAccount} />               
+        <Route exact path="/micuenta" component={MyAccount} />               
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
