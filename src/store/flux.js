@@ -36,6 +36,24 @@ const getState = ({ getStore, getActions, setStore }) => {
             productImage: ''
         },
         actions: {
+            mercadoPAGO: items => {
+                fetch("https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(filters)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({...store,
+                            users: data
+                        })
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
             getUsers: filters => {
                 let store = getStore()
                 fetch("http://127.0.0.1:5000/api/admincoffee/users", {

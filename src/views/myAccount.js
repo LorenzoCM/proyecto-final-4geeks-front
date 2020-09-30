@@ -10,6 +10,33 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         editAddress: false
     });
 
+    const handleEditPassword = e => {
+        e.preventDefault();
+        if (tabs.editPassword == false) {
+            setTabs({ ...tabs, editPassword: true })
+        } else {
+            setTabs({ ...tabs, editPassword: false })
+        }
+    };
+
+    const handleEditAddress = e => {
+        e.preventDefault();
+        if (tabs.editAddress == false) {
+            setTabs({ ...tabs, editAddress: true })
+        } else {
+            setTabs({ ...tabs, editAddress: false })
+        }
+    };
+
+    const handleEditData = e => {
+        e.preventDefault();
+        if (tabs.editData == false) {
+            setTabs({ ...tabs, editData: true })
+        } else {
+            setTabs({ ...tabs, editData: false })
+        }
+    };
+
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
 
     return (
@@ -41,7 +68,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         }} href="#">Mis compras</a>
                     </li>
                     <li className="nav-item">
-                        <a className={"nav-link" + (tabs.tabs === "productosAdmin" && user.user.role === 'isAdmin' ? " active" : "")} onClick={() => {
+                        <a className={"nav-link" + (tabs.tabs === "productosAdmin" && user.user.role === 'isAdmin' ? " active" : " d-none")} onClick={() => {
                             setTabs({
                                 ...tabs,
                                 tabs: "productosAdmin"
@@ -49,7 +76,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         }} href="#">Administrar Productos</a>
                     </li>
                     <li className="nav-item">
-                        <a className={"nav-link" + (tabs.tabs === "usersAdmin" && user.user.role === 'isAdmin' ? " active" : "")} onClick={() => {
+                        <a className={"nav-link" + (tabs.tabs === "usersAdmin" && user.user.role === 'isAdmin' ? " active" : " d-none")} onClick={() => {
                             setTabs({
                                 ...tabs,
                                 tabs: "usersAdmin"
@@ -59,8 +86,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                 </ul>
                 <section>
                     <div className={tabs.tabs === "misDatos" ? "" : "d-none"}>
-                        <h5 className="mt-5 mb-3">Mi cuenta</h5 >
                         <form >
+                            <div className="d-flex justify-content-between align-items-baseline">
+                                <h5 className="mt-5 mb-3">Mi cuenta</h5 >
+                                <button className="btn c-coffee text-white" onClick={e => handleEditData(e)}>Editar mis datos</button>
+                            </div>
                             <div className="form-row">
                                 <div className="form-group col-md-6">
                                     <label for="nombrecuenta">Nombre</label>
@@ -81,47 +111,35 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                     <input type="phone" className="form-control" id="telefonocuenta" defaultValue={user.user.phone} readOnly={tabs.editData == false ? true : false} />
                                 </div>
                             </div>
-                            <div className="form-row col-md-6">
-                                <button className="btn btn-sm c-coffee text-white ml-n2">Cambiar contraseña</button>
-                            </div>
-                            <div className="form-group">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" className="form-control" id="inputAddress" defaultValue={user.user.address} readOnly={tabs.editAddress == false ? true : false} />
-                                <span className="text-weight-light small">Cambiar dirección</span>
-                            </div>
-                            <div className="form-group">
-                                <button className="btn c-coffee text-white">Editar</button>
-                            </div>
-                        </form>
-                        {/* <h5 className="mt-5 mb-3">Mi dirección</h5 >
-                        <form >
-                            <div className="form-group">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" className="form-control" id="inputAddress" readOnly={tabs.editData == false ? true : false} />
-                            </div>
-                            <div className="form-group">
-                                <label for="inputAddress2">Address 2</label>
-                                <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-                            </div>
                             <div className="form-row">
-                                <div className="form-group col-md-6">
-                                    <label for="inputCity">City</label>
-                                    <input type="text" className="form-control" id="inputCity" />
+                                <div className="form-group col-md-4">
+                                    <label for="passwordcuenta" className={tabs.editPassword == false ? " d-none" : ""}>Password Actual</label>
+                                    <input type="password" className={"form-control" + (tabs.editPassword == false ? " d-none" : "")} id="passwordcuenta" />
                                 </div>
                                 <div className="form-group col-md-4">
-                                    <label for="inputState">State</label>
-                                    <select id="inputState" className="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
+                                    <label for="nuevopasswordcuenta" className={tabs.editPassword == false ? " d-none" : ""}>Nuevo Password</label>
+                                    <input type="password" className={"form-control" + (tabs.editPassword == false ? " d-none" : "")} id="nuevopasswordcuenta" />
                                 </div>
-                                <div className="form-group col-md-2">
-                                    <label for="inputZip">Zip</label>
-                                    <input type="text" className="form-control" id="inputZip" />
+                                <div className="form-group col-md-4">
+                                    <label for="nuevopasswordcuentaV" className={tabs.editPassword == false ? " d-none" : ""}>Repite tu nuevo Password</label>
+                                    <input type="password" className={"form-control" + (tabs.editPassword == false ? " d-none" : "")} id="nuevopasswordcuentaV" />
+                                </div>
+                                <div className={"form-group col-md-12 d-flex" + (tabs.editPassword == true ? " justify-content-end" : " justify-content-start")}>
+                                    <button className={"btn btn-sm c-silver border border-dark text-dark" + (tabs.editPassword == true ? " d-none" : "")} onClick={e => handleEditPassword(e)}>Cambiar contraseña</button>
+                                    <button className={"btn btn-sm c-coffee text-white" + (tabs.editPassword == false ? " d-none" : "")} onClick={e => handleEditPassword(e)}>Cambiar contraseña</button>
                                 </div>
                             </div>
-                            <span>Cambiar dirección</span>
-                        </form> */}
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" className="form-control" id="inputAddress" defaultValue={user.user.address} readOnly={tabs.editAddress == false ? true : false} />
+                                </div>
+                                <div className={"form-group col-md-12 d-flex" + (tabs.editAddress == true ? " justify-content-end" : " justify-content-start")}>
+                                    <button className={"btn btn-sm c-silver border border-dark text-dark" + (tabs.editAddress == true ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Cambiar dirección</button>
+                                    <button className={"btn btn-sm c-coffee text-white" + (tabs.editAddress == false ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Cambiar dirección</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div className={tabs.tabs == "misFavoritos" ? "" : "d-none"}>
                         <h5 className="mt-5 mb-3">Mis productos favoritos</h5 >
