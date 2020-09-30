@@ -53,7 +53,7 @@ const Navbar = () => {
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <Link to={!!user ? "/micuenta" : "/login"} className="dropdown-item">{!!user ? "Mi Cuenta" : "Login"}</Link>
-                            <a className="dropdown-item" href="#" onClick={actions.logout}>Logout</a>
+                            <Link to="/" className="dropdown-item" onClick={actions.logout}>Logout</Link>
                             <div className={!!user ? "d-none" : "dropdown-divider"}></div>
                             <Link to="/register" className={!!user ? "d-none" : "dropdown-item"} href="#">Register</Link>
 
