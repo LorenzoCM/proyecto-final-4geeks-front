@@ -163,7 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({
                         name: '',
                         last_name: '',
-                        password: '',
+                        password: '', 
                         email: '',
                         phone: '',
                         address: '',
