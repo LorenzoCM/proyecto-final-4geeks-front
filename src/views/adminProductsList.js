@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const AdminProductsList = props => {
     const { store, actions } = useContext(Context);
+    const location = useLocation();
 
     const [brewing, setBrewing] = useState({
         sorting: "priceup",
@@ -62,6 +64,8 @@ const AdminProductsList = props => {
                                     <th scope="col">sku</th>
                                     <th scope="col">Presentation</th>
                                     <th scope="col">Image</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,13 +81,15 @@ const AdminProductsList = props => {
                                                 <td>{product.sku}</td>
                                                 <td>{product.presentation}</td>
                                                 <td>{product.image}</td>
+                                                <td><button className="btn btn-sm btn-dark">Editar</button></td>
+                                                <td><button className="btn btn-sm btn-danger" onClick={()=>actions.deleteProducts(product.id, index)}>Eliminar</button></td>                                                  
                                             </tr>
                                         )
                                     })
                                 }
                             </tbody>
-                        </table>
-                    </div>
+                        </table>                        
+                    </div>                    
                 </div>
             </div>
         </div>

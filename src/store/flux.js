@@ -1,4 +1,6 @@
-const getState = ({ getStore, getActions, setStore }) => {
+import { useLocation } from "react-router-dom";
+
+const getState = ({ getStore, getActions, setStore }) => {    
     return {
         store: {
             users: null,
@@ -105,6 +107,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .catch((error) => {
                         console.log(error)
                     });
+            },
+            deleteProducts: async (id, index) => {                
+                const store = getStore();
+                const resp = await fetch(`${store.apiURL}/api/products/${id}`, {
+                    method: 'DELETE'            
+                })
+                const data = await resp.json();
+                const { msg } = data;
+                console.log(data);
+                let { products } = store;
+                products.splice(index, 1)
+                setStore({
+                    products: products
+                })                                                               
             },
             handleChangeLogin: e => {
                 setStore({

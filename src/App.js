@@ -16,6 +16,7 @@ import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 import AdminUsersList from './views/adminUsersList';
+import AddProduct from './views/addProduct'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admin4geeks" component={AdminProductsList} />
         <Route exact path="/admincoffee/users" component={AdminUsersList} />
+        <Route exact path="/admincoffee/addproduct" component={AddProduct} />
       </Switch> 
       <Newsletter />
       <Footer />
