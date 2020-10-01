@@ -97,7 +97,7 @@ const EditProduct = (props) => {
                         
                         <div className="form-group col-12 col-md-12 col-lg-4">
                             <label className="control-label small" for="filebutton">product_image</label>
-                            <input id="file" name="image" className="input-file" type="file" onChange={actions.handleChangeEditFiles} />
+                            <input id="file" name="productImage" className="input-file" type="file" onChange={actions.handleChangeFiles} />
                         </div>
                     </div>                    
                     <div className="d-flex justify-content-center">                        

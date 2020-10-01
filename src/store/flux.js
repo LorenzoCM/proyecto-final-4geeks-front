@@ -186,7 +186,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({
                     [e.target.name]: e.target.files[0]
                 })
-            },           
+            },            
             handleChangeEditFiles: e => {
                 const store = getStore();                
                 let { productDetails  } = store;
@@ -376,7 +376,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("acidity", store.productDetails.acidity);
                 formData.append("roasting", store.productDetails.roasting);
                 formData.append("description", store.productDetails.description);
-                formData.append("image", store.productDetails.image);                
+                formData.append("image", store.productImage);                
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
                     method: 'PUT',
                     body: formData,
