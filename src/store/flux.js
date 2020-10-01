@@ -36,24 +36,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             productImage: ''
         },
         actions: {
-            mercadoPAGO: items => {
-                fetch("https://www.mercadopago.cl/integrations/v1/web-payment-checkout.js", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(filters)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        setStore({...store,
-                            users: data
-                        })
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    });
-            },
             getUsers: filters => {
                 let store = getStore()
                 fetch("http://127.0.0.1:5000/api/admincoffee/users", {
@@ -73,6 +55,22 @@ const getState = ({ getStore, getActions, setStore }) => {
                         console.log(error)
                     });
             },
+            putUserFromList: user => {
+                fetch(`http://127.0.0.1:5000/api/admincoffee/users/${user.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        return "ok"
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
             getUserDetails: id => {
                 let store = getStore()
                 fetch(`http://127.0.0.1:5000/api/admincoffee/users/${id}`, {
@@ -87,6 +85,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                         setStore({
                             userDetails: data
                         })                       
+                    });
+            },
+            deleteUser: (id) => {
+                fetch(`http://127.0.0.1:5000/api/admincoffee/users/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        return data
                     });
             },
             getProductDetails: id => {
@@ -204,6 +214,46 @@ const getState = ({ getStore, getActions, setStore }) => {
                     history.push('/')
                 }                
             },
+            putCurrentUser: async (e, id) => {
+                e.preventDefault();
+                const store = getStore();
+                const resp = await fetch(`${store.apiURL}/api/register/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        name: store.name,
+                        last_name: store.last_name,
+                        password: store.password,
+                        email: store.email,
+                        phone: store.phone,
+                        address: store.address
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                const data = await resp.json();
+
+                const { msg } = data;
+
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(data))
+                    setStore({
+                        name: '',
+                        last_name: '',
+                        password: '', 
+                        email: '',
+                        phone: '',
+                        address: '',
+                        currentUser: data,
+                        error: null
+                    }) 
+                }                
+            },
             login: async (e, history) => {
                 e.preventDefault();
                 const store = getStore();
@@ -295,9 +345,16 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             updateCart: () => {
                 const store = getStore();
-                setStore({
-                    cart: JSON.parse(localStorage.getItem("currentCart"))
-                })
+                let cartInitializer = JSON.parse(localStorage.getItem("currentCart"))
+                if (cartInitializer == null){
+                    setStore({
+                        cart: []
+                    })
+                }else{
+                    setStore({
+                        cart: JSON.parse(localStorage.getItem("currentCart"))
+                    })
+                }
             },
             deleteProduct: (i, productQuantity) => {
                 const store = getStore();
@@ -332,10 +389,29 @@ const getState = ({ getStore, getActions, setStore }) => {
                 localStorage.setItem('quantityCart', JSON.stringify(store.quantity))                    
             },
             cartNumActualize: () => {
+                let cartInitializer = JSON.parse(localStorage.getItem("quantityCart"))
+                if (cartInitializer == null){
+                    setStore({
+                        cart: []
+                    })
+                }else{
+                    setStore({
+                        cart: JSON.parse(localStorage.getItem("quantityCart"))
+                    })
+                }  
+            },
+            setCurrentUser: user => {
                 setStore({
-                    quantity: JSON.parse(localStorage.getItem("quantityCart")),                    
-                });   
+                    name: user.user.name,
+                    last_name: user.user.last_name,
+                    password: user.user.password,
+                    email: user.user.email,
+                    phone: user.user.phone,
+                    address: user.user.adress,
+                    error: null
+                })
             }
+            
         }
     }
 }
@@ -347,3 +423,4 @@ export default getState;
 // cart = [ { product: { }, quantity: 1, user_id: 1 }, { product: { }, quantity: 1, user_id: 1 }, ]
 
 // cart.indexOf({product: { }, quantity: 1, user_id: 1})
+
