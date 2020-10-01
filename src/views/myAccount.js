@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
@@ -16,10 +17,34 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
     });
     const [filters, setFilters] = useState({
         sorting: "nameup",
-        is_admin: ["isUser", "isAdmin"]
+        role: ""
     });
 
-    const handleSort = (e) => {
+    const [brewing, setBrewing] = useState({
+        sorting: "priceup",
+        groundFilter: [],
+        originFilter: [],
+        pricefilterMin: 0,
+        pricefilterMax: 99999
+    });
+
+    // sets apiURL from onChange in <select id="sortCombo"> 
+    const handleSortProducts = e => {
+        if (e.target.value == 2) {
+            setBrewing({ ...brewing, sorting: "pricedown" });
+        }
+        else if (e.target.value == 3) {
+            setBrewing({ ...brewing, sorting: "brandup" })
+        }
+        else if (e.target.value == 4) {
+            setBrewing({ ...brewing, sorting: "branddown" })
+        }
+        else {
+            setBrewing({ ...brewing, sorting: "priceup" })
+        }
+    };
+
+    const handleSortUsers = e => {
         if (e.target.value == 2) {
             setFilters({ ...filters, sorting: "namedown" });
         }
@@ -30,11 +55,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
 
     const handleIsAdmin = (e) => {
         if (e.target.value == "user") {
-            setFilters({ ...filters, is_admin: ["isUser"] });
+            setFilters({ ...filters, role: "isUser" });
         } else if (e.target.value == "admin") {
-            setFilters({ ...filters, is_admin: ["isAdmin"] })
+            setFilters({ ...filters, role: "isAdmin" })
         } else {
-            setFilters({ ...filters, is_admin: [] })
+            setFilters({ ...filters, role: "" })
         }
     };
 
@@ -121,9 +146,14 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
     }
 
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(store.userDetails)
+
+    useEffect(() => {      
+        actions.getProductsFiltered(brewing)
+    }, [brewing]);
 
     useEffect(() => {
-        actions.setCurrentUser(user)
+        actions.getUserDetails(user.user.id)
     }, [])
 
     useEffect(() => {
@@ -144,7 +174,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         <div class="modal-body">Estás seguro?</div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" class="btn btn-danger" onClick={()=>{actions.deleteUser(tabs.userID); setTabs({...tabs, userID: null})}} >Eliminar</button>
+                            <button type="button" class="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -167,14 +197,14 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                             })
                         }} href="#">Mis favoritos</a>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a className={"nav-link" + (tabs.tabs === "misCompras" ? " active" : "")} onClick={() => {
                             setTabs({
                                 ...tabs,
                                 tabs: "misCompras"
                             })
                         }} href="#">Mis compras</a>
-                    </li>
+                    </li> */}
                     {
                         user.user.role === "isAdmin" &&
                         <>
@@ -198,7 +228,8 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                     }
                 </ul>
                 <section>
-                    {
+                    {   
+                        !!store.userDetails &&
                         tabs.tabs === "misDatos" &&
                         <div>
                             {
@@ -231,21 +262,21 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="nombrecuenta">Nombre</label>
-                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={user.user.name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={!!store.userDetails && store.userDetails.name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="apellidocuenta">Apellido</label>
-                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={user.user.last_name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={!!store.userDetails && store.userDetails.last_name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="emailcuenta">Email</label>
-                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={user.user.email} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={!!store.userDetails && store.userDetails.email} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="telefonocuenta">Teléfono</label>
-                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={user.user.phone} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={!!store.userDetails && store.userDetails.phone} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
                                     </div>
                                 </div>
                                 <div className="form-row">
@@ -291,7 +322,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 <div className="form-row">
                                     <div className="form-group col-md-12">
                                         <label for="inputAddress">Address</label>
-                                        <input type="text" className="form-control" id="inputAddress" defaultValue={user.user.address} readOnly={tabs.editAddress == false ? true : false} onChange={actions.handleChangeLogin} />
+                                        <input type="text" className="form-control" id="inputAddress" defaultValue={!!store.userDetails && store.userDetails.address} readOnly={tabs.editAddress == false ? true : false} onChange={actions.handleUserInfoUpdate} />
                                     </div>
                                     <div className={"form-group col-md-12 d-flex" + (tabs.editAddress == true ? " justify-content-end" : " justify-content-start")}>
                                         <button className={"btn btn-sm c-silver border border-dark text-dark" + (tabs.editAddress == true ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Editar dirección</button>
@@ -303,40 +334,29 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                     }
                     {
                         tabs.tabs === "misFavoritos" &&
-                        <div>
-                            <h5 className="mt-5 mb-3">Mis productos favoritos</h5 >
-                            <div className="card-deck mt-5 w-100 d-flex flex-row flex-nowrap overflow-auto">
-                                <div className="card card-thumbnail">
-                                    <img src="https://rutadelcafeperuano.com/wp-content/uploads/2018/03/NEYRA.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-                                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    </div>
-                                    <div className="card-footer">
-                                        <small className="text-muted">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                                <div className="card card-thumbnail">
-                                    <img src="https://rutadelcafeperuano.com/wp-content/uploads/2018/03/NEYRA.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-                                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    </div>
-                                    <div className="card-footer">
-                                        <small className="text-muted">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                                <div className="card card-thumbnail">
-                                    <img src="https://rutadelcafeperuano.com/wp-content/uploads/2018/03/NEYRA.png" className="card-img-top" alt="..." />
-                                    <div className="card-body">
-                                        <h5 className="card-title">Card title</h5>
-                                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    </div>
-                                    <div className="card-footer">
-                                        <small className="text-muted">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="card-deck d-flex my-5 overflow-auto">
+                            {
+                                !!store.products &&
+                                store.products.map((product, index) => {
+                                    return (
+                                        <div className="card-thumbnail mt-2" key={index}>
+                                            <div className="card border border-dark rounded-0">
+                                                <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" alt="..." />
+                                                <div className="card-body border-top py-2 px-3" >
+                                                    <h6 className="card-title">{product.name}</h6>
+                                                    <p className="card-text my-0">{product.brand}</p>
+                                                    <p className="card-text my-0">{product.origin}</p>
+                                                    <p className="card-text my-0">{product.price}</p>
+                                                    <div className="d-flex align-items-baseline justify-content-between">
+                                                        <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
+                                                        <button className="btn btn-sm c-accent ml-1" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     }
                     {
@@ -394,17 +414,17 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         tabs.tabs === "usersAdmin" &&
                         <div className="container">
                             <div className="d-flex justify-content-end align-items-baseline my-3">
+                                <p className="mr-2">Mostrar</p>
+                                <select className="custom-select w-25 mr-3" id="usersSortCombo2" onChange={e => handleIsAdmin(e)}>
+                                    <option value="all">Todos</option>
+                                    <option value="user">Usuarios</option>
+                                    <option value="admin">Administradores</option>
+                                </select>
                                 <p className="mr-2">Ordenar por</p>
-                                <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSort(e)}>
+                                <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSortUsers(e)}>
                                     <option value="1">Nombre (A...Z)</option>
                                     <option value="2">Nombre (Z...A)</option>
                                 </select>
-                                {/* <p className="mr-2">Mostrar</p>
-                <select className="custom-select w-25" id="usersSortCombo2" onChange={e => handleIsAdmin(e)}>
-                    <option value="all">Todos</option>
-                    <option value="user">Usuarios</option>
-                    <option value="admin">Administradores</option>
-                </select> */}
                             </div>
                             <div>
                                 <table className="table table-striped text-center">
@@ -431,12 +451,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                         <td>
                                                             {
                                                                 user.role === "isUser" ?
-                                                                    <button className="btn btn-success btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-plus"></i></button>
+                                                                    <button className="btn btn-dark btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-plus"></i></button>
                                                                     :
-                                                                    <button className="btn btn-primary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-minus"></i></button>
+                                                                    <button className="btn btn-secondary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-minus"></i></button>
 
                                                             }
-                                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal" onClick={()=>{setTabs({...tabs, userID: user.id})}}>Eliminar</button>
+                                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id }) }}>Eliminar</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -446,9 +466,60 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                             </div>
                         </div>
                     }
-                </section>
-                <section>
-
+                    {
+                        tabs.tabs === "productosAdmin" &&
+                        <div className="container">
+                            <div className="d-flex justify-content-end align-items-baseline my-3">
+                                <p className="mr-2">Ordenar por</p>
+                                <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSortProducts(e)}>
+                                    <option value="1">Precio (Ascendente)</option>
+                                    <option value="2">Precio (Descendente)</option>
+                                    <option value="3">Marca (A...Z)</option>
+                                    <option value="4">Marca (Z...A)</option>
+                                </select>
+                            </div>
+                            <table className="table table-striped text-center">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Brand</th>
+                                        <th scope="col">sku</th>
+                                        <th scope="col">Presentation</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {!!store.products &&
+                                        store.products.map((product, index) => {
+                                            return (
+                                                <tr>
+                                                    <th scope="row">{index + 1}</th>
+                                                    <td>{product.name}</td>
+                                                    <td>{(product.price).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
+                                                    <td>{product.stock}</td>
+                                                    <td>{product.brand}</td>
+                                                    <td>{product.sku}</td>
+                                                    <td>{product.ground}<br />{product.presentation}</td>
+                                                    <td>{product.image}</td>
+                                                    <td className="d-flex align-items-baseline">
+                                                        <button className="btn btn-sm btn-dark mr-2">Editar</button>
+                                                        <button className="btn btn-sm btn-danger" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                            <div className="d-flex justify-content-end">
+                                <button className="btn btn-dark mr-2">Crear Nuevo</button>
+                            </div>
+                        </div>
+                    }
                 </section>
             </div>
         </>

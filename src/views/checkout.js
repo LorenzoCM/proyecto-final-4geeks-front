@@ -1,41 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../store/appContext';
 
 
 const Checkout = (props) => {
     const { store, actions } = useContext(Context);
+    const [ payPal, setPayPal] = useState({
+        checkout: false,
+        paidFor: null,
+        loaded: null
+    })
+
     const cartData = JSON.parse(localStorage.getItem("currentCart"));
     let priceSum = cartData.reduce(function (prev, product) {
         let total = (product.product.price * product.quantity);
         return prev + total;
     }, 0);
-
-    // SDK de Mercado Pago
-    // const mercadopago = require('mercadopago');
-
-    // // Agrega credenciales
-    // mercadopago.configure({
-    //     access_token: process.env.MERCADOPAGO_ACCESS_TOKEN
-    // });
-
-    // // Crea un objeto de preferencia
-    // let preference = {
-    //     items: [
-    //         {
-    //             title: 'Mi producto',
-    //             unit_price: 100,
-    //             quantity: 1,
-    //         }
-    //     ]
-    // };
-
-    // mercadopago.preferences.create(preference)
-    //     .then(function (response) {
-    //         // Este valor reemplazará el string "<%= global.id %>" en tu HTML
-    //         global.id = response.body.id;
-    //     }).catch(function (error) {
-    //         console.log(error);
-    //     });
 
     return (
         <div className="container">
