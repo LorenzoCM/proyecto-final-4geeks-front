@@ -15,7 +15,6 @@ import MyAccount from './views/myAccount.js';
 import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
-import AdminUsersList from './views/adminUsersList';
 import AddProduct from './views/addProduct';
 import EditProduct from './views/editProduct';
 
@@ -37,7 +36,6 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
-        <Route exact path="/admincoffee/users" component={AdminUsersList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
         <Route exact path="/admincoffee/editproduct/:id" component={EditProduct} />
       </Switch> 

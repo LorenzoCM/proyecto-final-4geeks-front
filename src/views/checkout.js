@@ -4,7 +4,6 @@ import { Context } from '../store/appContext';
 
 const Checkout = (props) => {
     const { store, actions } = useContext(Context);
-    const cartData = store.cart;
     const [ payPal, setPayPal] = useState({
         checkout: false,
         paidFor: null,
