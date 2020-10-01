@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-const getState = ({ getStore, getActions, setStore }) => {    
+const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             users: null,
@@ -30,10 +30,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             origin: '',
             species: '',
             ground: '',
-            acidity: '', 
+            acidity: '',
             roasting: '',
             productDescription: '',
-            productImage: ''
+            productImage: '',
+            categories: [1]
         },
         actions: {
             // mercadoPAGO: items => {
@@ -65,7 +66,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        setStore({...store,
+                        setStore({
+                            ...store,
                             users: data
                         })
                     })
@@ -86,7 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         console.log(data)
                         setStore({
                             userDetails: data
-                        })                       
+                        })
                     });
             },
             getProductDetails: id => {
@@ -115,7 +117,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(resp => resp.json())
                     .then(data => {
-                        setStore({...store,
+                        setStore({
+                            ...store,
                             categories: data
                         })
                     });
@@ -131,7 +134,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        setStore({...store,
+                        setStore({
+                            ...store,
                             products: data
                         })
                     })
@@ -139,24 +143,54 @@ const getState = ({ getStore, getActions, setStore }) => {
                         console.log(error)
                     });
             },
-            deleteProducts: async (id, index) => {                
+            deleteProducts: async (id, index) => {
                 const store = getStore();
-                const resp = await fetch(`${store.apiURL}/api/products/${id}`, {
-                    method: 'DELETE'            
+                const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': "Bearer " + store.currentUser.access_token               
+                    }
                 })
                 const data = await resp.json();
                 const { msg } = data;
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                } else {
                 console.log(data);
                 let { products } = store;
                 products.splice(index, 1)
                 setStore({
                     products: products
-                })                                                               
-            },
+                })
+            }},
             handleChangeLogin: e => {
                 setStore({
                     [e.target.name]: e.target.value
                 })
+            },
+            handleChangeProduct: e => {
+                const store = getStore();
+                let { productDetails } = store;
+                productDetails[e.target.name] = e.target.value
+                setStore({
+                    productDetails: productDetails
+                })                
+            },
+            handleChangeFiles: e => {
+                const store = getStore();
+                setStore({
+                    [e.target.name]: e.target.files[0]
+                })
+            },           
+            handleChangeEditFiles: e => {
+                const store = getStore();                
+                let { productDetails  } = store;
+                productDetails[e.target.name] = e.target.files[0]
+                setStore({
+                    productDetails: productDetails[e.target.name]
+                })               
             },
             setTotal: (total) => {
                 setStore({
@@ -194,15 +228,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({
                         name: '',
                         last_name: '',
-                        password: '', 
+                        password: '',
                         email: '',
                         phone: '',
                         address: '',
                         currentUser: data,
                         error: null
-                    })                    
+                    })
                     history.push('/')
-                }                
+                }
             },
             login: async (e, history) => {
                 e.preventDefault();
@@ -239,50 +273,124 @@ const getState = ({ getStore, getActions, setStore }) => {
                         error: null,
                         cart: [],
                         quantity: 0
-                    });                    
+                    });
                     history.push('/')
                 }
 
+                console.log(data);
+            },
+            addProduct: async (e) => {
+                e.preventDefault();
+                console.log("hola");
+                const store = getStore();
+                const formData = new FormData();
+                formData.append("sku", store.productSku);
+                formData.append("brand", store.productBrand);
+                formData.append("name", store.productName);
+                formData.append("presentation", store.productPresentation);
+                formData.append("price", parseInt(store.productPrice));
+                formData.append("stock", parseInt(store.stock));
+                formData.append("origin", store.origin);
+                formData.append("ground", store.ground);
+                formData.append("species", store.species);
+                formData.append("acidity", parseInt(store.acidity));
+                formData.append("roasting", parseInt(store.roasting));
+                formData.append("description", store.productDescription);
+                formData.append("image", store.productImage);
+                formData.append("categories", store.categories);
+                console.log(formData);
+                const resp = await fetch(`${store.apiURL}/api/admincoffee/products`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization': "Bearer " + store.currentUser.access_token               
+                    }
+                })
+                const data = await resp.json();
+
+                const { msg } = data;
+
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                }
+                console.log(data);
+            },
+            putProduct: async (e, id) => {
+                e.preventDefault();
+                const store = getStore();
+                const formData = new FormData();
+                formData.append("sku", store.productDetails.sku);
+                formData.append("brand", store.productDetails.brand);
+                formData.append("name", store.productDetails.name);
+                formData.append("presentation", store.productDetails.presentation);
+                formData.append("price", store.productDetails.price);
+                formData.append("stock", store.productDetails.stock);
+                formData.append("origin", store.productDetails.origin);
+                formData.append("ground", store.productDetails.ground);
+                formData.append("species", store.productDetails.species);
+                formData.append("acidity", store.productDetails.acidity);
+                formData.append("roasting", store.productDetails.roasting);
+                formData.append("description", store.productDetails.description);
+                formData.append("image", store.productDetails.image);                
+                const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
+                    method: 'PUT',
+                    body: formData,
+                    headers: {
+                        'Authorization': "Bearer " + store.currentUser.access_token               
+                    }
+                })
+                const data = await resp.json();
+
+                const { msg } = data;
+
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                }
                 console.log(data);
             },
             cartProducts: (item) => {
                 const store = getStore();
                 let found = false;
                 let user = JSON.parse(sessionStorage.getItem("currentUser"));
-                if (!!user) {                             
-                if (store.cart.length == 0) {                    
-                    setStore({
-                        cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
-                    })
-                } else {
-                    for (let i = 0; i < store.cart.length; i++) {
-                        if (item.sku === store.cart[i].product.sku) {                            
-                            store.cart[i].quantity++;
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {                        
+                if (!!user) {
+                    if (store.cart.length == 0) {
                         setStore({
                             cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
                         })
-                    }
-                }} else {
-                    if (store.cart.length == 0) {                    
-                        setStore({
-                            cart: store.cart.concat({ product: item, quantity: 1})
-                        })
                     } else {
                         for (let i = 0; i < store.cart.length; i++) {
-                            if (item.sku === store.cart[i].product.sku) {                            
+                            if (item.sku === store.cart[i].product.sku) {
                                 store.cart[i].quantity++;
                                 found = true;
                                 break;
                             }
                         }
-                        if (!found) {                        
+                        if (!found) {
                             setStore({
-                                cart: store.cart.concat({ product: item, quantity: 1})
+                                cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
+                            })
+                        }
+                    }
+                } else {
+                    if (store.cart.length == 0) {
+                        setStore({
+                            cart: store.cart.concat({ product: item, quantity: 1 })
+                        })
+                    } else {
+                        for (let i = 0; i < store.cart.length; i++) {
+                            if (item.sku === store.cart[i].product.sku) {
+                                store.cart[i].quantity++;
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            setStore({
+                                cart: store.cart.concat({ product: item, quantity: 1 })
                             })
                         }
                     }
@@ -295,21 +403,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             updateCart: () => {
                 const store = getStore();
-                setStore({
-                    cart: JSON.parse(localStorage.getItem("currentCart"))
-                })
+                let cartInitializer = JSON.parse(localStorage.getItem("currentCart"))
+                if (cartInitializer == null) {
+                    setStore({
+                        cart: []
+                    })
+                } else {
+                    setStore({
+                        cart: JSON.parse(localStorage.getItem("currentCart"))
+                    })
+                }
             },
             deleteProduct: (i, productQuantity) => {
                 const store = getStore();
                 let { cart, quantity } = store;
                 cart.splice(i, 1)
-                quantity = quantity - productQuantity;                
+                quantity = quantity - productQuantity;
                 setStore({
-                    cart: cart,                
+                    cart: cart,
                     quantity: quantity
                 })
                 localStorage.setItem('currentCart', JSON.stringify(cart))
-                localStorage.setItem('quantityCart', JSON.stringify(store.quantity)) 
+                localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
             },
             getTotalCart: () => {
                 const store = getStore();
@@ -322,19 +437,32 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log(total);
             },
             logout: () => {
-                const store = getStore();                
+                const store = getStore();
                 setStore({
                     quantity: 0,
                     cart: [],
                     currentUser: null
                 });
                 sessionStorage.removeItem('currentUser');
-                localStorage.setItem('quantityCart', JSON.stringify(store.quantity))                    
+                localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
+            },
+            setCurrentProduct: (product) => {
+                const store = getStore();
+                setStore({                    
+                    productDetails: product
+                });
             },
             cartNumActualize: () => {
+                const store = getStore();
                 setStore({
-                    quantity: JSON.parse(localStorage.getItem("quantityCart")),                    
-                });   
+                    quantity: JSON.parse(localStorage.getItem("quantityCart"))
+                });
+            },
+            isAuthenticated: () => {
+                const store = getStore();
+                setStore({
+                    currentUser: JSON.parse(sessionStorage.getItem("currentUser"))
+                })
             }
         }
     }

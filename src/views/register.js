@@ -26,7 +26,6 @@ const Register = props => {
                                 </button>
                             </div>
                         )
-
                     }
                     <div className="form-row">
                         <div className="form-group col-md-6">
