@@ -4,13 +4,13 @@ import { Context } from '../store/appContext';
 
 const Checkout = (props) => {
     const { store, actions } = useContext(Context);
-    const cartData = JSON.parse(localStorage.getItem("currentCart"));
+    const cartData = store.cart;
     let priceSum = cartData.reduce(function (prev, product) {
         let total = (product.product.price * product.quantity);
         return prev + total;
     }, 0);
 
-    // SDK de Mercado Pago
+    // // SDK de Mercado Pago
     // const mercadopago = require('mercadopago');
 
     // // Agrega credenciales
