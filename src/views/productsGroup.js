@@ -88,7 +88,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
             {/* <!-- Section: Sidebar --> */}
             <div className="container-fluid">
                 <div className="row">
-                    <section className="col-2 border-right border-bottom border-dark c-silver">
+                    <section className="col-2 c-coffee text-white">
 
                         {/* <!-- Section: Filters --> */}
                         <section className="d-flex flex-column align-items-start ml-2">
@@ -118,7 +118,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                             {/* <!-- Section: Type --> */}
 
                             {/* <!-- Section: Average --> */}
-                            <section className="mb-4">
+                            {/* <section className="mb-4">
 
                                 <h6 className="font-weight-bold mb-3">Rating</h6>
 
@@ -211,7 +211,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                     </ul>
                                 </a>
 
-                            </section>
+                            </section> */}
                             {/* <!-- Section: Average --> */}
 
                             {/* <!-- Section: Price version 2 --> */}
@@ -235,7 +235,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                             <label htmlFor="priceMax" className="mt-2 mb-0">$ Max</label>
                                             <input id="priceMax" type="number" className="form-control" onChange={e => { setBrewing({ ...brewing, pricefilterMax: e.target.value }) }} />
                                         </div>
-                                        <span className="text-sm text-muted mt-2" onClick={() => { setBrewing({ ...brewing, pricefilterMin: 0, pricefilterMax: 99999 }) }}>reset</span>
+                                        <a className="badge badge-secondary text-sm mt-3" onClick={() => { setBrewing({ ...brewing, pricefilterMin: 0, pricefilterMax: 99999 }) }}>Reset</a>
                                     </div>
                                 </form>
 
@@ -290,7 +290,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                             {/* <!-- Section: Origin --> */}
 
                             {/* <!-- Section: Categories --> */}
-                            <section className="mb-4">
+                            {/* <section className="mb-4">
 
                                 <h6 className="font-weight-bold mb-3">Categorías</h6>
 
@@ -305,7 +305,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                     }
                                 </div>
 
-                            </section>
+                            </section> */}
                             {/* <!-- Section: Categories --> */}
 
                         </section>
