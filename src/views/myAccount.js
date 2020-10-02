@@ -12,8 +12,8 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         passwordIsValidated: false,
         editData: false,
         editAddress: false,
-        userID: null
-
+        userID: null,
+        index: 0
     });
     const [filters, setFilters] = useState({
         sorting: "nameup",
@@ -145,8 +145,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         actions.putUserFromList(user)
     }
 
-    let user = JSON.parse(sessionStorage.getItem("currentUser"));
-    console.log(store.userDetails)
+    let user = JSON.parse(sessionStorage.getItem("currentUser"));    
 
     useEffect(() => {      
         actions.getProductsFiltered(brewing)
@@ -174,7 +173,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         <div class="modal-body">Estás seguro?</div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" class="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
+                            <button type="button" class="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID, tabs.index); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -456,7 +455,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                                     <button className="btn btn-secondary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-minus"></i></button>
 
                                                             }
-                                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id }) }}>Eliminar</button>
+                                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -516,7 +515,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 </tbody>
                             </table>
                             <div className="d-flex justify-content-end">
-                                <button className="btn btn-dark mr-2">Crear Nuevo</button>
+                                <Link to="/admincoffee/addProduct"><button className="btn btn-dark mr-2">Crear Nuevo</button></Link>
                             </div>
                         </div>
                     }

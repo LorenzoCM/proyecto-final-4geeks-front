@@ -83,19 +83,29 @@ const getState = ({ getStore, getActions, setStore }) => {
                             userDetails: data
                         })
                     });
-            },
-            deleteUser: (id) => {
-                fetch(`http://127.0.0.1:5000/api/admincoffee/users/${id}`, {
+            },            
+            deleteUser: async (id, index) => {
+                const store = getStore();
+                const resp = await fetch(`${store.apiURL}/api/admincoffee/users/${id}`, {
                     method: 'DELETE',
                     headers: {
-                        'Content-Type': 'application/json'
-                    },
+                        'Authorization': "Bearer " + store.currentUser.access_token               
+                    }
                 })
-                    .then(resp => resp.json())
-                    .then(data => {
-                        return data
-                    });
-            },
+                const data = await resp.json();
+                const { msg } = data;
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                } else {                
+                let { users, currentUser } = store;
+                users.splice(index, 1)
+                setStore({
+                    users: users,
+                    currentUser: null
+                })
+            }},
             getProductDetails: id => {
                 let store = getStore()
                 fetch(`http://127.0.0.1:5000/api/products/${id}`, {
