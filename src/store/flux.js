@@ -15,6 +15,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             quantity: 0,
             cart: [],
             total: 0,
+            name: '',
+            last_name: '',
+            email: '',
+            phone: '',
+            address: '',
+            password: '',
             productSku: '',
             productBrand: '',
             productName: '',
@@ -192,6 +198,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                 productDetails[e.target.name] = e.target.value
                 setStore({
                     productDetails: productDetails
+                })
+            },
+            handleChangeUser: e => {
+                const store = getStore();
+                let { userDetails } = store;
+                userDetails[e.target.name] = e.target.value
+                setStore({
+                    userDetails: userDetails
                 })
             },
             handleChangeFiles: e => {
@@ -512,11 +526,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 let cartInitializer = JSON.parse(localStorage.getItem("quantityCart"))
                 if (cartInitializer == null) {
                     setStore({
-                        cart: []
+                        quantity: 0
                     })
                 } else {
                     setStore({
-                        cart: JSON.parse(localStorage.getItem("quantityCart"))
+                        quantity: JSON.parse(localStorage.getItem("quantityCart"))
                     })
                 }
             },
@@ -549,6 +563,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                             conversionValue: data.serie[0].valor
                         })
                     });
+<<<<<<< HEAD
+=======
+            },
+            storePassword: password => {
+                const store = getStore();
+                setStore({
+                    password: password
+                })
+>>>>>>> ed33ab8062d1faa37d6065c66ed2945d4c266d07
             }
         }
     }

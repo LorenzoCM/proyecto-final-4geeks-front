@@ -13,7 +13,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         editData: false,
         editAddress: false,
         userID: null,
+<<<<<<< HEAD
         index: 0
+=======
+        password: ''
+
+>>>>>>> ed33ab8062d1faa37d6065c66ed2945d4c266d07
     });
     const [filters, setFilters] = useState({
         sorting: "nameup",
@@ -122,12 +127,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         }
     };
 
-    const handleUserPutFromPassword = (e) => {
+    const handleUserPasswordEdit = (e) => {
         e.preventDefault();
-    };
-
-    const handleUserPutFromAdress = (e) => {
-        e.preventDefault();
+        if (e.target.value === tabs.password && e.target.value !== '') {
+            let password = e.target.value;
+            actions.storePassword(password);
+        }
     };
 
     const handleUserPutFromData = (e) => {
@@ -147,7 +152,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
 
     let user = JSON.parse(sessionStorage.getItem("currentUser"));    
 
-    useEffect(() => {      
+    useEffect(() => {
         actions.getProductsFiltered(brewing)
     }, [brewing]);
 
@@ -227,7 +232,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                     }
                 </ul>
                 <section>
-                    {   
+                    {
                         !!store.userDetails &&
                         tabs.tabs === "misDatos" &&
                         <div>
@@ -261,21 +266,21 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="nombrecuenta">Nombre</label>
-                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={!!store.userDetails && store.userDetails.name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={!!store.userDetails && store.userDetails.name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="apellidocuenta">Apellido</label>
-                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={!!store.userDetails && store.userDetails.last_name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={!!store.userDetails && store.userDetails.last_name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label for="emailcuenta">Email</label>
-                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={!!store.userDetails && store.userDetails.email} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={!!store.userDetails && store.userDetails.email} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label for="telefonocuenta">Teléfono</label>
-                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={!!store.userDetails && store.userDetails.phone} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeLogin(e) }} />
+                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={!!store.userDetails && store.userDetails.phone} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
                                     </div>
                                 </div>
                                 <div className="form-row">
@@ -296,11 +301,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                             <>
                                                 <div className="form-group col-md-4">
                                                     <label for="nuevopasswordcuenta" >Nuevo Password</label>
-                                                    <input type="password" className="form-control" id="nuevopasswordcuenta" readOnly={tabs.passwordIsValidated == false ? true : false} />
+                                                    <input type="password" className="form-control" id="nuevopasswordcuenta" readOnly={tabs.passwordIsValidated == false ? true : false} onChange={e => setTabs({ ...tabs, password: e.target.value })} />
                                                 </div>
                                                 <div className="form-group col-md-4">
                                                     <label for="nuevopasswordcuentaV" >Repite tu nuevo Password</label>
-                                                    <input type="password" className="form-control" id="nuevopasswordcuentaV" readOnly={tabs.passwordIsValidated == false ? true : false} />
+                                                    <input type="password" className="form-control" id="nuevopasswordcuentaV" readOnly={tabs.passwordIsValidated == false ? true : false} onChange={e => handleUserPasswordEdit(e)} />
                                                 </div>
                                             </>
                                         )
@@ -314,14 +319,14 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                     <button className="btn btn-sm c-accent text-white" onClick={e => compareCurrentPassword(e)}>Confirmar</button>
                                                 </>
                                                 : tabs.editPassword == true && tabs.passwordIsValidated &&
-                                                <button className="btn btn-sm c-coffee text-white" onClick={e => handleUserPutFromPassword(e)}>Cambiar Contraseña</button>
+                                                <button className="btn btn-sm c-coffee text-white" onClick={e => handleUserPutFromData(e)}>Cambiar Contraseña</button>
                                         }
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-12">
                                         <label for="inputAddress">Address</label>
-                                        <input type="text" className="form-control" id="inputAddress" defaultValue={!!store.userDetails && store.userDetails.address} readOnly={tabs.editAddress == false ? true : false} onChange={actions.handleUserInfoUpdate} />
+                                        <input type="text" className="form-control" id="inputAddress" defaultValue={!!store.userDetails && store.userDetails.address} readOnly={tabs.editAddress == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
                                     </div>
                                     <div className={"form-group col-md-12 d-flex" + (tabs.editAddress == true ? " justify-content-end" : " justify-content-start")}>
                                         <button className={"btn btn-sm c-silver border border-dark text-dark" + (tabs.editAddress == true ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Editar dirección</button>
