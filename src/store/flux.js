@@ -28,7 +28,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             roasting: '',
             productDescription: '',
             productImage: '',
-            categories: [1]
+            categories: [1],
+            conversionValue: null
         },
         actions: {
             getUsers: filters => {
@@ -42,7 +43,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        setStore({...store,
+                        setStore({
+                            ...store,
                             users: data
                         })
                     })
@@ -151,7 +153,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': "Bearer " + store.currentUser.access_token               
+                        'Authorization': "Bearer " + store.currentUser.access_token
                     }
                 })
                 const data = await resp.json();
@@ -161,13 +163,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                         error: msg
                     })
                 } else {
-                console.log(data);
-                let { products } = store;
-                products.splice(index, 1)
-                setStore({
-                    products: products
-                })
-            }},
+                    console.log(data);
+                    let { products } = store;
+                    products.splice(index, 1)
+                    setStore({
+                        products: products
+                    })
+                }
+            },
             handleChangeLogin: e => {
                 setStore({
                     [e.target.name]: e.target.value
@@ -179,21 +182,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 productDetails[e.target.name] = e.target.value
                 setStore({
                     productDetails: productDetails
-                })                
+                })
             },
             handleChangeFiles: e => {
                 const store = getStore();
                 setStore({
                     [e.target.name]: e.target.files[0]
                 })
-            },            
+            },
             handleChangeEditFiles: e => {
-                const store = getStore();                
-                let { productDetails  } = store;
+                const store = getStore();
+                let { productDetails } = store;
                 productDetails[e.target.name] = e.target.files[0]
                 setStore({
                     productDetails: productDetails[e.target.name]
-                })               
+                })
             },
             setTotal: (total) => {
                 setStore({
@@ -272,14 +275,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({
                         name: '',
                         last_name: '',
-                        password: '', 
+                        password: '',
                         email: '',
                         phone: '',
                         address: '',
                         currentUser: data,
                         error: null
-                    }) 
-                }                
+                    })
+                }
             },
             login: async (e, history) => {
                 e.preventDefault();
@@ -346,7 +349,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'Authorization': "Bearer " + store.currentUser.access_token               
+                        'Authorization': "Bearer " + store.currentUser.access_token
                     }
                 })
                 const data = await resp.json();
@@ -376,12 +379,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("acidity", store.productDetails.acidity);
                 formData.append("roasting", store.productDetails.roasting);
                 formData.append("description", store.productDetails.description);
-                formData.append("image", store.productImage);                
+                formData.append("image", store.productImage);
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
                     method: 'PUT',
                     body: formData,
                     headers: {
-                        'Authorization': "Bearer " + store.currentUser.access_token               
+                        'Authorization': "Bearer " + store.currentUser.access_token
                     }
                 })
                 const data = await resp.json();
@@ -491,21 +494,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             setCurrentProduct: (product) => {
                 const store = getStore();
-                setStore({                    
+                setStore({
                     productDetails: product
                 });
             },
             cartNumActualize: () => {
                 let cartInitializer = JSON.parse(localStorage.getItem("quantityCart"))
-                if (cartInitializer == null){
+                if (cartInitializer == null) {
                     setStore({
                         cart: []
                     })
-                }else{
+                } else {
                     setStore({
                         cart: JSON.parse(localStorage.getItem("quantityCart"))
                     })
-                }  
+                }
             },
             setCurrentUser: user => {
                 setStore({
@@ -523,7 +526,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({
                     currentUser: JSON.parse(sessionStorage.getItem("currentUser"))
                 })
-            }            
+            },
+            getConversionValue: APIdate => {
+                let store = getStore()
+                fetch(`https://mindicador.cl/api/dolar/${APIdate}`, {
+                    method: 'GET',
+                    headers: {}
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data);
+                        setStore({
+                            conversionValue: data.serie.valor
+                        })
+                    });
+            },
         }
     }
 }
