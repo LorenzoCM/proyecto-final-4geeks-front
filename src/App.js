@@ -16,6 +16,7 @@ import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 import AddProduct from './views/addProduct';
+import PayPal from './components/PayPal';
 import EditProduct from './views/editProduct';
 
 function App() {
