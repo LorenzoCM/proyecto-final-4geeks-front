@@ -563,15 +563,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                             conversionValue: data.serie[0].valor
                         })
                     });
-<<<<<<< HEAD
-=======
             },
             storePassword: password => {
                 const store = getStore();
                 setStore({
                     password: password
                 })
->>>>>>> ed33ab8062d1faa37d6065c66ed2945d4c266d07
             }
         }
     }

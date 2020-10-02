@@ -10,13 +10,14 @@ import ProductDetails from './views/productDetails';
 import Cart from './views/cart';
 import Login from './views/login';
 import Register from './views/register';
-import Blog from './views/blog.js';
+import BlogSpot from './views/blogspot.js';
 import MyAccount from './views/myAccount.js';
 import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 import AddProduct from './views/addProduct';
 import PayPal from './components/PayPal';
+import Blog from './views/blog';
 import EditProduct from './views/editProduct';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         {/* This is supposed to receive a product id from database <:id> vvv */}
         <Route exact path="/products/:index" component={ProductDetails} />
         <Route exact path="/blog" component={Blog} />
+        <Route exact path="/blogspot" component={BlogSpot} />
         {/* This is supposed to receive a username from database <:username> vvv */}
         <Route exact path="/micuenta" component={MyAccount} />               
         <Route exact path="/contact" component={Contact} />

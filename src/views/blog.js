@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 
 
 const Blog = (props) => {
@@ -27,9 +27,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 1</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <small className="text-muted ">Last updated 3 mins ago</small>
                                 </div>
-                                <div className="card-footer">
-                                    <small className="text-muted">Last updated 3 mins ago</small>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -39,9 +40,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 2</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +53,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 3</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -73,9 +76,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 1</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -85,9 +89,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 2</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -97,9 +102,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 3</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +125,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 1</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -131,9 +138,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 2</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -143,9 +151,10 @@ const Blog = (props) => {
                                 <div className="card-body">
                                     <h5 className="card-title">Post 3</h5>
                                     <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                                <div className="card-footer">
                                     <small className="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                                <div className="card-footer d-flex justify-content-center">
+                                    <Link to='/blogpost'><button type="button" class="btn btn-light">Leer más</button></Link>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +204,7 @@ const Blog = (props) => {
                                 <h5 className="card-title">Expresso vs French Press</h5>
                                 <p className="card-text text-justify">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
                                 <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                <button type="button" class="btn btn-outline-info justify-content-end float-right">Ver más</button>
+                                <Link to='/blogpost'><button type="button" class="btn btn-outline-info justify-content-end float-right">Ver más</button></Link>
                                 <br></br>
                             </div>
                         </div>
@@ -208,4 +217,3 @@ const Blog = (props) => {
 }
 
 export default Blog;
-

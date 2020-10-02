@@ -13,12 +13,8 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         editData: false,
         editAddress: false,
         userID: null,
-<<<<<<< HEAD
-        index: 0
-=======
+        index: 0,
         password: ''
-
->>>>>>> ed33ab8062d1faa37d6065c66ed2945d4c266d07
     });
     const [filters, setFilters] = useState({
         sorting: "nameup",
