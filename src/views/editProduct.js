@@ -7,7 +7,7 @@ const EditProduct = (props) => {
     const {id} = useParams();
     console.log(id);
     useEffect(() => {
-        actions.getProductDetails(id);       ;               
+        actions.getProductDetails(id);                      
       },[]); 
 
     return (

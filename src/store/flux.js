@@ -15,6 +15,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             quantity: 0,
             cart: [],
             total: 0,
+            name: '', 
+            last_name: '', 
+            email: '', 
+            phone: '', 
+            address: '', 
+            password: '',
             productSku: '',
             productBrand: '',
             productName: '',
@@ -29,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             productDescription: '',
             productImage: '',
             categories: [1],
-            conversionValue: null
+            conversionValue: null            
         },
         actions: {
             getUsers: filters => {
@@ -192,6 +198,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                 productDetails[e.target.name] = e.target.value
                 setStore({
                     productDetails: productDetails
+                })
+            },
+            handleChangeUser: e => {
+                const store = getStore();
+                let { userDetails } = store;
+                userDetails[e.target.name] = e.target.value
+                setStore({
+                    userDetails: userDetails
                 })
             },
             handleChangeFiles: e => {
@@ -512,11 +526,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 let cartInitializer = JSON.parse(localStorage.getItem("quantityCart"))
                 if (cartInitializer == null) {
                     setStore({
-                        cart: []
+                        quantity: 0
                     })
                 } else {
                     setStore({
-                        cart: JSON.parse(localStorage.getItem("quantityCart"))
+                        quantity: JSON.parse(localStorage.getItem("quantityCart"))
                     })
                 }
             },
@@ -549,6 +563,46 @@ const getState = ({ getStore, getActions, setStore }) => {
                             conversionValue: data.serie[0].valor
                         })
                     });
+            },
+            handleUserPutFromData: async (e, id) => {
+                e.preventDefault();
+                const store = getStore();
+                const resp = await fetch(`${store.apiURL}/api/admincoffee/users/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        name: store.userDetails.name,
+                        last_name: store.userDetails.last_name,
+                        password: store.password,
+                        email: store.userDetails.email,
+                        phone: store.userDetails.phone,
+                        address: store.userDetails.address
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+        
+                const data = await resp.json();
+        
+                const { msg } = data;
+        
+                if (msg !== undefined) {
+                    setStore({
+                        error: msg
+                    })
+                } else {
+                    sessionStorage.setItem('currentUser', JSON.stringify(data))
+                    setStore({
+                        name: '',
+                        last_name: '',
+                        password: '',
+                        email: '',
+                        phone: '',
+                        address: '',
+                        currentUser: data,
+                        error: null
+                    })                    
+                }
             }
         }
     }
