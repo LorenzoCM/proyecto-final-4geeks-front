@@ -535,12 +535,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                     .then(resp => resp.json())
                     .then(data => {
-                        console.log(data);
                         setStore({
-                            conversionValue: data.serie.valor
+                            conversionValue: data.serie[0].valor
                         })
                     });
-            },
+            }
         }
     }
 }
