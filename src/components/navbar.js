@@ -17,7 +17,7 @@ const Navbar = () => {
                     </button>
                 </div>
                 <Link to="/" className="text-white d-flex align-items-baseline">
-                    <i class="fas fa-coffee fa-2x"></i>
+                    <i className="fas fa-coffee fa-2x"></i>
                     <h6>4Geeks Coffee Club</h6>
                 </Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">

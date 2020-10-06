@@ -9,7 +9,7 @@ const StoreCall = (props) => {
                     <h2 className="display-3 text-nowrap">Bienvenido<br/>a la nueva<br/>experiencia<br/>en café</h2>
                     <p className="mb-6">Square, a fully flexible Bootstrap theme that utilises timeless Swiss influenced graphic design and typography to create beautiful responsive websites</p>
                     <Link to="/products" data-scroll="" className="btn c-coffee text-white text-uppercase d-inline-flex align-items-center">
-                        Explorar productos<i class="fas fa-angle-right fa-2x ml-2"></i>
+                        Explorar productos<i className="fas fa-angle-right fa-2x ml-2"></i>
                     </Link>
                 </div>
                 <div className="col-lg-8 aos-init aos-animate" data-aos="fade-left">

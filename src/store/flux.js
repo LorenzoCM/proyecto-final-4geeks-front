@@ -149,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         console.log(error)
                     });
             },
-            deleteProducts: async (id, index) => {
+            deleteProducts: async (id, index) => {      //Function to delete a product in the database.
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
                     method: 'DELETE',
@@ -194,9 +194,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
             },
             handleChangeFiles: e => {
-                const store = getStore();
+                const store = getStore();                
                 setStore({
                     [e.target.name]: e.target.files[0]
+                })
+            },
+            handleChangeFilesEdit: e => {
+                const store = getStore();
+                let { productDetails } = store;
+                productDetails.image[e.target.name] = e.target.value
+                setStore({
+                    productDetails: productDetails
                 })
             },
             handleChangeEditFiles: e => {
@@ -474,7 +482,19 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                 localStorage.setItem('currentCart', JSON.stringify(cart))
                 localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
-            },            
+            },
+            // deleteProductAdminList: (productIndex) => {            //Function to delete a product instantaneously from the table of products in the admin products table.
+            //     const store = getStore();
+            //     let { products } = store;
+            //     cart.splice(i, 1)
+            //     quantity = quantity - productQuantity;
+            //     setStore({
+            //         cart: cart,
+            //         quantity: quantity
+            //     })
+            //     localStorage.setItem('currentCart', JSON.stringify(cart))
+            //     localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
+            // },               
             logout: () => {                //Function to logout from the website and clean the cart, the currentuser in te session storage and the cart in the local storage
                 const store = getStore();
                 setStore({
@@ -537,6 +557,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 setStore({
                     password: password
+                })
+            },
+            setImageToEdit: () => {   
+                const store = getStore();                   //This function set the preload name of the product image in order to be able to edit the product in case of not upload a new picture.
+                setStore({
+                    productImage: store.productDetails.image
                 })
             }
         }

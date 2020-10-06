@@ -4,8 +4,11 @@ import { Context } from '../store/appContext';
 
 const EditProduct = (props) => {
     const { store, actions } = useContext(Context);
-    const {id} = useParams();   
+    const {id} = useParams();
+    
+    
     useEffect(() => {
+        actions.setImageToEdit();
         actions.getProductDetails(id);                      
       },[]); 
 
@@ -17,7 +20,18 @@ const EditProduct = (props) => {
                         store.error !== null && (
                             <div className="alert alert-warning alert-dismissible fade show" role="alert">
                                 <strong>Holy guacamole! </strong>
-                                {!!store.error && store.error}
+                                {!!store.error.sku && store.error.sku}
+                                {!!store.error.price && store.error.price}
+                                {!!store.error.brand && store.error.brand}
+                                {!!store.error.name && store.error.name}
+                                {!!store.error.presentation && store.error.presentation}
+                                {!!store.error.stock && store.error.stock}
+                                {!!store.error.origin && store.error.origin}
+                                {!!store.error.species && store.error.species}
+                                {!!store.error.ground && store.error.ground}
+                                {!!store.error.acidity && store.error.acidity}
+                                {!!store.error.roasting && store.error.roasting}
+                                {!!store.error.description && store.error.description}                                
                                 {!!store.error.image && store.error.image}
                                 {!!store.error.images && store.error.images}
                                 {!!store.error.filename && store.error.filename}
