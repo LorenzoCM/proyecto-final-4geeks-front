@@ -16,8 +16,7 @@ const injectContext = PassedComponent => {
       })
     }));
     let date = new Date()
-    const APIdate = moment(date).format('DD-MM-YYYY')
-    console.log(APIdate)
+    const APIdate = moment(date).format('DD-MM-YYYY')    
 
     useEffect(() => {
       state.actions.getCategories();

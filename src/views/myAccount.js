@@ -146,15 +146,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         actions.putUserFromList(user)
     }
 
-    let user = JSON.parse(sessionStorage.getItem("currentUser"));    
+    let user = JSON.parse(sessionStorage.getItem("currentUser"));
 
     useEffect(() => {
         actions.getProductsFiltered(brewing)
     }, [brewing]);
-
-    useEffect(() => {
-        actions.getUserDetails(user.user.id)
-    }, [])
 
     useEffect(() => {
         actions.getUsers(filters)
@@ -162,19 +158,19 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
 
     return (
         <>
-            <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteUserModalLabel">Eliminar Usuario</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div className="modal fade" id="deleteUserModal" tabIndex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="deleteUserModalLabel">Eliminar Usuario</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">Estás seguro?</div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" class="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID, tabs.index); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
+                        <div className="modal-body">Estás seguro?</div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
+                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID, tabs.index); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -229,26 +225,9 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                 </ul>
                 <section>
                     {
-                        !!store.userDetails &&
+                        !!store.currentUser &&
                         tabs.tabs === "misDatos" &&
                         <div>
-                            {
-                                store.error !== null && (
-                                    <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                        <strong>Holy guacamole! </strong>
-                                        {!!store.error.name && store.error.name}
-                                        {!!store.error.last_name && store.error.last_name}
-                                        {!!store.error.reg_password && store.error.reg_password}
-                                        {!!store.error.reg_email && store.error.reg_email}
-                                        {!!store.error.address && store.error.address}
-                                        {!!store.error.phone && store.error.phone}
-                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                )
-
-                            }
                             <form >
                                 <div className="d-flex justify-content-between align-items-baseline">
                                     <h5 className="mt-5 mb-3">Mi cuenta</h5 >
@@ -256,27 +235,57 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                         tabs.editData == false ?
                                             <button className="btn c-accent text-white" onClick={e => handleEditData(e)}>Editar mis datos</button>
                                             :
-                                            <button className="btn c-coffee text-white" onClick={e => handleUserPutFromData(e)}>Cambiar mis datos</button>
+                                            <button className="btn c-coffee text-white" onClick={e => actions.editCurrentUser(e, store.currentUser.user.id)}>Cambiar mis datos</button>
                                     }
                                 </div>
+                                {
+                                    store.error !== null && (
+                                        <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Holy guacamole! </strong>
+                                            {!!store.error.name && store.error.name}
+                                            {!!store.error.last_name && store.error.last_name}
+                                            {!!store.error.reg_email && store.error.reg_email}
+                                            {!!store.error.address && store.error.address}
+                                            {!!store.error.phone && store.error.phone}
+                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    store.msg !== null && (
+                                        <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Holy guacamole! </strong>
+                                            {!!store.msg && store.msg}
+                                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    )
+                                }
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label for="nombrecuenta">Nombre</label>
-                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={!!store.userDetails && store.userDetails.name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
+                                        <label htmlFor="nombrecuenta">Nombre</label>
+                                        <input type="text" className="form-control" name="name" id="nombrecuenta" defaultValue={!!store.currentUser && store.currentUser.user.name} readOnly={tabs.editData == false ? true : false} onChange={actions.handleChangeUser} />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label for="apellidocuenta">Apellido</label>
-                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={!!store.userDetails && store.userDetails.last_name} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
+                                        <label htmlFor="apellidocuenta">Apellido</label>
+                                        <input type="text" className="form-control" name="last_name" id="apellidocuenta" defaultValue={!!store.currentUser && store.currentUser.user.last_name} readOnly={tabs.editData == false ? true : false} onChange={actions.handleChangeUser} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label for="emailcuenta">Email</label>
-                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={!!store.userDetails && store.userDetails.email} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
+                                        <label htmlFor="emailcuenta">Email</label>
+                                        <input type="email" className="form-control" name="email" id="emailcuenta" defaultValue={!!store.currentUser && store.currentUser.user.email} readOnly={tabs.editData == false ? true : false} onChange={actions.handleChangeUser} />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label for="telefonocuenta">Teléfono</label>
-                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={!!store.userDetails && store.userDetails.phone} readOnly={tabs.editData == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
+                                        <label htmlFor="telefonocuenta">Teléfono</label>
+                                        <input type="phone" className="form-control" name="phone" id="telefonocuenta" defaultValue={!!store.currentUser && store.currentUser.user.phone} readOnly={tabs.editData == false ? true : false} onChange={actions.handleChangeUser} />
+                                    </div>
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="inputAddress">Address</label>
+                                        <input type="text" className="form-control" name="address" id="inputAddress" defaultValue={!!store.currentUser && store.currentUser.user.address} readOnly={tabs.editData == false ? true : false} onChange={actions.handleChangeUser} />
                                     </div>
                                 </div>
                                 <div className="form-row">
@@ -284,7 +293,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                         {
                                             tabs.editPassword == true && !tabs.passwordIsValidated &&
                                             <>
-                                                <label for="passwordcuenta">Password Actual</label>
+                                                <label htmlFor="passwordcuenta">Password Actual</label>
                                                 <input type="password" className="form-control" id="passwordcuenta" onChange={e => setTabs({
                                                     ...tabs,
                                                     validatePassword: e.target.value
@@ -296,11 +305,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                         tabs.passwordIsValidated == true && (
                                             <>
                                                 <div className="form-group col-md-4">
-                                                    <label for="nuevopasswordcuenta" >Nuevo Password</label>
+                                                    <label htmlFor="nuevopasswordcuenta" >Nuevo Password</label>
                                                     <input type="password" className="form-control" id="nuevopasswordcuenta" readOnly={tabs.passwordIsValidated == false ? true : false} onChange={e => setTabs({ ...tabs, password: e.target.value })} />
                                                 </div>
                                                 <div className="form-group col-md-4">
-                                                    <label for="nuevopasswordcuentaV" >Repite tu nuevo Password</label>
+                                                    <label htmlFor="nuevopasswordcuentaV" >Repite tu nuevo Password</label>
                                                     <input type="password" className="form-control" id="nuevopasswordcuentaV" readOnly={tabs.passwordIsValidated == false ? true : false} onChange={e => handleUserPasswordEdit(e)} />
                                                 </div>
                                             </>
@@ -317,16 +326,6 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                 : tabs.editPassword == true && tabs.passwordIsValidated &&
                                                 <button className="btn btn-sm c-coffee text-white" onClick={e => handleUserPutFromData(e)}>Cambiar Contraseña</button>
                                         }
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="form-group col-md-12">
-                                        <label for="inputAddress">Address</label>
-                                        <input type="text" className="form-control" id="inputAddress" defaultValue={!!store.userDetails && store.userDetails.address} readOnly={tabs.editAddress == false ? true : false} onChange={e => { actions.handleChangeUser(e) }} />
-                                    </div>
-                                    <div className={"form-group col-md-12 d-flex" + (tabs.editAddress == true ? " justify-content-end" : " justify-content-start")}>
-                                        <button className={"btn btn-sm c-silver border border-dark text-dark" + (tabs.editAddress == true ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Editar dirección</button>
-                                        <button className={"btn btn-sm c-coffee text-white" + (tabs.editAddress == false ? " d-none" : "")} onClick={e => handleEditAddress(e)}>Cambiar dirección</button>
                                     </div>
                                 </div>
                             </form>
@@ -365,43 +364,43 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                             <form>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label for="inputEmail4">pú</label>
+                                        <label htmlFor="inputEmail4">pú</label>
                                         <input type="email" className="form-control" id="inputEmail4" />
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label for="inputPassword4">Password</label>
+                                        <label htmlFor="inputPassword4">Password</label>
                                         <input type="password" className="form-control" id="inputPassword4" />
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label for="inputAddress">Address</label>
+                                    <label htmlFor="inputAddress">Address</label>
                                     <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
                                 </div>
                                 <div className="form-group">
-                                    <label for="inputAddress2">Address 2</label>
+                                    <label htmlFor="inputAddress2">Address 2</label>
                                     <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label for="inputCity">City</label>
+                                        <label htmlFor="inputCity">City</label>
                                         <input type="text" className="form-control" id="inputCity" />
                                     </div>
                                     <div className="form-group col-md-4">
-                                        <label for="inputState">State</label>
+                                        <label htmlFor="inputState">State</label>
                                         <select id="inputState" className="form-control">
                                             <option selected>Choose...</option>
                                             <option>...</option>
                                         </select>
                                     </div>
                                     <div className="form-group col-md-2">
-                                        <label for="inputZip">Zip</label>
+                                        <label htmlFor="inputZip">Zip</label>
                                         <input type="text" className="form-control" id="inputZip" />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" id="gridCheck" />
-                                        <label className="form-check-label" for="gridCheck">
+                                        <label className="form-check-label" htmlFor="gridCheck">
                                             Check me out
                                         </label>
                                     </div>
@@ -451,12 +450,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                         <td>
                                                             {
                                                                 user.role === "isUser" ?
-                                                                    <button className="btn btn-dark btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-plus"></i></button>
+                                                                    <button className="btn btn-dark btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-plus"></i></button>
                                                                     :
-                                                                    <button className="btn btn-secondary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i class="fas fa-minus"></i></button>
+                                                                    <button className="btn btn-secondary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-minus"></i></button>
 
                                                             }
-                                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
+                                                            <button type="button" className="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -482,13 +481,13 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 <thead className="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Stock</th>
-                                        <th scope="col">Brand</th>
-                                        <th scope="col">sku</th>
-                                        <th scope="col">Presentation</th>
-                                        <th scope="col">Image</th>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Sku</th>
+                                        <th scope="col">Presentación</th>
+                                        <th scope="col">Imagen</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -506,9 +505,10 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                     <td>{product.ground}<br />{product.presentation}</td>
                                                     <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-dark thumbnail"/></td>
                                                     <td className="d-flex align-items-baseline">
-                                                        <button className="btn btn-sm btn-dark mr-2">Editar</button>
+                                                        <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-dark" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
                                                         <button className="btn btn-sm btn-danger" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>
                                                     </td>
+
                                                 </tr>
                                             )
                                         })

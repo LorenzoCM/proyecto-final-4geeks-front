@@ -27,11 +27,11 @@ const Register = props => {
 
                     }
                     <div className="form-group">
-                        <label for="inputAddress">Email</label>
+                        <label htmlFor="inputAddress">Email</label>
                         <input type="email" name="email" defaultValue={store.email} className={"form-control"} id="inputAddress" placeholder="Email" onChange={actions.handleChangeLogin} />
                     </div>
                     <div className="form-group">
-                        <label for="inputEmail4">Contraseña</label>
+                        <label htmlFor="inputEmail4">Contraseña</label>
                         <input type="password" name="password" defaultValue={store.password} className="form-control" id="inputEmail4" placeholder="Contraseña" onChange={actions.handleChangeLogin} />
                     </div>
                     <div className="text-center mt-5">
