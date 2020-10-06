@@ -17,7 +17,7 @@ const Navbar = () => {
                     </button>
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    <Link to="/" className="text-white d-flex flex-column align-items-center"><i className="fas fa-mug-hot mb-1"></i><h6>CLI Coffee Club</h6></Link>
+                    <Link to="/" className="text-white d-flex flex-column align-items-center"><i class="fas fa-coffee fa-2x"></i><h6>4Geeks Coffee Club</h6></Link>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto mr-auto">
                             <li className="nav-item active ml-4">

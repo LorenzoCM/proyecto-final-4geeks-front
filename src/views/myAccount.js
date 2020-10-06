@@ -502,9 +502,9 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                     <td>{(product.price).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
                                                     <td>{product.stock}</td>
                                                     <td>{product.brand}</td>
-                                                    <td>{product.sku}</td>
+                                                    <td>{product.sku}</td> 
                                                     <td>{product.ground}<br />{product.presentation}</td>
-                                                    <td>{product.image}</td>
+                                                    <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-dark thumbnail"/></td>
                                                     <td className="d-flex align-items-baseline">
                                                         <button className="btn btn-sm btn-dark mr-2">Editar</button>
                                                         <button className="btn btn-sm btn-danger" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>

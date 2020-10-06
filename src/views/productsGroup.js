@@ -18,7 +18,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         actions.getProductsFiltered(brewing)
         console.log(brewing)
     }, [brewing]);
-   
+
 
     // sets apiURL from onChange in <select id="sortCombo"> 
     const handleSort = (e) => {
@@ -88,15 +88,14 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
             {/* <!-- Section: Sidebar --> */}
             <div className="container-fluid">
                 <div className="row">
-                    <section className="col-2 c-coffee text-white">
+                    <section className="col-12 col-md-2 c-coffee text-white filter-sidebar d-flex flex-column align-items-start">
 
+                        <h5 className="my-3">Filtros</h5>
                         {/* <!-- Section: Filters --> */}
-                        <section className="d-flex flex-column align-items-start ml-2">
-
-                            <h5 className="mt-3">Filters</h5>
+                        <section className="ml-2 d-flex flex-row flex-md-column justify-content-between">
 
                             {/* <!-- Section: Type --> */}
-                            <section className="d-flex flex-column my-4">
+                            <section className="d-flex flex-column mb-4">
 
                                 <h6 className="font-weight-bold">Tipo</h6>
                                 <div className="pl-4">
@@ -217,7 +216,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                             {/* <!-- Section: Price version 2 --> */}
                             <section className="mb-4">
 
-                                <h6 className="font-weight-bold mb-3">Price</h6>
+                                <h6 className="font-weight-bold mb-3">Precio</h6>
                                 {/* this slider is to be implemented in the future
                                 <div className="slider-price d-flex align-items-center my-4">
                                     <span className="font-weight-normal small text-muted mr-2">$0</span>
@@ -314,7 +313,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                     </section>
                     {/* <!-- Section: Sidebar --> */}
 
-                    <section className="col-10">
+                    <section className="col-12 col-md-10">
                         <div>
                             <hr />
                             <div className="d-flex justify-content-end align-items-baseline mt-n2 mb-n3">
@@ -335,16 +334,16 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                     store.products.map((product, index) => {
                                         return (
                                             <div className="card-thumbnail mt-2" key={index}>
-                                                <div className="card border border-dark rounded-0">
-                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" alt="..." />
-                                                    <div className="card-body border-top py-2 px-3" >
+                                                <div className="card border border-2 border-dark rounded-0">
+                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top rounded-0" alt="..." />
+                                                    <div className="card-body border-top border-2 border-dark py-2 px-3" >
                                                         <h6 className="card-title">{product.name}</h6>
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
                                                         <p className="card-text my-0">{product.price}</p>
                                                         <div className="d-flex align-items-baseline justify-content-between">
                                                             <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                            <button className="btn btn-sm c-accent ml-1" onClick={()=> actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                            <button className="btn btn-sm c-accent ml-1" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>

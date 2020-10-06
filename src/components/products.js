@@ -15,8 +15,8 @@ const ProductCard = (props) => {
             </div>
             <div className="card-deck d-flew flex-row flex-nowrap overflow-auto">
                 {
-                    !!store.productsGlobal &&
-                    store.productsGlobal.map((product, index) => {
+                    !!store.products &&
+                    store.products.map((product, index) => {
                         return (
                             <div className="card-thumbnail mt-2" key={index}>
                                 <div className="card border border-dark rounded-0">
