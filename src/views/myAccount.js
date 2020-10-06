@@ -185,14 +185,14 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                             })
                         }} href="#">Mis datos</a>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <a className={"nav-link" + (tabs.tabs === "misFavoritos" ? " active" : "")} onClick={() => {
                             setTabs({
                                 ...tabs,
                                 tabs: "misFavoritos"
                             })
                         }} href="#">Mis favoritos</a>
-                    </li>
+                    </li> */}
                     {/* <li className="nav-item">
                         <a className={"nav-link" + (tabs.tabs === "misCompras" ? " active" : "")} onClick={() => {
                             setTabs({
@@ -339,16 +339,25 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 store.products.map((product, index) => {
                                     return (
                                         <div className="card-thumbnail mt-2" key={index}>
-                                            <div className="card border border-dark rounded-0">
-                                                <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" alt="..." />
-                                                <div className="card-body border-top py-2 px-3" >
+                                            <div className="card border border-2 border-dark rounded-0">
+                                                <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top img-fluid rounded-0" alt="..." />
+                                                <div className="card-body border-top border-2 border-dark py-2 px-3" >
                                                     <h6 className="card-title">{product.name}</h6>
                                                     <p className="card-text my-0">{product.brand}</p>
                                                     <p className="card-text my-0">{product.origin}</p>
                                                     <p className="card-text my-0">{product.price}</p>
                                                     <div className="d-flex align-items-baseline justify-content-between">
                                                         <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                        <button className="btn btn-sm c-accent ml-1" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                        <div className="d-flex justify-content-center mt-3 btn-group" role="group">
+                                                            <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                            <select className="btn btn-sm border-accent" id="cartCombo">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -427,7 +436,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                             </div>
                             <div>
                                 <table className="table table-striped text-center">
-                                    <thead className="thead-dark">
+                                    <thead className="c-coffee text-white">
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Nombre</th>
@@ -450,12 +459,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                         <td>
                                                             {
                                                                 user.role === "isUser" ?
-                                                                    <button className="btn btn-dark btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-plus"></i></button>
+                                                                    <button className="btn btn-sm btn-dark mr-1" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-plus"></i></button>
                                                                     :
-                                                                    <button className="btn btn-secondary btn-sm mr-2" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-minus"></i></button>
+                                                                    <button className="btn btn-sm btn-secondary mr-1" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-minus"></i></button>
 
                                                             }
-                                                            <button type="button" className="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
+                                                            <button type="button" className="btn btn-sm c-danger text-white" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -478,7 +487,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                 </select>
                             </div>
                             <table className="table table-striped text-center">
-                                <thead className="thead-dark">
+                                <thead className="c-coffee text-white">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Producto</th>
@@ -501,12 +510,12 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                     <td>{(product.price).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
                                                     <td>{product.stock}</td>
                                                     <td>{product.brand}</td>
-                                                    <td>{product.sku}</td> 
+                                                    <td>{product.sku}</td>
                                                     <td>{product.ground}<br />{product.presentation}</td>
-                                                    <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-dark thumbnail"/></td>
+                                                    <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-2 border-dark thumbnail" /></td>
                                                     <td className="d-flex align-items-baseline">
-                                                        <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-dark" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
-                                                        <button className="btn btn-sm btn-danger" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>
+                                                        <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-secondary mr-1" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
+                                                        <button className="btn btn-sm c-danger text-white" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>
                                                     </td>
 
                                                 </tr>
@@ -515,8 +524,9 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                     }
                                 </tbody>
                             </table>
+                            <hr />
                             <div className="d-flex justify-content-end">
-                                <Link to="/admincoffee/addProduct"><button className="btn btn-dark mr-2">Crear Nuevo</button></Link>
+                                <Link to="/admincoffee/addProduct"><button className="btn c-coffee text-white mr-2">Crear Nuevo</button></Link>
                             </div>
                         </div>
                     }

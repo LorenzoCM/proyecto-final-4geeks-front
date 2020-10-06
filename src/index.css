@@ -46,20 +46,33 @@ html {
 /* colors */
 
 .c-black {
-  background-color: #000000;
+  background-color: #181818 !important;
 }
 
 .c-coffee {
-  background-color: #372100;
+  background-color: #271700 !important;
 }
 
 .c-accent {
-  background-color: #FCA311;
+  background-color: #FCA311 !important;
 }
 
-.c-silver {
-  background-color: #E5E5E5;
+.c-shade {
+  background-color: #e5e5e5;
 }
+
+.c-danger {
+  background-color: #d8350c !important;
+}
+
+.border-accent {
+  border-color: #FCA311 !important;
+}
+
+.border-coffee {
+  border-color: #271700 !important;
+}
+
 
 /* colors */
 
@@ -113,6 +126,10 @@ html {
   border-width: 3px !important;
 }
 
+.thead-dark {
+  background-color: #271700 !important;
+}
+
 #jarallax-container-0 {
   position: absolute;
   top: 0px;
@@ -138,4 +155,8 @@ html {
   pointer-events: none;
   margin-top: 0px;
   transform: translate3d(0px, 0px, 0px);
+}
+
+.productDetailsBtn {
+  max-width: 230px;
 }

@@ -5,7 +5,7 @@ import { Context } from '../store/appContext';
 const ProductDetails = ({ history, match: { params: { id } } }, ...props) => {
     const { store, actions } = useContext(Context);
 
-    
+
     const location = useLocation();
     const getProductDataFromURL = () => {
         let url = location.pathname;
@@ -53,27 +53,16 @@ const ProductDetails = ({ history, match: { params: { id } } }, ...props) => {
                                 <h6 className="my-4">Tostado: {!!store.productDetails && store.productDetails.roasting}</h6>
                                 <h6 className="my-4">{!!store.productDetails && store.productDetails.description}</h6>
                             </div>
-                            <hr className="m-0" />                            
-                            <div className="d-flex justify-content-center justify-content-md-start mt-3">                                                                
-                                <div className="">
-                                    <label className="form-check-label" htmlFor="inlineRadio1">Cantidad</label>
-                                    <select className="custom-select border border-dark mx-2" defaultValue="1">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="2">6</option>
-                                        <option value="3">7</option>
-                                        <option value="4">8</option>
-                                        <option value="5">9</option>
-                                        <option value="5">9</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-center justify-content-md-start mt-3">
-                                <button type="submit" className="btn btn-outline-dark" onClick={() => actions.cartProducts(store.productDetails)}>Agregar al carrito</button>
-                                <button type="button" className="btn btn-outline-dark ml-3"><i className="far fa-heart"></i></button>
+                            <hr className="m-0" />
+                            <div className="d-flex justify-content-center justify-content-md-end mt-3 btn-group w-50">
+                                <button type="submit" className="btn c-accent text-white" onClick={() => actions.cartProducts(store.productDetails)}>Agregar al carrito<i class="fas fa-cart-plus ml-2"></i></button>
+                                <select className="btn border border-accent" defaultValue="1">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                             </div>
                         </div>
                         <div className="col-12 col-lg-5 order-1 order-lg-2">

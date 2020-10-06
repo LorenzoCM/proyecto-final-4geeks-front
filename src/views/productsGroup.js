@@ -335,15 +335,18 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                         return (
                                             <div className="card-thumbnail mt-2" key={index}>
                                                 <div className="card border border-2 border-dark rounded-0">
-                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top rounded-0" alt="..." />
+                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top img-fluid rounded-0" alt="..." />
                                                     <div className="card-body border-top border-2 border-dark py-2 px-3" >
                                                         <h6 className="card-title">{product.name}</h6>
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
                                                         <p className="card-text my-0">{product.price}</p>
-                                                        <div className="d-flex align-items-baseline justify-content-between">
+                                                        <div className="d-flex align-items-baseline justify-content-between w-50">
                                                             <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                            <button className="btn btn-sm c-accent ml-1" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                            <div className="d-flex justify-content-center mt-3 btn-group" role="group">
+                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
+                                                                <input id="cartQuantity" type="number" className="btn btn-sm border-accent" defaultValue="1"/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

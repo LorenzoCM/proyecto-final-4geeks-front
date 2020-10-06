@@ -1,13 +1,25 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { Context } from '../store/appContext';
 
 const EditProduct = (props) => {
     const { store, actions } = useContext(Context);
-    const {id} = useParams();   
+    // const {id} = useParams();   
+    // useEffect(() => {
+    //     actions.getProductDetails(id);                      
+    //   },[]);
+    
+    const location = useLocation();
+    const getProductDataFromURL = () => {
+        let url = location.pathname;
+        let aux = url.split("/");
+        let id = aux[aux.length - 1];
+        return id;
+    }
+
     useEffect(() => {
-        actions.getProductDetails(id);                      
-      },[]); 
+        actions.getProductDetails(getProductDataFromURL())
+    }, [store]);
 
     return (
         <>
