@@ -9,10 +9,22 @@ const Navbar = () => {
     let cartNumItems = JSON.parse(localStorage.getItem("quantityCart"));
 
     return (
+<<<<<<< HEAD
         <nav className="navbar navbar-expand-lg navbar-dark c-black container-fluid px-3">
             <div className="d-flex justify-content-between align-items-center row no-gutters w-100">
                 <Link to="/" className="col-6 col-lg-4 text-white d-flex align-items-baseline order-1">
                     <i class="fas fa-coffee fa-2x"></i>
+=======
+        <nav className="navbar navbar-expand-lg navbar-dark c-black navbar-collapse">
+            <div className="d-flex justify-content-center align-items-center w-100">
+                <div className="d-flex justify-content-start">
+                    <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <Link to="/" className="text-white d-flex align-items-baseline">
+                    <i className="fas fa-coffee fa-2x"></i>
+>>>>>>> lorenzo
                     <h6>4Geeks Coffee Club</h6>
                 </Link>
                 <div className="col-6 col-lg-4 d-flex flex-column align-items-end order-2 order-lg-3">

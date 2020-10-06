@@ -81,8 +81,8 @@ const AdminProductsList = props => {
                                                 <td>{product.sku}</td>
                                                 <td>{product.presentation}</td>
                                                 <td>{product.image}</td>
-                                                <td><Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-dark" onClick={()=>actions.setCurrentProduct(product)}>Editar</Link></td>
-                                                <td><button className="btn btn-sm btn-danger" onClick={()=>actions.deleteProducts(product.id, index)}>Eliminar</button></td>                                                  
+                                                <td><Link to="/admincoffee/editproduct/" className="btn btn-sm btn-dark mr-3" onClick={()=>actions.setCurrentProduct(product)}>Editar</Link></td>
+                                                <td><button className="btn btn-sm btn-danger ml-3" onClick={()=>actions.deleteProducts(product.id, index)}>Eliminar</button></td>                                                  
                                             </tr>
                                         )
                                     })
