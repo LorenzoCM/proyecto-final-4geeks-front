@@ -336,7 +336,7 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                         return (
                                             <div className="card-thumbnail mt-2" key={index}>
                                                 <div className="card border border-dark rounded-0">
-                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" alt="..." />
+                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top" width="200px" height="200px" alt="..." />
                                                     <div className="card-body border-top py-2 px-3" >
                                                         <h6 className="card-title">{product.name}</h6>
                                                         <p className="card-text my-0">{product.brand}</p>

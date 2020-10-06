@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             userDetails: null,
             products: null,
             productDetails: null,
-            categories: null,
+            category: null,
             apiURL: 'http://localhost:5000',
             currentUser: null,
             error: null,
@@ -35,7 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             productDescription: '',
             productImage: '',
             categories: [1],
-            conversionValue: null
+            conversionValue: null,
+            msg: null
         },
         actions: {
             getUsers: filters => {
@@ -72,22 +73,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                     .catch((error) => {
                         console.log(error)
-                    });
-            },
-            getUserDetails: id => {
-                let store = getStore()
-                fetch(`http://127.0.0.1:5000/api/admincoffee/users/${id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                    .then(resp => resp.json())
-                    .then(data => {
-                        console.log(data)
-                        setStore({
-                            userDetails: data
-                        })
                     });
             },            
             deleteUser: async (id, index) => {
@@ -130,7 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             getCategories: () => {
                 let store = getStore()
-                fetch("http://127.0.0.1:5000/api/categories/", {
+                fetch("http://127.0.0.1:5000/api/admincoffee/categories/", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -140,7 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .then(data => {
                         setStore({
                             ...store,
-                            categories: data
+                            category: data
                         })
                     });
             },
@@ -202,10 +187,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             handleChangeUser: e => {
                 const store = getStore();
-                let { userDetails } = store;
-                userDetails[e.target.name] = e.target.value
+                let { currentUser } = store;
+                currentUser.user[e.target.name] = e.target.value
                 setStore({
-                    userDetails: userDetails
+                    currentUser: currentUser
                 })
             },
             handleChangeFiles: e => {
@@ -227,7 +212,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     total: total
                 })
             },
-            register: async (e, history) => {
+            register: async (e, history) => {    //Function to register a new user in the database.
                 e.preventDefault();
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/register`, {
@@ -268,24 +253,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                     history.push('/')
                 }
             },
-            putCurrentUser: async (e, id) => {
+            editCurrentUser: async (e, id) => {       //Function to edit the information about the user currently logged in the web.
                 e.preventDefault();
                 const store = getStore();
-                const resp = await fetch(`${store.apiURL}/api/register/${id}`, {
+                const resp = await fetch(`${store.apiURL}/api/users/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify({
-                        name: store.name,
-                        last_name: store.last_name,
-                        password: store.password,
-                        email: store.email,
-                        phone: store.phone,
-                        address: store.address
+                        name: store.currentUser.user.name,
+                        last_name: store.currentUser.user.last_name,                        
+                        email: store.currentUser.user.email,
+                        phone: store.currentUser.user.phone,
+                        address: store.currentUser.user.address
                     }),
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    }                    
                 })
-
+                console.log(id);
                 const data = await resp.json();
 
                 const { msg } = data;
@@ -296,19 +280,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                 } else {
                     sessionStorage.setItem('currentUser', JSON.stringify(data))
-                    setStore({
-                        name: '',
-                        last_name: '',
-                        password: '',
-                        email: '',
-                        phone: '',
-                        address: '',
+                    setStore({                        
                         currentUser: data,
+                        msg: data.success,
                         error: null
                     })
                 }
             },
-            login: async (e, history) => {
+            login: async (e, history) => {             //Function to login an already registered user in the website.
                 e.preventDefault();
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/login`, {
@@ -349,7 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 console.log(data);
             },
-            addProduct: async (e) => {
+            addProduct: async (e) => {               //Function to add a new product to the database.
                 e.preventDefault();
                 console.log("hola");
                 const store = getStore();
@@ -373,7 +352,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'Authorization': "Bearer " + store.currentUser.access_token
+                        // 'Authorization': "Bearer " + store.currentUser.access_token
                     }
                 })
                 const data = await resp.json();
@@ -387,7 +366,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log(data);
             },
-            putProduct: async (e, id) => {
+            putProduct: async (e, id) => {          //Function to edit a product already registered in the database.
                 e.preventDefault();
                 const store = getStore();
                 const formData = new FormData();
@@ -422,7 +401,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log(data);
             },
-            cartProducts: (item) => {
+            cartProducts: (item) => {             //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
                 const store = getStore();
                 let found = false;
                 let user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -471,7 +450,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 localStorage.setItem('currentCart', JSON.stringify(store.cart))
                 localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
             },
-            updateCart: () => {
+            updateCart: () => {                      // Function to establish the cart as an empty array if the local storage is empty.
                 const store = getStore();
                 let cartInitializer = JSON.parse(localStorage.getItem("currentCart"))
                 if (cartInitializer == null) {
@@ -484,7 +463,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                 }
             },
-            deleteProduct: (i, productQuantity) => {
+            deleteProduct: (i, productQuantity) => {            //Function to delete a product from the cart and reduce the quantity number of the cart.
                 const store = getStore();
                 let { cart, quantity } = store;
                 cart.splice(i, 1)
@@ -495,18 +474,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
                 localStorage.setItem('currentCart', JSON.stringify(cart))
                 localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
-            },
-            getTotalCart: () => {
-                const store = getStore();
-                let total = 0;
-                store.cart.map(function (product, index) {
-                    console.log(total + store.cart[index].quantity);
-                    return total;
-                })
-
-                console.log(total);
-            },
-            logout: () => {
+            },            
+            logout: () => {                //Function to logout from the website and clean the cart, the currentuser in te session storage and the cart in the local storage
                 const store = getStore();
                 setStore({
                     quantity: 0,
@@ -553,7 +522,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             getConversionValue: APIdate => {
                 let store = getStore()
-                fetch(`https://mindicador.cl/api/dolar/${APIdate}`, {
+                fetch(`https://mindicador.cl/api/dolar/${"02-10-2020"}`, {
                     method: 'GET',
                     headers: {}
                 })
