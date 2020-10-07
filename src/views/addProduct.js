@@ -38,49 +38,49 @@ const AddProduct = (props) => {
 
                     <div className="form-row">
                         <div className="form-group col-12 col-md-6 col-lg-3">
-                            <label className="control-label small" for="product_sku">SKU</label>
+                            <label className="control-label small" htmlFor="product_sku">SKU</label>
                             <input type="text" id="product_sku" value={store.productSku} name="productSku" placeholder="Product Sku" className="form-control input-md" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
-                            <label className="control-label small" for="product_brand">Marca</label>
+                            <label className="control-label small" htmlFor="product_brand">Marca</label>
                             <input id="product_brand" value={store.productBrand} name="productBrand" placeholder="Product Brand" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
-                            <label className="control-label small" for="product_name">Nombre Producto</label>
+                            <label className="control-label small" htmlFor="product_name">Nombre Producto</label>
                             <input id="product_name" value={store.productName} name="productName" placeholder="Product Name" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
-                            <label className="control-label small" for="product_presentation">Presentación</label>
+                            <label className="control-label small" htmlFor="product_presentation">Presentación</label>
                             <input id="product_presentation" value={store.productPresentation} name="productPresentation" placeholder="Product Presentation" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
                     </div>
 
                     <div className="form-row">
                         <div className="form-group col-10 col-md-8 col-lg-4">
-                            <label className="control-label small" for="product_price">Precio</label>
+                            <label className="control-label small" htmlFor="product_price">Precio</label>
                             <input id="product_price" value={store.productPrice} name="productPrice" placeholder="CLP $" className="form-control input-md" required="" type="number" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-2 col-md-4 col-lg-2">
-                            <label className="control-label small" for="product_stock">Stock</label>
+                            <label className="control-label small" htmlFor="product_stock">Stock</label>
                             <input id="product_stock" value={store.stock} name="stock" placeholder="Stock" className="form-control input-md" required="" type="number" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-6 col-md-6 col-lg-3">
-                            <label className="control-label small" for="percentage_discount">Origen</label>
+                            <label className="control-label small" htmlFor="percentage_discount">Origen</label>
                             <input id="product_origin" value={store.origin} name="origin" placeholder="Origin" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-6 col-md-6 col-lg-3">
-                            <label className="control-label small" for="stock_alert">Especie</label>
+                            <label className="control-label small" htmlFor="stock_alert">Especie</label>
                             <input id="product_species" value={store.species} name="species" placeholder="Species" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-6 col-md-4 col-lg-4">
-                            <label className="control-label small" for="stock_alert">Formato</label>
+                            <label className="control-label small" htmlFor="stock_alert">Formato</label>
                             <select className="custom-select" id="product_ground" defaultValue="Grano" name="ground" onChange={actions.handleChangeLogin}>
                                 <option value="Grano">Grano Entero</option>
                                 <option value="Molido">Molido</option>
@@ -89,7 +89,7 @@ const AddProduct = (props) => {
                         </div>
 
                         <div className="form-group col-3 col-md-4 col-lg-4">
-                            <label className="control-label small" for="stock_alert">Acidez</label>                            
+                            <label className="control-label small" htmlFor="stock_alert">Acidez</label>                            
                             <select className="custom-select" id="product_acidity" defaultValue="1" name="acidity" onChange={actions.handleChangeLogin}>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
@@ -105,7 +105,7 @@ const AddProduct = (props) => {
                         </div>
 
                         <div className="form-group col-3 col-md-4 col-lg-4">
-                            <label className="control-label small" for="stock_alert">Tostado</label>
+                            <label className="control-label small" htmlFor="stock_alert">Tostado</label>
                             <select className="custom-select" id="product_roasting" defaultValue="95" name="roasting" onChange={actions.handleChangeLogin}>
                                 <option value="95">95</option>
                                 <option value="85">85</option>
@@ -121,12 +121,12 @@ const AddProduct = (props) => {
 
                     <div className="form-row">
                         <div className="form-group col-12 col-md-12 col-lg-8">
-                            <label className="control-label small" for="product_description">Descripción</label>
+                            <label className="control-label small" htmlFor="product_description">Descripción</label>
                             <textarea className="form-control" value={store.productDescription} id="product_description" name="productDescription" onChange={actions.handleChangeLogin}></textarea>
                         </div>
 
                         <div className="form-group col-12 col-md-12 col-lg-4">
-                            <label className="control-label small" for="filebutton">Imagen</label>
+                            <label className="control-label small" htmlFor="filebutton">Imagen</label>
                             <input id="file" name="productImage" className="input-file" type="file" onChange={actions.handleChangeFiles} />
                         </div>
                     </div>

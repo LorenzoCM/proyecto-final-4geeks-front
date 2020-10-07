@@ -12,7 +12,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark c-black container-fluid px-3">
             <div className="d-flex justify-content-between align-items-center row no-gutters w-100">
                 <Link to="/" className="col-6 col-lg-4 text-white d-flex align-items-baseline order-1">
-                    <i class="fas fa-coffee fa-2x"></i>
+                    <i className="fas fa-coffee fa-2x"></i>
                     <h6>4Geeks Coffee Club</h6>
                 </Link>
                 <div className="col-6 col-lg-4 d-flex flex-column align-items-end order-2 order-lg-3">

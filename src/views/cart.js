@@ -4,7 +4,8 @@ import { Context } from '../store/appContext';
 
 const Cart = props => {
     const { store, actions } = useContext(Context);
-    let total = 0;
+    let total = 0;    
+              
 
     return (
         <div className="container">
@@ -47,7 +48,7 @@ const Cart = props => {
                     {/* Instructions to seller div. */}
                     <div className="row">
                         <div className="col-12 col-md-6 col-lg-8">
-                            <label for="exampleFormControlTextarea1">Instrucciones especiales al vendedor:</label>
+                            <label htmlFor="exampleFormControlTextarea1">Instrucciones especiales al vendedor:</label>
                             <textarea className="form-control" id="exampleFormControlTextarea1" width="100%" rows="3"></textarea>
                         </div>
                         <div className="col-12 col-md-6 col-lg-4">

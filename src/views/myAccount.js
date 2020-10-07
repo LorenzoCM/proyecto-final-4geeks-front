@@ -188,7 +188,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         <div className="modal-body">Estás seguro?</div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null }) }} >Eliminar</button>
+                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null })}} >Eliminar</button>
                         </div>
                     </div>
                 </div>
