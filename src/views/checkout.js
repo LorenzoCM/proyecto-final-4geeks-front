@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../store/appContext';
 import PaypalCheckoutButton from '../components/PayPal';
+import { Link } from 'react-router-dom';
 
 
 const Checkout = (props) => {
     const { store, actions } = useContext(Context);
-    let total = 0;
+    let total = 0;    
 
     const cartData = JSON.parse(localStorage.getItem("currentCart"));
     let priceSum = cartData.reduce(function (prev, product) {
@@ -61,9 +62,9 @@ const Checkout = (props) => {
                                                 <div className="d-flex flex-row py-2 px-2">
                                                     <h6 className="mr-2">{product.quantity}x</h6>
                                                     <h6>{product.product.name}</h6>
-                                                    <h6 className="ml-auto">{(product.product.price * product.quantity).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</h6>                                                    
+                                                    <h6 className="ml-auto">{(product.product.price * product.quantity).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</h6>
                                                 </div>
-                                                <hr className="my-0"/>
+                                                <hr className="my-0" />
                                             </>
                                         )
                                     })}
@@ -71,16 +72,17 @@ const Checkout = (props) => {
                         </div>
                     </div>
                     <div className="c-coffee rounded text-white d-flex justify-content-end align-items-baseline py-3 pl-3">
-                        <i class="fas fa-coffee"></i>
+                        <i className="fas fa-coffee"></i>
                         <div className="d-flex flex-row align-items-baseline mr-2">
                             <h5 className="ml-2 mr-3">Total a pagar:</h5>
                             <h4>{(priceSum).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */} (USD {totalPriceInUSD})</h4>
                         </div>
                     </div>
-                </div>
+                </div>               
                 <div className="col-12 col-md-6 mt-5 mt-md-auto text-center">
                     <PaypalCheckoutButton order={order} />
                 </div>
+                <a href="http://127.0.0.1:5000/api/buy/4"><button className="btn btn-dark">Mercado Pago</button></a>
             </div>
         </div>
     )

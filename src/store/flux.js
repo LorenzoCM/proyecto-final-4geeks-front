@@ -15,6 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             quantity: 0,
             cart: [],
             total: 0,
+            productNumber: 1,
             name: '',
             last_name: '',
             email: '',
@@ -39,6 +40,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             msg: null
         },
         actions: {
+            mercadoPago: async (price) => {
+                const store = getStore();
+                const resp = await fetch(`${store.apiURL}/api/buy`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'                   
+                    },
+                    body: JSON.stringify({
+                        price: price
+                    })
+                })
+                const data = await resp.json();
+                const { msg } = data;
+                console.log(msg)
+            },
             getUsers: filters => {
                 let store = getStore()
                 fetch("http://127.0.0.1:5000/api/admincoffee/users", {
@@ -158,19 +174,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                 })
                 const data = await resp.json();
-                const { msg } = data;
-                if (msg !== undefined) {
-                    setStore({
-                        error: msg
-                    })
-                } else {
-                    console.log(data);
-                    let { products } = store;
-                    products.splice(index, 1)
-                    setStore({
-                        products: products
-                    })
-                }
+                const { msg } = data;                
+                console.log(msg);
+                console.log(index);                         
+                let { products } = store;
+                products.splice(index, 1)
+                setStore({
+                    products: products
+                })                
             },
             handleChangeLogin: e => {
                 setStore({
@@ -409,20 +420,24 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log(data);
             },
-            cartProducts: (item) => {             //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
+            cartProducts: (item, productNumber) => {             //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
                 const store = getStore();
                 let found = false;
                 let user = JSON.parse(sessionStorage.getItem("currentUser"));
                 if (!!user) {
                     if (store.cart.length == 0) {
                         setStore({
-                            cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
+                            cart: store.cart.concat({ product: item, quantity: productNumber, user_id: user.user.id }),
+                            productNumber: 1
                         })
                     } else {
                         for (let i = 0; i < store.cart.length; i++) {
                             if (item.sku === store.cart[i].product.sku) {
-                                store.cart[i].quantity++;
+                                store.cart[i].quantity = store.cart[i].quantity + productNumber;
                                 found = true;
+                                setStore({
+                                    productNumber: 1
+                                });
                                 break;
                             }
                         }
@@ -435,19 +450,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } else {
                     if (store.cart.length == 0) {
                         setStore({
-                            cart: store.cart.concat({ product: item, quantity: 1 })
+                            cart: store.cart.concat({ product: item, quantity: productNumber }),
+                            productNumber: 1
                         })
                     } else {
                         for (let i = 0; i < store.cart.length; i++) {
                             if (item.sku === store.cart[i].product.sku) {
-                                store.cart[i].quantity++;
+                                store.cart[i].quantity = store.cart[i].quantity + productNumber;
                                 found = true;
+                                setStore({
+                                    productNumber: 1
+                                });
                                 break;
                             }
                         }
                         if (!found) {
                             setStore({
-                                cart: store.cart.concat({ product: item, quantity: 1 })
+                                cart: store.cart.concat({ product: item, quantity: productNumber})
                             })
                         }
                     }
@@ -483,17 +502,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                 localStorage.setItem('currentCart', JSON.stringify(cart))
                 localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
             },
-            // deleteProductAdminList: (productIndex) => {            //Function to delete a product instantaneously from the table of products in the admin products table.
+            // deleteProductAdminList: (i) => {            //Function to delete a product instantaneously from the table of products in the admin products table.
             //     const store = getStore();
             //     let { products } = store;
-            //     cart.splice(i, 1)
-            //     quantity = quantity - productQuantity;
+            //     products.splice(i, 1)               
             //     setStore({
-            //         cart: cart,
-            //         quantity: quantity
-            //     })
-            //     localStorage.setItem('currentCart', JSON.stringify(cart))
-            //     localStorage.setItem('quantityCart', JSON.stringify(store.quantity))
+            //         products: products
+            //     })                
             // },               
             logout: () => {                //Function to logout from the website and clean the cart, the currentuser in te session storage and the cart in the local storage
                 const store = getStore();

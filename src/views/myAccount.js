@@ -188,7 +188,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                         <div className="modal-body">Estás seguro?</div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null }) }} >Eliminar</button>
+                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null })}} >Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -532,13 +532,8 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                                     <td>{product.ground}<br />{product.presentation}</td>
                                                     <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-2 border-dark thumbnail" /></td>
                                                     <td className="d-flex align-items-baseline">
-<<<<<<< HEAD
-                                                        <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-secondary mr-1" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
-                                                        <button className="btn btn-sm c-danger text-white" onClick={() => actions.deleteProducts(product.id, index)}>Eliminar</button>
-=======
                                                         <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-dark ml-5" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
                                                         <button className="btn btn-sm btn-danger ml-3" data-toggle="modal" data-target="#deleteProductModal" onClick={() => { setTabs({ ...tabs, productID: product.id, index: index })}}>Eliminar</button>
->>>>>>> lorenzo
                                                     </td>
                                                 </tr>
                                             )
