@@ -4,24 +4,6 @@ import { Context } from '../store/appContext';
 
 const EditProduct = (props) => {
     const { store, actions } = useContext(Context);
-<<<<<<< HEAD
-    // const {id} = useParams();   
-    // useEffect(() => {
-    //     actions.getProductDetails(id);                      
-    //   },[]);
-    
-    const location = useLocation();
-    const getProductDataFromURL = () => {
-        let url = location.pathname;
-        let aux = url.split("/");
-        let id = aux[aux.length - 1];
-        return id;
-    }
-
-    useEffect(() => {
-        actions.getProductDetails(getProductDataFromURL())
-    }, [store]);
-=======
     const {id} = useParams();
     
     
@@ -29,7 +11,6 @@ const EditProduct = (props) => {
         actions.setImageToEdit();
         actions.getProductDetails(id);                      
       },[]); 
->>>>>>> lorenzo
 
     return (
         <>
