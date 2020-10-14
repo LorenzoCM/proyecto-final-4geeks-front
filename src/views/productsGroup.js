@@ -344,8 +344,8 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                                         <div className="d-flex align-items-baseline justify-content-between w-50">
                                                             <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
                                                             <div className="d-flex justify-content-center mt-3 btn-group" role="group">
-                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product)}><i className="fas fa-cart-plus"></i></button>
-                                                                <input id="cartQuantity" type="number" className="btn btn-sm border-accent" defaultValue="1"/>
+                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"></i></button>
+                                                                <input id="cartQuantity" type="number" name="productNumber" className="btn btn-sm border-accent" defaultValue="1" onChange={actions.handleChangeLogin}/>
                                                             </div>
                                                         </div>
                                                     </div>

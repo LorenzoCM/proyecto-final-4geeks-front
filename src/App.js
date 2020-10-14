@@ -16,7 +16,6 @@ import AdminProductsList from './views/adminProductsList.js';
 import Checkout from './views/checkout.js';
 import injectContext from './store/appContext';
 import AddProduct from './views/addProduct';
-import PayPal from './components/PayPal';
 import Blog from './views/blog';
 import EditProduct from './views/editProduct';
 
@@ -40,7 +39,7 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
-        <Route exact path="/admincoffee/editproduct/:id" component={EditProduct} />
+        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />
       </Switch> 
       <Newsletter />
       <Footer />
