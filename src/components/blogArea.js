@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const BlogArea = (props) => {
     return (
-        <div className="container mt-5">
+        <section className="container my-5">
             <div className="mb-5">
                 <h3>Conoce mas sobre el café</h3>
             </div>
@@ -47,7 +47,7 @@ const BlogArea = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
