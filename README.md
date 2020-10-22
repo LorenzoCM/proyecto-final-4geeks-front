@@ -1,4 +1,4 @@
-This project is a work is progress, please visit DEVELOPMENT branch to see current advance
+This project is a work in progress, please visit DEVELOPMENT branch to see current advance
 
 ## Created with HTML, CSS, React.js & Bootstrap
 
