@@ -160,3 +160,21 @@ html {
 .productDetailsBtn {
   max-width: 230px;
 }
+
+.test {
+  background-color: black;
+  width: 50px;
+}
+
+.sum {
+  font-size: 15px;
+}
+
+.inputCart {
+  width: 50px;
+  height: 27px;
+}
+
+.addCart {
+  height: 27px;
+}

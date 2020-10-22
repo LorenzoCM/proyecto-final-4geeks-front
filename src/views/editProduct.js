@@ -6,10 +6,9 @@ const EditProduct = (props) => {
     const { store, actions } = useContext(Context);
     const {id} = useParams();
     
-    
+        
     useEffect(() => {
-        actions.setImageToEdit();
-        actions.getProductDetails(id);                      
+        actions.getProductDetails(id);                              
       },[]); 
 
     return (
@@ -46,66 +45,66 @@ const EditProduct = (props) => {
                     <div className="form-row">
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_sku">Product SKU</label>
-                            <input type="text" id="product_sku" defaultValue={store.productDetails.sku} name="sku" placeholder="Product Sku" className="form-control input-md" onChange={actions.handleChangeProduct} />
+                            <input type="text" id="product_sku" value={!!store.productDetails && store.productDetails.sku} name="sku" placeholder="Product Sku" className="form-control input-md" onChange={actions.handleChangeProduct} />
                         </div>
       
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_brand">Product Brand</label>
-                            <input id="product_brand" defaultValue={store.productDetails.brand} name="brand" placeholder="Product Brand" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_brand" value={!!store.productDetails && store.productDetails.brand} name="brand" placeholder="Product Brand" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
               
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_name">Product Name</label>
-                            <input id="product_name" defaultValue={store.productDetails.name} name="name" placeholder="Product Name" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_name" value={!!store.productDetails && store.productDetails.name} name="name" placeholder="Product Name" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
              
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_presentation">Product Presentation</label>
-                            <input id="product_presentation" defaultValue={store.productDetails.presentation} name="presentation" placeholder="Product Presentation" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_presentation" value={!!store.productDetails && store.productDetails.presentation} name="presentation" placeholder="Product Presentation" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
                     </div>
                
                     <div className="form-row">
                         <div className="form-group col-10 col-md-8 col-lg-4">
                             <label className="control-label small" htmlFor="product_price">Product Price</label>
-                            <input id="product_price" defaultValue={store.productDetails.price} name="price" placeholder="CLP $" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
+                            <input id="product_price" value={!!store.productDetails && store.productDetails.price} name="price" placeholder="CLP $" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
                         </div>
                  
                         <div className="form-group col-2 col-md-4 col-lg-2">
                             <label className="control-label small" htmlFor="product_stock">Stock</label>
-                            <input id="product_stock" defaultValue={store.productDetails.stock} name="stock" placeholder="Stock" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
+                            <input id="product_stock" value={!!store.productDetails && store.productDetails.stock} name="stock" placeholder="Stock" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
                         </div>
                    
                         <div className="form-group col-6 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="percentage_discount">Origin</label>
-                            <input id="product_origin" defaultValue={store.productDetails.origin} name="origin" placeholder="Origin" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_origin" value={!!store.productDetails && store.productDetails.origin} name="origin" placeholder="Origin" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
                     
                         <div className="form-group col-6 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="stock_alert"> Species</label>
-                            <input id="product_species" defaultValue={store.productDetails.species} name="species" placeholder="Species" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_species" value={!!store.productDetails && store.productDetails.species} name="species" placeholder="Species" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
                 
                         <div className="form-group col-6 col-md-4 col-lg-4">
                             <label className="control-label small" htmlFor="stock_alert">Ground</label>
-                            <input id="product_ground" defaultValue={store.productDetails.ground} name="ground" placeholder="Ground" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
+                            <input id="product_ground" value={!!store.productDetails && store.productDetails.ground} name="ground" placeholder="Ground" className="form-control input-md" required="" type="text" onChange={actions.handleChangeProduct} />
                         </div>
                         
                         <div className="form-group col-3 col-md-4 col-lg-4">
                             <label className="control-label small" htmlFor="stock_alert">Acidity</label>
-                            <input id="product_acidity" defaultValue={store.productDetails.acitidy} name="acidity" placeholder="Acidity" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
+                            <input id="product_acidity" value={!!store.productDetails && store.productDetails.acitidy} name="acidity" placeholder="Acidity" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
                         </div>
                        
                         <div className="form-group col-3 col-md-4 col-lg-4">
                             <label className="control-label small" htmlFor="stock_alert">Roasting</label>
-                            <input id="product_roasting" defaultValue={store.productDetails.roasting} name="roasting" placeholder="Roasting" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
+                            <input id="product_roasting" value={!!store.productDetails && store.productDetails.roasting} name="roasting" placeholder="Roasting" className="form-control input-md" required="" type="number" onChange={actions.handleChangeProduct} />
                         </div>
                     </div>
                    
                     <div className="form-row">
                         <div className="form-group col-12 col-md-12 col-lg-8">
                             <label className="control-label small" htmlFor="product_description">Product Description</label>
-                            <textarea className="form-control" defaultValue={store.productDetails.description} id="product_description" name="description" onChange={actions.handleChangeProduct}></textarea>
+                            <textarea className="form-control" value={!!store.productDetails && store.productDetails.description} id="product_description" name="description" onChange={actions.handleChangeProduct}></textarea>
                         </div>
                         
                         <div className="form-group col-12 col-md-12 col-lg-4">

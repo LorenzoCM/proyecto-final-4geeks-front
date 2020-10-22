@@ -341,11 +341,16 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                                         <p className="card-text my-0">{product.brand}</p>
                                                         <p className="card-text my-0">{product.origin}</p>
                                                         <p className="card-text my-0">{product.price}</p>
-                                                        <div className="d-flex align-items-baseline justify-content-between w-50">
+                                                        <div className="d-flex justify-content-between w-100">
                                                             <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                            <div className="d-flex justify-content-center mt-3 btn-group" role="group">
-                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"></i></button>
-                                                                <input id="cartQuantity" type="number" name="productNumber" className="btn btn-sm border-accent" defaultValue="1" onChange={actions.handleChangeLogin}/>
+                                                            {/* <div className="d-flex justify-content-between btn-group" role="group">
+                                                                <button className="btn btn-sm c-coffee"><span className="text-white font-weight-bold sum">-</span></button>
+                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"><span className="ml-2">{store.productNumber}</span></i></button>
+                                                                <button className="btn btn-sm c-coffee"><span className="text-white font-weight-bold sum" onClick={actions.sumQuantity}>+</span></button>
+                                                            </div> */}
+                                                            <div className="d-flex justify-content-center btn-group mt-1" role="group">
+                                                                <button className="btn btn-sm c-accent addCart" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"></i></button>
+                                                                <input id="cartQuantity" type="number" name="productNumber" className="btn btn-sm border-accent inputCart" defaultValue="1" onChange={actions.handleChangeLogin}/>
                                                             </div>
                                                         </div>
                                                     </div>

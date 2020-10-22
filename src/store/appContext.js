@@ -24,6 +24,7 @@ const injectContext = PassedComponent => {
       state.actions.updateCart();
       state.actions.cartNumActualize();
       state.actions.getConversionValue(APIdate);
+      state.actions.setQuantityZero();
     }, []);
 
     return (

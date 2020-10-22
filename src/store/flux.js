@@ -34,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             acidity: '',
             roasting: '',
             productDescription: '',
-            productImage: '',
+            productImage: null,
             categories: [1],
             conversionValue: null,
             msg: null
@@ -401,7 +401,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("acidity", store.productDetails.acidity);
                 formData.append("roasting", store.productDetails.roasting);
                 formData.append("description", store.productDetails.description);
-                formData.append("image", store.productImage);
+                if (store.productImage != null) formData.append("image", store.productImage);
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/products/${id}`, {
                     method: 'PUT',
                     body: formData,
@@ -420,6 +420,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log(data);
             },
+            sumQuantity: () => {
+                const store = getStore();
+                store.productNumber++;
+                setStore({
+                    productNumber: store.productNumber
+                })
+            },
             cartProducts: (item, productNumber) => {             //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
                 const store = getStore();
                 let found = false;
@@ -436,6 +443,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                                 store.cart[i].quantity = store.cart[i].quantity + productNumber;
                                 found = true;
                                 setStore({
+                                    cart: store.cart,
                                     productNumber: 1
                                 });
                                 break;
@@ -443,7 +451,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                         }
                         if (!found) {
                             setStore({
-                                cart: store.cart.concat({ product: item, quantity: 1, user_id: user.user.id })
+                                cart: store.cart.concat({ product: item, quantity: productNumber, user_id: user.user.id }),
+                                productNumber: 1
                             })
                         }
                     }
@@ -466,7 +475,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                         }
                         if (!found) {
                             setStore({
-                                cart: store.cart.concat({ product: item, quantity: productNumber})
+                                cart: store.cart.concat({ product: item, quantity: productNumber}),
+                                productNumber: 1
                             })
                         }
                     }
@@ -527,6 +537,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 });
             },
             cartNumActualize: () => {
+                const store = getStore();
                 let cartInitializer = JSON.parse(localStorage.getItem("quantityCart"))
                 if (cartInitializer == null) {
                     setStore({
@@ -536,6 +547,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({
                         quantity: JSON.parse(localStorage.getItem("quantityCart"))
                     })
+                }
+            },
+            setQuantityZero: () => {
+                const store = getStore();
+                if (store.quantity < 0) {
+                    setStore({
+                        quantity: 0
+                    });  
+                    localStorage.setItem('quantityCart', JSON.stringify(store.quantity));
                 }
             },
             setCurrentUser: user => {
@@ -574,12 +594,19 @@ const getState = ({ getStore, getActions, setStore }) => {
                     password: password
                 })
             },
-            setImageToEdit: () => {   
-                const store = getStore();                   //This function set the preload name of the product image in order to be able to edit the product in case of not upload a new picture.
-                setStore({
-                    productImage: store.productDetails.image
+            mailTo: () => {
+                let store = getStore()
+                fetch("http://127.0.0.1:5000/api/mailto/", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                 })
-            }
+                    .then(resp => resp.json())
+                    .then(data => {
+                        console.log(data)
+                    });
+            },            
         }
     }
 }

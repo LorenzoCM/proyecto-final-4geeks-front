@@ -40,7 +40,7 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
-        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />
+        <Route exact path="/admincoffee/editproduct/:id" component={EditProduct} />
       </Switch> 
       <Newsletter />
       <Footer />
