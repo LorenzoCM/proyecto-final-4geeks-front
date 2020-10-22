@@ -5,7 +5,6 @@ import { Context } from '../store/appContext';
 const ProductDetails = ({ history, match: { params: { id } } }, ...props) => {
     const { store, actions } = useContext(Context);
 
-
     const location = useLocation();
     const getProductDataFromURL = () => {
         let url = location.pathname;
@@ -24,22 +23,18 @@ const ProductDetails = ({ history, match: { params: { id } } }, ...props) => {
         <>
             <div className="container-fluid">
                 <section>
+                    <div className="row no-gutters">
+                        <span className="btn btn-sm c-accent ml-0 ml-lg-5 my-3" onClick={()=>{history.push("/products")}}><i class="fas fa-angle-double-left"></i></span>
+                    </div>
                     <div className="row d-flex no-gutters">
                         <div className="col-12 col-lg-7 order-2 order-lg-1 px-lg-5 d-flex flex-column justify-content-around">
-                            <div className="d-flex justify-content-between mt-3 mb-2 mb-md-0">
-                                <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                            <div className="d-flex flex-column mt-3 mb-2 mb-md-0">
+                                <div className="d-flex justify-content-between align-items-center">
                                     <h3 className="order-1">{!!store.productDetails && store.productDetails.name}</h3>
-                                    <span className="align-items-start ml-md-2 order-3 order-md-2">
-                                        {/* for average of ratings stars renders: filled for given, outlined for not reached */}
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                        <i className="fas fa-star"></i>
-                                    </span>
+                                    <h3 className="order-2 order-lg-3">${!!store.productDetails && store.productDetails.price}</h3>
                                 </div>
                                 <div>
-                                    <h3 className="order-2 order-lg-3">${!!store.productDetails && store.productDetails.price}</h3>
+                                    <h4 className="text-muted">{!!store.productDetails && store.productDetails.brand}</h4>
                                 </div>
                             </div>
                             {/* for hr's to show in flex column apply margin = 0 */}

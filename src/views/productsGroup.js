@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from './../store/appContext';
 import { Link } from 'react-router-dom';
+import ProductCard from '../components/productCard';
 
 const ProductsGroup = ({ history, location, match }, ...props) => {
     const { store, actions } = useContext(Context);
@@ -10,7 +11,8 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
         groundFilter: [],
         originFilter: [],
         pricefilterMin: 0,
-        pricefilterMax: 99999
+        pricefilterMax: 99999,
+        showOrigins: false
     });
 
     useEffect(() => {
@@ -85,187 +87,80 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
 
     return (
         <>
-            {/* <!-- Section: Sidebar --> */}
-            <div className="container-fluid">
-                <div className="row">
-                    <section className="col-12 col-md-2 c-coffee text-white filter-sidebar d-flex flex-column align-items-start">
-
-                        <h5 className="my-3">Filtros</h5>
-                        {/* <!-- Section: Filters --> */}
-                        <section className="ml-2 d-flex flex-row flex-md-column justify-content-between">
-
-                            {/* <!-- Section: Type --> */}
-                            <section className="d-flex flex-column mb-4">
-
-                                <h6 className="font-weight-bold">Tipo</h6>
-                                <div className="pl-4">
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="grano" value="Grano" onClick={e => handleGroundFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="grano">Grano Entero</label>
-                                    </div>
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="molido" value="Molido" onClick={e => handleGroundFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="molido">Molido</label>
-                                    </div>
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="capsula" value="Cápsulas" onClick={e => handleGroundFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="capsula">Cápsulas</label>
+            <div className="modal fade" id="brewingCoffee" tabindex="-1" aria-labelledby="brewingFilters" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content c-coffee text-white">
+                        <div className="modal-header border-bottom border-secondary">
+                            <h5 className="modal-title" id="brewingFilters">Filtros</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><i class="fas fa-times text-white"></i></span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="row">
+                                <div className="col-12 col-md-6 d-flex">
+                                    <div className="d-flex flex-column justify-content-between">
+                                        <h6 className="font-weight-bold">Tipo</h6>
+                                        <div className="form-check pl-3 d-flex align-items-baseline my-3 my-md-auto">
+                                            <input type="checkbox" className="form-check-input filled-in" id="grano" value="Grano" onClick={e => handleGroundFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="grano">Grano Entero</label>
+                                        </div>
+                                        <div className="form-check pl-3 d-flex align-items-baseline my-3 my-md-auto">
+                                            <input type="checkbox" className="form-check-input filled-in" id="molido" value="Molido" onClick={e => handleGroundFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="molido">Molido</label>
+                                        </div>
+                                        <div className="form-check pl-3 mb-4 d-flex align-items-baseline my-3 my-md-auto">
+                                            <input type="checkbox" className="form-check-input filled-in" id="capsula" value="Cápsulas" onClick={e => handleGroundFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="capsula">Cápsulas</label>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="col-12 col-md-6">
+                                    <h6 className="font-weight-bold mb-3">Precio</h6>
+                                    {/* this slider is to be implemented in the future
+                                            <div className="slider-price d-flex align-items-center my-4">
+                                                <span className="font-weight-normal small text-muted mr-2">$0</span>
+                                                <form className="multi-range-field w-100 mb-1">
+                                                    <input id="multi" className="multi-range" type="range" />
+                                                </form>
+                                                <span className="font-weight-normal small text-muted ml-2">$100</span>
+                                            </div> */}
 
-                            </section>
-                            {/* <!-- Section: Type --> */}
-
-                            {/* <!-- Section: Average --> */}
-                            {/* <section className="mb-4">
-
-                                <h6 className="font-weight-bold mb-3">Rating</h6>
-
-                                <a href="#!">
-                                    <ul className="list-group list-group-horizontal d-flex align-items-baseline">
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-ite border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <p className="small text-dark ml-1">o más</p>
-                                        </li>
-                                    </ul>
-                                </a>
-                                <a href="#!">
-                                    <ul className="list-group list-group-horizontal d-flex align-items-baseline">
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <p className="small text-dark ml-1">o más</p>
-                                        </li>
-                                    </ul>
-                                </a>
-                                <a href="#!">
-                                    <ul className="list-group list-group-horizontal d-flex align-items-baseline">
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <p className="small text-dark ml-1">o más</p>
-                                        </li>
-                                    </ul>
-                                </a>
-                                <a href="#!">
-                                    <ul className="list-group list-group-horizontal d-flex align-items-baseline">
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="fas fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <i className="far fa-star fa-sm text-dark"></i>
-                                        </li>
-                                        <li className="list-group-item border-0 p-0 m-0">
-                                            <p className="small text-dark ml-1">o más</p>
-                                        </li>
-                                    </ul>
-                                </a>
-
-                            </section> */}
-                            {/* <!-- Section: Average --> */}
-
-                            {/* <!-- Section: Price version 2 --> */}
-                            <section className="mb-4">
-
-                                <h6 className="font-weight-bold mb-3">Precio</h6>
-                                {/* this slider is to be implemented in the future
-                                <div className="slider-price d-flex align-items-center my-4">
-                                    <span className="font-weight-normal small text-muted mr-2">$0</span>
-                                    <form className="multi-range-field w-100 mb-1">
-                                        <input id="multi" className="multi-range" type="range" />
-                                    </form>
-                                    <span className="font-weight-normal small text-muted ml-2">$100</span>
-                                </div> */}
-
-                                <form>
-                                    <div className="mt-4 pb-1">
-                                        <div className="md-form md-outline my-0">
-                                            <label htmlFor="priceMin" className="mb-0">$ Min</label>
-                                            <input id="priceMin" type="number" className="form-control mb-2" onChange={e => { setBrewing({ ...brewing, pricefilterMin: e.target.value }) }} />
-                                            <label htmlFor="priceMax" className="mt-2 mb-0">$ Max</label>
-                                            <input id="priceMax" type="number" className="form-control" onChange={e => { setBrewing({ ...brewing, pricefilterMax: e.target.value }) }} />
+                                    <form>
+                                        <div className="mt-4 pb-1">
+                                            <div className="md-form md-outline my-0">
+                                                <label htmlFor="priceMin" className="mb-0">$ Min</label>
+                                                <input id="priceMin" type="number" className="form-control mb-2" onChange={e => { e.target.value == "" ? setBrewing({ ...brewing, pricefilterMin: 0 }) : setBrewing({ ...brewing, pricefilterMin: e.target.value }) }} />
+                                                <label htmlFor="priceMax" className="mt-2 mb-0">$ Max</label>
+                                                <input id="priceMax" type="number" className="form-control" onChange={e => { e.target.value == "" ? setBrewing({ ...brewing, pricefilterMax: 99999 }) : setBrewing({ ...brewing, pricefilterMax: e.target.value }) }} />
+                                            </div>
+                                            <a className="badge badge-secondary text-sm mt-3" onClick={() => { setBrewing({ ...brewing, pricefilterMin: 0, pricefilterMax: 99999 }) }}>Reset</a>
                                         </div>
-                                        <a className="badge badge-secondary text-sm mt-3" onClick={() => { setBrewing({ ...brewing, pricefilterMin: 0, pricefilterMax: 99999 }) }}>Reset</a>
-                                    </div>
-                                </form>
-
-                            </section>
-                            {/* <!-- Section: Price version 2 --> */}
-
-                            {/* <!-- Section: Origin --> */}
-                            <section className="mb-4">
-                                <div className="pl-3">
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="row mt-4">
+                                <div className="col-12 d-flex flex-column">
                                     <h6 className="font-weight-bold mb-3">Origen</h6>
-
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="colombia" value="Colombia" onClick={e => handleOriginFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="colombia">Colombia</label>
+                                    <div className="d-flex flex-column flex-md-row justify-content-between px-3">
+                                        <div className="form-check pl-0 mb-3">
+                                            <input type="checkbox" className="form-check-input filled-in" id="colombia" value="Colombia" onClick={e => handleOriginFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="colombia">Colombia</label>
+                                        </div>
+                                        <div className="form-check pl-0 mb-3">
+                                            <input type="checkbox" className="form-check-input filled-in" id="venezuela" value="Venezuela" onClick={e => handleOriginFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="venezuela">Venezuela</label>
+                                        </div>
+                                        <div className="form-check pl-0 mb-3">
+                                            <input type="checkbox" className="form-check-input filled-in" id="ecuador" value="Ecuador" onClick={e => handleOriginFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="ecuador">Ecuador</label>
+                                        </div>
+                                        <div className="form-check pl-0 mb-3">
+                                            <input type="checkbox" className="form-check-input filled-in" id="peru" value="Perú" onClick={e => handleOriginFilters(e)} />
+                                            <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="peru">Perú</label>
+                                        </div>
                                     </div>
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="venezuela" value="Venezuela" onClick={e => handleOriginFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="venezuela">Venezuela</label>
-                                    </div>
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="ecuador" value="Ecuador" onClick={e => handleOriginFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="ecuador">Ecuador</label>
-                                    </div>
-                                    <div className="form-check pl-0 mb-3">
-                                        <input type="checkbox" className="form-check-input filled-in" id="peru" value="Perú" onClick={e => handleOriginFilters(e)} />
-                                        <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="peru">Perú</label>
-                                    </div>
-                                    <a className="btn btn-link text-muted p-0" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        más
-                                    </a>
-                                    <div className="collapse pt-3" id="collapseExample">
+                                    <div className={"px-3 animate__animated justify-content-between flex-column flex-md-row" + (brewing.showOrigins == true ? " d-flex animate__fadeInUp " : " d-none")} id="originCollapse">
                                         <div className="form-check pl-0 mb-3">
                                             <input type="checkbox" className="form-check-input filled-in" id="guatemala" value="Guatemala" onClick={e => handleOriginFilters(e)} />
                                             <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="guatemala">Guatemala</label>
@@ -283,87 +178,53 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
                                             <label className="form-check-label small text-uppercase card-link-secondary" htmlFor="brasil">Brasil</label>
                                         </div>
                                     </div>
+                                    <div>
+                                        <a className="btn btn-link text-muted" onClick={()=>{brewing.showOrigins == false ? setBrewing({showOrigins: true}) : setBrewing({showOrigins: false})}}>
+                                            {brewing.showOrigins == false ? "más origenes" : "menos origenes"}
+                                        </a>
+                                    </div>
                                 </div>
-
-                            </section>
-                            {/* <!-- Section: Origin --> */}
-
-                            {/* <!-- Section: Categories --> */}
-                            {/* <section className="mb-4">
-
-                                <h6 className="font-weight-bold mb-3">Categorías</h6>
-
-                                <div>
-                                    {
-                                        !!store.categories &&
-                                        store.categories.map((category, index) => {
-                                            return (
-                                                <span className="badge badge-info" key={index}>{category.name}</span>
-                                            )
-                                        })
-                                    }
-                                </div>
-
-                            </section> */}
-                            {/* <!-- Section: Categories --> */}
-
-                        </section>
-                        {/* <!-- Section: Filters --> */}
-
-                    </section>
-                    {/* <!-- Section: Sidebar --> */}
-
-                    <section className="col-12 col-md-10">
-                        <div>
-                            <hr />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* <!-- Section: Sidebar --> */}
+            <section className="container-fluid">
+                <div className="row">
+                    <div className="col-12">
+                        <hr className="mb-2" />
+                        <div className="d-flex justify-content-between align-items-baseline w-100">
+                            <button type="button" className="btn c-coffee text-white" data-toggle="modal" data-target="#brewingCoffee">Filtros</button>
                             <div className="d-flex justify-content-end align-items-baseline mt-n2 mb-n3">
-                                <p className="mr-2">Ordenar por</p>
-                                <select className="custom-select w-25" id="sortCombo" onChange={e => handleSort(e)}>
+                                <p className="mr-2 text-nowrap">Ordenar por</p>
+                                <select className="custom-select" id="sortCombo" onChange={e => handleSort(e)}>
                                     <option value="1">Precio (ascendente)</option>
                                     <option value="2">Precio (descendente)</option>
                                     <option value="3">Marca (A...Z</option>
                                     <option value="4">Marca (Z...A)</option>
                                 </select>
                             </div>
-                            <hr />
                         </div>
-                        <div>
-                            <div className="card-deck d-flex my-0">
-                                {
-                                    !!store.products &&
-                                    store.products.map((product, index) => {
-                                        return (
-                                            <div className="card-thumbnail mt-2" key={index}>
-                                                <div className="card border border-2 border-dark rounded-0">
-                                                    <img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} className="card-img-top img-fluid rounded-0" alt="..." />
-                                                    <div className="card-body border-top border-2 border-dark py-2 px-3" >
-                                                        <h6 className="card-title">{product.name}</h6>
-                                                        <p className="card-text my-0">{product.brand}</p>
-                                                        <p className="card-text my-0">{product.origin}</p>
-                                                        <p className="card-text my-0">{product.price}</p>
-                                                        <div className="d-flex justify-content-between w-100">
-                                                            <Link to={`/products/${product.id}`} className="btn btn-sm c-coffee text-white mt-1">Ver más</Link>
-                                                            {/* <div className="d-flex justify-content-between btn-group" role="group">
-                                                                <button className="btn btn-sm c-coffee"><span className="text-white font-weight-bold sum">-</span></button>
-                                                                <button className="btn btn-sm c-accent" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"><span className="ml-2">{store.productNumber}</span></i></button>
-                                                                <button className="btn btn-sm c-coffee"><span className="text-white font-weight-bold sum" onClick={actions.sumQuantity}>+</span></button>
-                                                            </div> */}
-                                                            <div className="d-flex justify-content-center btn-group mt-1" role="group">
-                                                                <button className="btn btn-sm c-accent addCart" onClick={() => actions.cartProducts(product, parseInt(store.productNumber))}><i className="fas fa-cart-plus"></i></button>
-                                                                <input id="cartQuantity" type="number" name="productNumber" className="btn btn-sm border-accent inputCart" defaultValue="1" onChange={actions.handleChangeLogin}/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                        <hr className="mt-2" />
+                    </div>
+                    <div className="row">
+                        <div className="d-flex flex-wrap col-12 justify-content-center justify-content-sm-between  justify-content-lg-start">
+                            {
+                                !!store.products &&
+                                store.products.map((coffee, index) => {
+                                    return (
+                                        <ProductCard product={coffee} key={index} />
+                                    )
+                                })
+                            }
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </div>
+            </section>
         </>
     )
 }
