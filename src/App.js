@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/blog" component={Blog} />
         <Route exact path="/blogspot" component={BlogSpot} />
         {/* This is supposed to receive a username from database <:username> vvv */}
-        <Route exact path="/micuenta" component={MyAccount} />               
+        <Route exact path="/micuenta" component={MyAccount} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
@@ -41,11 +41,10 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
-        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />        
+        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />
         <Route exact path="/success" component={Success} />
         <Route exact path="/error" component={PayError} />
-      </Switch> 
-      <Newsletter />
+      </Switch>
       <Footer />
     </BrowserRouter>
   );

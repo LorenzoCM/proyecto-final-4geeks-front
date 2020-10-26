@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const resp = await fetch(`${store.apiURL}/api/buy`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'                   
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         price: price
@@ -90,13 +90,13 @@ const getState = ({ getStore, getActions, setStore }) => {
                     .catch((error) => {
                         console.log(error)
                     });
-            },            
+            },
             deleteUser: async (id, index) => {
                 const store = getStore();
                 const resp = await fetch(`${store.apiURL}/api/admincoffee/users/${id}`, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': "Bearer " + store.currentUser.access_token               
+                        'Authorization': "Bearer " + store.currentUser.access_token
                     }
                 })
                 const data = await resp.json();
@@ -105,14 +105,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({
                         error: msg
                     })
-                } else {                
-                let { users, currentUser } = store;
-                users.splice(index, 1)
-                setStore({
-                    users: users,
-                    currentUser: null
-                })
-            }},
+                } else {
+                    let { users, currentUser } = store;
+                    users.splice(index, 1)
+                    setStore({
+                        users: users,
+                        currentUser: null
+                    })
+                }
+            },
             getProductDetails: id => {
                 let store = getStore()
                 fetch(`http://127.0.0.1:5000/api/products/${id}`, {
@@ -145,6 +146,34 @@ const getState = ({ getStore, getActions, setStore }) => {
                         })
                     });
             },
+            getProductsRaw: () => {
+                let store = getStore()
+                let brewing = {
+                    sorting: "priceup",
+                    groundFilter: [],
+                    originFilter: [],
+                    pricefilterMin: 0,
+                    pricefilterMax: 99999,
+                    showOrigins: false
+                }
+                fetch("http://127.0.0.1:5000/api/products/brewing", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(brewing)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            ...store,
+                            products: data
+                        })
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
             getProductsFiltered: brewing => {
                 let store = getStore()
                 fetch("http://127.0.0.1:5000/api/products/brewing", {
@@ -174,14 +203,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                 })
                 const data = await resp.json();
-                const { msg } = data;                
+                const { msg } = data;
                 console.log(msg);
-                console.log(index);                         
+                console.log(index);
                 let { products } = store;
                 products.splice(index, 1)
                 setStore({
                     products: products
-                })                
+                })
             },
             handleChangeLogin: e => {
                 setStore({
@@ -205,7 +234,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 })
             },
             handleChangeFiles: e => {
-                const store = getStore();                
+                const store = getStore();
                 setStore({
                     [e.target.name]: e.target.files[0]
                 })
@@ -279,14 +308,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     method: 'PUT',
                     body: JSON.stringify({
                         name: store.currentUser.user.name,
-                        last_name: store.currentUser.user.last_name,                        
+                        last_name: store.currentUser.user.last_name,
                         email: store.currentUser.user.email,
                         phone: store.currentUser.user.phone,
                         address: store.currentUser.user.address
                     }),
                     headers: {
                         'Content-Type': 'application/json'
-                    }                    
+                    }
                 })
                 console.log(id);
                 const data = await resp.json();
@@ -299,7 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                 } else {
                     sessionStorage.setItem('currentUser', JSON.stringify(data))
-                    setStore({                        
+                    setStore({
                         currentUser: data,
                         msg: data.success,
                         error: null
@@ -420,7 +449,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log(data);
             },
-            cartProducts: (item, productNumber) => {             //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
+            cartProducts: (item, productNumber) => {
+                console.log(item)          //Function that allows a logged user to add products to the cart, sum the quantity of products in the cart and establish this information in the localstorage.
                 const store = getStore();
                 let found = false;
                 let user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -466,7 +496,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         }
                         if (!found) {
                             setStore({
-                                cart: store.cart.concat({ product: item, quantity: productNumber})
+                                cart: store.cart.concat({ product: item, quantity: productNumber })
                             })
                         }
                     }
@@ -574,7 +604,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     password: password
                 })
             },
-            setImageToEdit: () => {   
+            setImageToEdit: () => {
                 const store = getStore();                   //This function set the preload name of the product image in order to be able to edit the product in case of not upload a new picture.
                 setStore({
                     productImage: store.productDetails.image
