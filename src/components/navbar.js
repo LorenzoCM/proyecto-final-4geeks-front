@@ -26,7 +26,7 @@ const Navbar = () => {
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <Link to={!!user ? "/micuenta" : "/login"} className="dropdown-item">{!!user ? "Mi Cuenta" : "Login"}</Link>
-                            <Link to="/" className="dropdown-item" onClick={actions.logout}>Logout</Link>
+                            <Link to="/" className={"dropdown-item"+(!!user ? "" : " d-none")} onClick={actions.logout}>Logout</Link>
                             <div className={!!user ? "d-none" : "dropdown-divider"}></div>
                             <Link to="/register" className={!!user ? "d-none" : "dropdown-item"} href="#">Register</Link>
 

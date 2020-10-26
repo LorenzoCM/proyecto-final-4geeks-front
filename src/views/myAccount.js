@@ -184,7 +184,7 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                                         tabs.editData == false ?
                                             <button className="btn c-accent text-white" onClick={e => handleEditData(e)}>Editar mis datos</button>
                                             :
-                                            <button className="btn c-coffee text-white" onClick={e => actions.editCurrentUser(e, store.currentUser.user.id)}>Cambiar mis datos</button>
+                                            <button className="btn c-coffee text-white" onClick={e => {actions.editCurrentUser(e, store.currentUser.user.id); handleEditData(e)}}>Cambiar mis datos</button>
                                     }
                                 </div>
                                 {
