@@ -2,6 +2,10 @@ This project is a work is progress, please visit DEVELOPMENT branch to see curre
 
 ## Created with HTML, CSS, React.js & Bootstrap
 
+* The Front side of this project is located at:
+https://github.com/ierrandonea/proyecto-final-4geeks-back/
+
+
 Libraries used in this project:
 
 ### animate.css
@@ -9,6 +13,8 @@ Libraries used in this project:
 ### paypal-checkout
 ### react-dom
 ### react-router-dom
+
+
 
 Current features are (broadly defined...):
 
@@ -21,16 +27,22 @@ Current features are (broadly defined...):
 ### Edit your information
 ### Checkout & pay for your products with Paypal
 
+
+
 Other functionalitites as adminitrator
 
 ### Add, edit & delete products
 ### Manage users
+
+
 
 More features are to be included:
 
 ### Pay with MercadoPago
 ### Navigate, filter & buy events
 ### As Admin, dynamically add content for blog section
+
+
 
 A demo of this project will be made available soon.
 

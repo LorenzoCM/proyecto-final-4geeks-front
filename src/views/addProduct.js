@@ -39,22 +39,22 @@ const AddProduct = (props) => {
                     <div className="form-row">
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_sku">SKU</label>
-                            <input type="text" id="product_sku" value={store.productSku} name="productSku" placeholder="Product Sku" className="form-control input-md" onChange={actions.handleChangeLogin} />
+                            <input type="text" id="product_sku" value={store.productSku} name="productSku" placeholder="Sku" className="form-control input-md" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_brand">Marca</label>
-                            <input id="product_brand" value={store.productBrand} name="productBrand" placeholder="Product Brand" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
+                            <input id="product_brand" value={store.productBrand} name="productBrand" placeholder="Marca" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_name">Nombre Producto</label>
-                            <input id="product_name" value={store.productName} name="productName" placeholder="Product Name" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
+                            <input id="product_name" value={store.productName} name="productName" placeholder="Nombre" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-12 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="product_presentation">Presentación</label>
-                            <input id="product_presentation" value={store.productPresentation} name="productPresentation" placeholder="Product Presentation" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
+                            <input id="product_presentation" value={store.productPresentation} name="productPresentation" placeholder="Presentación" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
                     </div>
 
@@ -71,12 +71,12 @@ const AddProduct = (props) => {
 
                         <div className="form-group col-6 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="percentage_discount">Origen</label>
-                            <input id="product_origin" value={store.origin} name="origin" placeholder="Origin" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
+                            <input id="product_origin" value={store.origin} name="origin" placeholder="Origen" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-6 col-md-6 col-lg-3">
                             <label className="control-label small" htmlFor="stock_alert">Especie</label>
-                            <input id="product_species" value={store.species} name="species" placeholder="Species" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
+                            <input id="product_species" value={store.species} name="species" placeholder="Especie" className="form-control input-md" required="" type="text" onChange={actions.handleChangeLogin} />
                         </div>
 
                         <div className="form-group col-6 col-md-4 col-lg-4">

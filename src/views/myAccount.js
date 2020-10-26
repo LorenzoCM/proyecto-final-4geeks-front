@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
 import AdminProductsList from '../views/adminProductsList';
+import AdminUsersList from '../views/adminUsersList';
 
 const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
     const { store, actions } = useContext(Context)
@@ -17,10 +18,6 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         index: 0,
         password: '',
         productID: null
-    });
-    const [filters, setFilters] = useState({
-        sorting: "nameup",
-        role: ""
     });
 
     const [brewing, setBrewing] = useState({
@@ -44,25 +41,6 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         }
         else {
             setBrewing({ ...brewing, sorting: "priceup" })
-        }
-    };
-
-    const handleSortUsers = e => {
-        if (e.target.value == 2) {
-            setFilters({ ...filters, sorting: "namedown" });
-        }
-        else {
-            setFilters({ ...filters, sorting: "nameup" })
-        }
-    };
-
-    const handleIsAdmin = (e) => {
-        if (e.target.value == "user") {
-            setFilters({ ...filters, role: "isUser" });
-        } else if (e.target.value == "admin") {
-            setFilters({ ...filters, role: "isAdmin" })
-        } else {
-            setFilters({ ...filters, role: "" })
         }
     };
 
@@ -137,63 +115,15 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
         e.preventDefault();
     };
 
-    const handleMakeAdmin = (e, user) => {
-        e.preventDefault();
-        console.log(user)
-        if (user.role === "isUser") {
-            user.role = "isAdmin"
-        } else {
-            user.role = "isUser"
-        }
-        actions.putUserFromList(user)
-    }
-
     let user = JSON.parse(sessionStorage.getItem("currentUser"));
 
     useEffect(() => {
         actions.getProductsFiltered(brewing)
     }, [brewing]);
 
-    useEffect(() => {
-        actions.getUsers(filters)
-    }, [filters]);
 
     return (
         <>
-            <div className="modal fade" id="deleteUserModal" tabIndex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="deleteUserModalLabel">Eliminar Usuario</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">Estás seguro?</div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteUser(tabs.userID, tabs.index); setTabs({ ...tabs, userID: null }) }} >Eliminar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="modal fade" id="deleteProductModal" tabIndex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="deleteUserModalLabel">Eliminar Usuario</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">Estás seguro?</div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
-                            <button type="button" className="btn btn-danger" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null }) }} >Eliminar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div className="container-fluid">
                 <ul className="nav nav-tabs mt-5 d-flex align-items-baseline">
                     <li className="nav-item">
@@ -439,63 +369,11 @@ const MyAccount = ({ history, match: { params: { name } } }, ...props) => {
                     }
                     {
                         tabs.tabs === "usersAdmin" &&
-                        <div className="container">
-                            <div className="d-flex justify-content-end align-items-baseline my-3">
-                                <p className="mr-2">Mostrar</p>
-                                <select className="custom-select w-25 mr-3" id="usersSortCombo2" onChange={e => handleIsAdmin(e)}>
-                                    <option value="all">Todos</option>
-                                    <option value="user">Usuarios</option>
-                                    <option value="admin">Administradores</option>
-                                </select>
-                                <p className="mr-2">Ordenar por</p>
-                                <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSortUsers(e)}>
-                                    <option value="1">Nombre (A...Z)</option>
-                                    <option value="2">Nombre (Z...A)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <table className="table table-striped text-center">
-                                    <thead className="c-coffee text-white">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Apellido</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Is Admin</th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {!!store.users &&
-                                            store.users.map((user, index) => {
-                                                return (
-                                                    <tr key={index} >
-                                                        <th scope="row">{index + 1}</th>
-                                                        <td>{user.name}</td>
-                                                        <td>{user.last_name}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.role}</td>
-                                                        <td>
-                                                            {
-                                                                user.role === "isUser" ?
-                                                                    <button className="btn btn-sm btn-dark mr-1" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-plus"></i></button>
-                                                                    :
-                                                                    <button className="btn btn-sm btn-secondary mr-1" onClick={e => handleMakeAdmin(e, user.id)} >Admin <i className="fas fa-minus"></i></button>
-
-                                                            }
-                                                            <button type="button" className="btn btn-sm c-danger text-white" data-toggle="modal" data-target="#deleteUserModal" onClick={() => { setTabs({ ...tabs, userID: user.id, index: index }) }}>Eliminar</button>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <AdminUsersList />
                     }
                     {
                         tabs.tabs === "productosAdmin" &&
-                        <AdminProductsList tabs={tabs} setTabs={setTabs} />
+                        <AdminProductsList />
                     }
 
                 </section>

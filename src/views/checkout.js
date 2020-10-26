@@ -82,7 +82,6 @@ const Checkout = (props) => {
                 <div className="col-12 col-md-6 mt-5 mt-md-auto text-center">
                     <PaypalCheckoutButton order={order} />
                 </div>
-                <a href="http://127.0.0.1:5000/api/buy/4"><button className="btn btn-dark">Mercado Pago</button></a>
             </div>
         </div>
     )

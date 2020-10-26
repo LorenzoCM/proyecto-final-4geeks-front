@@ -9,11 +9,11 @@ const Navbar = () => {
     let cartNumItems = JSON.parse(localStorage.getItem("quantityCart"));
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark c-black container-fluid px-3">
+        <nav className="navbar navbar-expand-lg navbar-dark c-black container-fluid">
             <div className="d-flex justify-content-between align-items-center row no-gutters w-100">
                 <Link to="/" className="col-6 col-lg-4 text-white d-flex align-items-baseline order-1">
-                    <i className="fas fa-coffee fa-2x"></i>
-                    <h6>4Geeks Coffee Club</h6>
+                    <i className="fas fa-coffee fa-2x mr-2"></i>
+                    <h6>The Coffee Club</h6>
                 </Link>
                 <div className="col-6 col-lg-4 d-flex flex-column align-items-end order-2 order-lg-3">
                     <div>

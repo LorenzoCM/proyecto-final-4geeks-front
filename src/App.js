@@ -18,6 +18,8 @@ import injectContext from './store/appContext';
 import AddProduct from './views/addProduct';
 import Blog from './views/blog';
 import EditProduct from './views/editProduct';
+import Success from './views/success';
+import PayError from './views/error';
 
 function App() {
   return (
@@ -39,7 +41,9 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
-        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />
+        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />        
+        <Route exact path="/success" component={Success} />
+        <Route exact path="/error" component={PayError} />
       </Switch> 
       <Newsletter />
       <Footer />
