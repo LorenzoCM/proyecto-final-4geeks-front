@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../store/appContext';
 import PaypalCheckoutButton from '../components/PayPal';
 import { Link } from 'react-router-dom';
+import 'mercadopago';
 
 
 const Checkout = (props) => {
     const { store, actions } = useContext(Context);
-    let total = 0;    
+    const [pay, setPay] = useState();
+    let total = 0;
 
     const cartData = JSON.parse(localStorage.getItem("currentCart"));
     let priceSum = cartData.reduce(function (prev, product) {
@@ -78,10 +80,10 @@ const Checkout = (props) => {
                             <h4>{(priceSum).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */} (USD {totalPriceInUSD})</h4>
                         </div>
                     </div>
-                </div>               
+                </div>
                 <div className="col-12 col-md-6 mt-5 mt-md-auto text-center">
                     <PaypalCheckoutButton order={order} />
-                </div>               
+                </div>                
             </div>
         </div>
     )

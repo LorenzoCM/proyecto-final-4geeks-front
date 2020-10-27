@@ -37,12 +37,13 @@ const getState = ({ getStore, getActions, setStore }) => {
             productImage: null,
             categories: [1],
             conversionValue: null,
-            msg: null
+            msg: null,
+            url: null
         },
         actions: {
             mercadoPago: async (price) => {
                 const store = getStore();
-                const resp = await fetch(`${store.apiURL}/api/buy`, {
+                const resp = await fetch(`${store.apiURL}/api/buy/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'                   
@@ -52,8 +53,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                 })
                 const data = await resp.json();
-                const { msg } = data;
-                console.log(msg)
+                console.log(data);              
+                setStore({
+                    url: data
+                })
             },
             getUsers: filters => {
                 let store = getStore()

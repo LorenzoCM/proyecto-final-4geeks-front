@@ -31,7 +31,7 @@ const Cart = props => {
                                     store.cart.map((product, index) => {
                                         total += product.product.price * product.quantity;
                                         return (
-                                            <tr>
+                                            <tr key={index}>
                                                 <th scope="row">{index + 1}</th>
                                                 <td>{product.product.name}</td>
                                                 <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.product.image} alt="" className="border border-2 border-dark thumbnail" /></td>
