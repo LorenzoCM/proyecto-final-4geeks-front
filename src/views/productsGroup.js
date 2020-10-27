@@ -87,13 +87,13 @@ const ProductsGroup = ({ history, location, match }, ...props) => {
 
     return (
         <>
-            <div className="modal fade" id="brewingCoffee" tabindex="-1" aria-labelledby="brewingFilters" aria-hidden="true">
+            <div className="modal fade" id="brewingCoffee" tabIndex="-1" aria-labelledby="brewingFilters" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content c-coffee text-white">
                         <div className="modal-header border-bottom border-secondary">
                             <h5 className="modal-title" id="brewingFilters">Filtros</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i class="fas fa-times text-white"></i></span>
+                                <span aria-hidden="true"><i className="fas fa-times text-white"></i></span>
                             </button>
                         </div>
                         <div className="modal-body">

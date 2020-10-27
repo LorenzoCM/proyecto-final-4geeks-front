@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import paypal from 'paypal-checkout';
+import { useHistory } from 'react-router-dom';
 
 const PaypalCheckoutButton = ({ order }) => {
   const PaypalConfig = {
@@ -17,6 +18,8 @@ const PaypalCheckoutButton = ({ order }) => {
       label: 'paypal'
     }
   };
+  
+  let history = useHistory();
 
   const PaypalButton = paypal.Button.driver('react', { React, ReactDOM })
 
@@ -44,18 +47,22 @@ const PaypalCheckoutButton = ({ order }) => {
     .then(response => {
       console.log(response);
       alert(`Pago procesado exitosamente, ID: ${response.id}`);
+      history.push("/success")
     })
     .catch(error=>{
       console.log(error);
       alert('Ocurrió un error al procesar el pago')
+      history.push("/error")
     });
   };
   const onError = error =>{
     console.log(error);
     alert('El pago no pudo realizarse');
+    history.push("/error")
   };
   const onCancel = (data, actions) => {
     alert('No se realizó el pago, cancelado por el usuario')
+    history.push("/error")
   };
 
   return (

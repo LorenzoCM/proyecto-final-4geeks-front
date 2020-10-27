@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext';
+import { toast } from "react-toastify";
 
-const AdminProductsList = (tabs, setTabs) => {
+const AdminProductsList = () => {
     const { store, actions } = useContext(Context);
+    const [tabs, setTabs] = useState({
+        index: 0,
+        productID: null
+    });
 
     const [brewing, setBrewing] = useState({
         sorting: "priceup",
@@ -34,59 +39,80 @@ const AdminProductsList = (tabs, setTabs) => {
         }
     };
 
+    const notify = () => toast.success("¡Producto eliminado con éxito!");
+
     return (
-        <div className="container-fluid">
-            <div className="d-flex justify-content-end align-items-baseline my-3">
-                <p className="mr-2">Ordenar por</p>
-                <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSortProducts(e)}>
-                    <option value="1">Precio (Ascendente)</option>
-                    <option value="2">Precio (Descendente)</option>
-                    <option value="3">Marca (A...Z)</option>
-                    <option value="4">Marca (Z...A)</option>
-                </select>
+        <>
+            <div className="modal fade" id="deleteProductModal" tabIndex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="deleteUserModalLabel">Eliminar Usuario</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">Estás seguro?</div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Volver</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => { actions.deleteProducts(tabs.productID, tabs.index); setTabs({ ...tabs, productID: null }); notify(); }} >Eliminar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <table className="table table-striped text-center">
-                <thead className="c-coffee text-white">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Marca</th>
-                        <th scope="col">Sku</th>
-                        <th scope="col">Presentación</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!!store.products &&
-                        store.products.map((product, index) => {
-                            return (
-                                <tr>
-                                    <th scope="row">{index + 1}</th>
-                                    <td>{product.name}</td>
-                                    <td>{(product.price).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
-                                    <td>{product.stock}</td>
-                                    <td>{product.brand}</td>
-                                    <td>{product.sku}</td>
-                                    <td>{product.ground}<br />{product.presentation}</td>
-                                    <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-2 border-dark thumbnail" /></td>
-                                    <td className="d-flex align-items-baseline">
-                                        <Link to={`/admincoffee/editproduct/${product.id}`} className="btn btn-sm btn-dark ml-5" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
-                                        <button className="btn btn-sm btn-danger ml-3" data-toggle="modal" data-target="#deleteProductModal" onClick={() => { setTabs({ ...tabs, productID: product.id, index: index }) }}>Eliminar</button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-            <hr />
-            <div className="d-flex justify-content-end">
-                <Link to="/admincoffee/addProduct"><button className="btn c-coffee text-white mr-2">Crear Nuevo</button></Link>
+            <div className="container-fluid">
+                <div className="d-flex justify-content-end align-items-baseline my-3">
+                    <p className="mr-2">Ordenar por</p>
+                    <select className="custom-select w-25" id="usersSortCombo" onChange={e => handleSortProducts(e)}>
+                        <option value="1">Precio (Ascendente)</option>
+                        <option value="2">Precio (Descendente)</option>
+                        <option value="3">Marca (A...Z)</option>
+                        <option value="4">Marca (Z...A)</option>
+                    </select>
+                </div>
+                <table className="table table-striped text-center">
+                    <thead className="c-coffee text-white">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Sku</th>
+                            <th scope="col">Presentación</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {!!store.products &&
+                            store.products.map((product, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <th scope="row">{index + 1}</th>
+                                        <td>{product.name}</td>
+                                        <td>{(product.price).toLocaleString('en-US', { style: 'currency', currency: 'CLP', }) /* $2,500.00 */}</td>
+                                        <td>{product.stock}</td>
+                                        <td>{product.brand}</td>
+                                        <td>{product.sku}</td>
+                                        <td>{product.ground}<br />{product.presentation}</td>
+                                        <td><img src={process.env.REACT_APP_URL_API + "products/coffee/" + product.image} alt="" className="border border-2 border-dark thumbnail" /></td>
+                                        <td className="d-flex align-items-baseline">
+                                            <Link to={`/admincoffee/editproduct/`} className="btn btn-sm btn-dark ml-5" onClick={() => actions.setCurrentProduct(product)}>Editar</Link>
+                                            <button className="btn btn-sm btn-danger ml-3" data-toggle="modal" data-target="#deleteProductModal" onClick={() => { setTabs({ ...tabs, productID: product.id, index: index }) }}>Eliminar</button>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Link to="/admincoffee/addProduct"><button className="btn c-coffee text-white mr-2">Crear Nuevo</button></Link>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

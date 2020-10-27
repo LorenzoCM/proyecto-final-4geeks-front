@@ -20,7 +20,8 @@ const Register = props => {
                                 {!!store.error.reg_password && store.error.reg_password}
                                 {!!store.error.reg_email && store.error.reg_email}
                                 {!!store.error.address && store.error.address}
-                                {!!store.error.phone && store.error.phone} 
+                                {!!store.error.phone && store.error.phone}
+                                {!!store.msg && store.msg} 
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

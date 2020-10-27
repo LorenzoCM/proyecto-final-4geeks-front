@@ -11,11 +11,17 @@ html {
   .card-thumbnail {
     width: 99%;
   }
+  .transfer {
+    margin-bottom: 20px;
+  }
 }
 
 @media screen and (min-width: 576px) {
   .card-thumbnail {
     width: 48%;
+  }
+  .transfer {
+    margin-bottom: 20px;
   }
 }
 
@@ -23,11 +29,17 @@ html {
   .card-thumbnail {
     width: 32%;
   }
+  .transfer {
+    margin-bottom: 50px;
+  }
 }
 
 @media screen and (min-width: 992px) {
   .card-thumbnail {
     width: 24% !important;
+  }
+  .transfer {
+    margin-bottom: 80px;
   }
 }
 
@@ -137,20 +149,3 @@ html {
   justify-content: space-between;
 }
 
-.test {
-  background-color: black;
-  width: 50px;
-}
-
-.sum {
-  font-size: 15px;
-}
-
-.inputCart {
-  width: 50px;
-  height: 27px;
-}
-
-.addCart {
-  height: 27px;
-}

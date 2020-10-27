@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from './components/navbar.js';
 import MainPage from './views/mainPage.js';
 import Newsletter from './components/newsletter.js';
@@ -18,6 +19,8 @@ import injectContext from './store/appContext';
 import AddProduct from './views/addProduct';
 import Blog from './views/blog';
 import EditProduct from './views/editProduct';
+import Success from './views/success';
+import PayError from './views/error';
 
 function App() {
   return (
@@ -31,7 +34,7 @@ function App() {
         <Route exact path="/blog" component={Blog} />
         <Route exact path="/blogspot" component={BlogSpot} />
         {/* This is supposed to receive a username from database <:username> vvv */}
-        <Route exact path="/micuenta" component={MyAccount} />               
+        <Route exact path="/micuenta" component={MyAccount} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
@@ -39,10 +42,12 @@ function App() {
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/admincoffee/productslist" component={AdminProductsList} />
         <Route exact path="/admincoffee/addproduct/" component={AddProduct} />
-        <Route exact path="/admincoffee/editproduct/:id" component={EditProduct} />
-      </Switch> 
-      <Newsletter />
+        <Route exact path="/admincoffee/editproduct/" component={EditProduct} />
+        <Route exact path="/success" component={Success} />
+        <Route exact path="/error" component={PayError} />
+      </Switch>
       <Footer />
+      <ToastContainer autoClose={3000} hideProgressBar limit={1} />
     </BrowserRouter>
   );
 }

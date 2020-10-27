@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap';
 import 'popper.js';
 import 'jquery';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
